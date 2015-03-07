@@ -1,0 +1,42 @@
+/**
+ * 页头导航效果
+ */
+ 
+ /**
+  *logo
+  */
+ .logo{
+ 	/*float:left;*/
+ 	display:inline-block;
+ 	margin-left: 15px;
+ 	
+ }
+ .headerheight ul{ display:inline-block;margin-left: 180px;}
+ .headerheight li{
+ 	/*float: left;*/
+    display:inline-block;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+ }
+ 
+ .headerheight li a{
+ 	color: #5a5a5a;
+    display: block;
+    font-size: 14px;
+    line-height: 46px;
+    padding: 0 18px;
+    text-align: center;
+ }
+ 
+.headerheight li.active{
+    border-bottom: 1px solid #ff4200;
+}
+
+.headerheight li:HOVER{
+    border-bottom: 1px solid #5a5a5a;
+}
+  
+  
+  
+ 

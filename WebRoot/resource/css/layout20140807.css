@@ -1,0 +1,75 @@
+body{
+	background: #efefef url(../img/gray_jean.png) 0 0 repeat;
+}
+
+a{text-decoration: none;}
+:link{text-decoration: none;}
+
+.content{
+	/* border:1px red solid; */
+	text-align:center;
+}
+
+.textmiddle{
+	width:1200px;
+	text-align:center;
+	/*border:1px green solid;*/
+	margin:0 auto;
+}
+
+
+/*页头*/
+.headerheight{
+	line-height:70px;
+	text-align: left;
+	
+}
+
+/*页尾*/
+.footerheight{
+	line-height:230px;
+	margin-top: 50px;
+	background-color: #D0E0E3;
+	
+}
+
+/*gallery*/
+.gallery{
+	line-height: 270px;
+	/*background-color: #F0A284;*/
+}
+
+
+/*body*/
+.mainbody{
+	/* margin-top: 10px; */
+	
+}
+.mainbody .leftbody{
+	text-align: left;
+	margin: 0px 15px 0px 15px;
+}
+
+.mainbody .rightstyle{
+	text-align: left;
+	background-color: #FFFFFF;
+	margin-left: 40px;
+}
+
+.mainbody .rightbody{
+	padding: 0px 15px 15px 15px;
+}
+.rightbody li{
+	/* list-style-type:none; */
+	margin:0px;
+	padding: 0px;
+}
+
+
+p{
+	color: #000;
+	line-height: 1.8;
+	font-family: "\5B8B\4F53", sans-serif;
+	/*font-family: Georgia,Century,Times,serif;*/
+}
+
