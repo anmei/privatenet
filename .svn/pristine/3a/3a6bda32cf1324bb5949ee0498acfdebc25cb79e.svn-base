@@ -1,0 +1,44 @@
+package com.rhcheng.news.webmagic.dg;
+
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import us.codecraft.webmagic.Page;
+
+import com.rhcheng.news.entity.NewsAbstract;
+import com.rhcheng.news.service.NewsListProcessor;
+import com.rhcheng.news.webmagic.BaseSpider;
+import com.rhcheng.util.string.NewsUtils;
+/**
+ * get news list
+ * @author RhCheng
+ * @date   2014-9-26
+ */
+public class DgNewsListProcessorHot extends BaseSpider{
+
+	@Override
+	public void process(Page page) {
+		Document doc = page.getHtml().getDocument();
+		Elements e1 = doc.select("#part1 .left .l2 .l2_1");
+		Elements e2 = doc.select("#part1 .left .l2 .l2_2");
+		e1.addAll(e2);
+		
+		for(Element element:e1){ 
+			NewsAbstract news=new NewsAbstract();  
+			String title=NewsUtils.getTitle(element.select(".head a").get(0)); // 新闻标题
+			String path=element.select(".head a").get(0).attr("abs:href"); //新闻所在绝对路径
+			news.setTitle(title); 
+			news.setUrl(path);  
+			news.setAuth("东莞阳光网");
+			news.setContentCharset("gb2312");
+			news.setContentProcessClassName("com.rhcheng.news.webmagic.dg.DgNewsContentProcessor");
+			NewsListProcessor.res.add(news);  
+
+		}
+		
+	}
+
+
+}

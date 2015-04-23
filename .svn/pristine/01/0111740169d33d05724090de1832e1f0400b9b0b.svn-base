@@ -1,0 +1,89 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ include file="/WEB-INF/page/common/rhcbase.jsp"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>资讯</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<!-- self-adaption -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style type="text/css">
+		img, object { width: 100%;}
+	</style>
+	<!-- / -->
+	
+	<style type="text/css">
+		a{color: #111;text-decoration: none;}
+		ul li{list-style-type:none;margin-left: -2em;margin-top: 0.5em;}
+		.imglist{
+			display: inline-block;
+			margin-left: 0px;
+		}
+		/*.imglist img{width:7em;height:4.5em;}*/
+		.imglist img{height: 78px;width: 112px;}
+		
+		.date{
+			font-size: 0.62em;font-weight:lighter;margin-top: 0.2em;color: #aaa;
+		}
+		.nav span{
+			display:inline-block;
+			font-size: 1.7em;
+			margin-bottom: 0.5em;
+		}
+		
+	</style>
+	
+
+  </head>
+  
+  <body>
+  	<div class="nav"><span><a href="${base }/news/list?tableName=dgnewsabs">本地资讯</a></span>&nbsp;&nbsp;&nbsp;<span><a href="${base }/news/list?tableName=ylnewsabs">娱乐资讯</a></span></div>
+  	<div>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="page(${newsabs.toPage-1})">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="page(${newsabs.toPage+1})">下一页</a></div>
+  	<ul> 
+    <c:forEach var="newslist" items="${newsabs.objLists }">
+   		<li>
+   			<h3>
+   			<a href="javascript:void(0);" onclick="newsdetail('${newslist.url}')">${newslist.title }<br>
+   			<c:forEach var="img" items="${newslist.imglist }" varStatus="c">
+    			<c:if test="${c.count <=2}">
+					<span class="imglist"><img src="${img}"/></span>    			
+    			</c:if>
+   			</c:forEach>
+   			</a>
+   			<div class="date">${newslist.auth}&nbsp;<fmt:formatDate value="${newslist.date}" type="both"/></div>
+   			</h3>
+   			
+   		</li>
+    </c:forEach>
+    </ul> 
+    <div>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="page(${newsabs.toPage-1})">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="page(${newsabs.toPage+1})">下一页</a></div>
+  </body>
+  
+  <script type="text/javascript">
+  		var base = '${base}';
+  		var tn = '${tableName}';
+  		function newsdetail(url){
+  			window.open(base+"/news/detail?url="+url+"&tableName="+tn);
+  		}
+  		
+  		function page(topage){
+  			window.location=base+"/news/list?toPage="+topage+"&tableName="+tn;
+  		}
+  </script>
+  
+</html>

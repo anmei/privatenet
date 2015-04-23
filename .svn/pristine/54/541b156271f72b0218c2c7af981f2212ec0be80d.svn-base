@@ -1,0 +1,65 @@
+package com.rhcheng.news.webmagic.dg;
+
+import java.util.Date;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.rhcheng.news.entity.NewsAbstract;
+import com.rhcheng.news.service.NewsListProcessor;
+import com.rhcheng.news.webmagic.BaseSpider;
+import com.rhcheng.util.string.NewsUtils;
+
+import us.codecraft.webmagic.Page;
+
+/**
+ * just get news list
+ * @author RhCheng
+ * @date   2014-9-25
+ */
+public class DgNewsListProcessor extends BaseSpider{
+	
+
+	/**
+	 * process data and put data in {@code res}
+	 * every url access will invoke this method and PipeLine, no matter how many thread
+	 * @see NewsListProcessor#res
+	 */
+	@Override
+	public void process(Page page) {
+		Elements ele = page.getHtml().getDocument().select(".c2 ul li");
+		String date;
+		Date pubdate;
+		for(Element element:ele){ 
+			date = element.select("span").get(0).ownText();// 发布日期
+			pubdate = getPublishDate(date);
+			if(ifnewest(pubdate)){
+				NewsAbstract news=new NewsAbstract();  
+				String title=NewsUtils.getTitle(element.select("a").get(0)); // 新闻标题
+				String path=element.select("a").get(0).attr("abs:href"); //新闻所在绝对路径
+				news.setTitle(title); 
+				news.setUrl(path);  
+				news.setOriginalDate(date);
+				news.setDate(pubdate);
+				news.setAuth("东莞阳光网");
+				news.setContentCharset("gb2312");
+				news.setContentProcessClassName("com.rhcheng.news.webmagic.dg.DgNewsContentProcessor");
+				NewsListProcessor.res.add(news); 
+			}
+		}
+	}
+	
+	@Override
+	public Date getPublishDate(String date) {
+		return NewsUtils.parseDate(NewsUtils.getDate(date));
+	}
+
+
+	@Override
+	public boolean ifnewest(Date date) {
+		return NewsUtils.ifok(date);
+	}
+
+
+	
+	
+}

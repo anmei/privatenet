@@ -1,0 +1,34 @@
+package com.rhcheng.news.service;
+
+import java.util.List;
+
+import com.rhcheng.common.PageFormBean;
+import com.rhcheng.common.Pagination;
+import com.rhcheng.news.entity.NewsAbstract;
+import com.rhcheng.news.entity.NewsDetails;
+
+public interface IDgService {
+	/**
+	 * batch update the dgnews abstract list and 
+	 * @author RhCheng
+	 * @date 2014-9-17
+	 * @param args
+	 * @return
+	 */
+	public void updateNewsOfDG(List<NewsAbstract> args,
+			String sequenceName,String absTableName,String detailTableName);
+	
+	public void updateNewsOfYLtoutiao(List<NewsAbstract> args,
+			String sequenceName,String absTableName,String detailTableName);
+	
+	
+	
+	//--------------------------------------------------------------common
+	
+	public Pagination<NewsAbstract> findNewsAbs(PageFormBean pf,String absTableName);
+	
+	public NewsDetails getNewsDetailByUrl(String url,String tableName);
+	
+	public NewsAbstract getNewsabsByUrl(String url,String tableName);
+	
+}

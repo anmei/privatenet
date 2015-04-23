@@ -1,0 +1,24 @@
+package com.rhcheng.common;
+/**
+ * 常量
+ * @author RhCheng
+ * @version 2013-11-01
+ *
+ */
+public interface MyConstant {
+	public static final String NO_USER ="nouser";//无此用户
+	public static final String SUCCESS = "success";//成功
+	public static final String ERROR = "error";//出错
+	public static final String VALIDATECODE_ERROR = "validatecodeerror";//验证码出错
+	public static final String PASSWORD_ERROR = "passerror";//验证码出错
+	public static final String CATCHED_ERROR = "catchederror";//捕获的异常
+	public static final int PAGESIZE = 2;//每页的记录数
+	
+	
+	//oracle 数据库
+	public static final int ORCLA_SEARCH = 1;
+	//mysql  数据库
+	public static final int MYSQL_SEARCH = 2;
+	
+	
+}

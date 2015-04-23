@@ -1,0 +1,211 @@
+package com.rhcheng.news.webmagic;
+
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.rhcheng.news.service.ContentProcessor;
+import com.rhcheng.news.service.NewsListProcessor;
+
+import us.codecraft.webmagic.Site;
+import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.scheduler.QueueScheduler;
+import us.codecraft.webmagic.scheduler.component.HashSetDuplicateRemover;
+
+
+/**
+ * base spider, maybe call it a base pageProcessor is more exactly</br>
+ * just a spider will start here also  </br>
+ * 
+ * normally every time start a spider only have one spider thread and some pageprocessor,pipeLine threads</br>
+ * always, pageProcessor and piplLine thread is one to one correspondence</br>
+ * @author RhCheng
+ * @date   2014-9-25
+ */
+public abstract class BaseSpider implements PageProcessor {
+	private String[] urls;// start spide urls
+	
+	/** spide result*/
+//	protected static List<NewsAbstract> newslist = new ArrayList<NewsAbstract>();
+
+	/** spider profile*/
+	private Site site = Site.me()
+			.setSleepTime(0)
+			.setUserAgent("Mozilla")
+			.addCookie("data", "jquery")
+			.setTimeOut(10000);
+	
+	
+	/**
+	 * spide and result will be in {@code res} or {@code content}
+	 * @see NewsListProcessor#res
+	 * @see ContentProcessor#content
+	 * @author RhCheng
+	 * @date 2014-9-25
+	 * @param url start spide url
+	 * @param charset chaset when spide {@code url}
+	 */
+	public void doSpide(String charset,String... url) {
+		NewsListProcessor.res.clear();
+		ContentProcessor.content="";
+		Spider sp;
+		this.setUrls(url);
+		if(StringUtils.isNotBlank(charset)){this.getSite().setCharset(charset);}
+		sp = Spider.create(this);
+		sp.setEmptySleepTime(0);
+		sp.addUrl(this.getUrls())
+		.setScheduler(new QueueScheduler().setDuplicateRemover(new HashSetDuplicateRemover()))
+		.run();
+
+	}
+
+	
+	
+	/**
+	 * initial a spider and return it, you can customize the spider and then run it
+	 * @author RhCheng
+	 * @date 2014-9-25
+	 * @param url start spide url
+	 * @param charset chaset when spide {@code url}
+	 * @return {@code Spider} object
+	 */
+	public Spider getSpide(String charset,String... url) {
+		NewsListProcessor.res.clear();
+		ContentProcessor.content="";
+		Spider sp;
+		this.setUrls(url);
+		if(null != charset){this.getSite().setCharset(charset);}
+		sp = Spider.create(this);
+		sp.addUrl(this.getUrls());
+		return sp;
+
+	}
+	
+	//-------------------------------------------utils may be used in different PageProcessor implementation
+	/**
+	 * get images src value which will appear in newslist
+	 * @author RhCheng
+	 * @date 2014-9-26
+	 * @param url current page url
+	 * @param content page content
+	 * @return a string split by "|"
+	 */
+	public String getImgPath(String url,String content){
+		return "";
+	};
+	/**
+	 * get date from page content
+	 * @author RhCheng
+	 * @date 2014-9-26
+	 * @param content page content
+	 * @return a string
+	 */
+	public String getOriginalDate(String content){
+		return "";
+	};
+	/**
+	 * get the {@code Date} parsed from {@code BaseSpider#getOriginalDate(String)}
+	 * @author RhCheng
+	 * @date 2014-9-26
+	 * @param date
+	 * @return {@code Date}
+	 */
+	public Date getPublishDate(String date){
+		return null;
+	};
+	/**
+	 * judge if the page content is newest
+	 * ie. whether interval between {@code date} and {@code new Date()} is less
+	 * than {@code NewsUrls.INTERVAL}
+	 * 
+	 * @author RhCheng
+	 * @date 2014-9-26
+	 * @param date content publish date 
+	 * @return is newest return {@code true} or return {@code false}
+	 */
+	public boolean ifnewest(Date date){
+		return true;
+	};
+	
+	
+	
+	/**
+	 * spide and return the result in a list
+	 * @author RhCheng
+	 * @date 2014-9-25
+	 * @param c
+	 * @param url
+	 * @param charset
+	 * @return {@code newslist}
+	 */
+//	public List<NewsAbstract> doSpide(Class<? extends BaseSpider> c,String charset,String... url) {
+//		Spider sp;
+//		try {
+//			BaseSpider obj = c.newInstance();
+//			obj.setUrls(url);
+//			if(null != charset){obj.getSite().setCharset(charset);}
+//			sp = Spider.create(obj);
+//			sp.setEmptySleepTime(0);
+//			sp.addUrl(obj.getUrls()).runAsync();
+//			return obj.newslist;
+//		} catch (InstantiationException e) {
+//			System.out.println("class "+c.getName()+" initial failed. ");
+//			//e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			System.out.println("class "+c.getName()+" initial failed. ");
+//			//e.printStackTrace();
+//		}
+//		return null;
+//		
+//	}
+//	
+//	
+//	public static Spider getSpider(Class<? extends BaseSpider> c,String... url){
+//		Spider sp;
+//		try {
+//			BaseSpider obj = c.newInstance();
+//			obj.setUrls(url);
+//			sp = Spider.create(obj);
+//			return sp;
+//		} catch (InstantiationException e) {
+//			System.out.println("class "+c.getName()+" initial failed. ");
+//			//e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			System.out.println("class "+c.getName()+" initial failed. ");
+//			//e.printStackTrace();
+//		}
+//		return null;
+//	}
+
+	
+
+	public String[] getUrls() {
+		return urls;
+	}
+
+
+	public void setUrls(String[] urls) {
+		this.urls = urls;
+	}
+
+	@Override
+	public Site getSite() {
+		return site;
+	}
+
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
+
+//	public List<NewsAbstract> getNewslist() {
+//		return newslist;
+//	}
+//
+//	public void setNewslist(List<NewsAbstract> newslist) {
+//		this.newslist = newslist;
+//	}
+
+}

@@ -1,0 +1,16 @@
+#username=ipost
+#password=ipost
+#driverClassName=oracle.jdbc.driver.OracleDriver
+#url=jdbc\:oracle\:thin\:@10.196.128.156\:1521\:orcl
+initialSize=10
+maxIdle=10
+minIdle=5
+maxActive=20
+maxWait=10000
+timeBetweenEvictionRunsMillis=180000
+minEvictableIdleTimeMillis=180000
+
+driverClassName=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/news
+username=root
+password=123456

@@ -1,0 +1,103 @@
+package com.rhcheng.util.string;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.nodes.Element;
+
+import com.rhcheng.news.webmagic.NewsUrls;
+import com.rhcheng.util.date.DateUtils;
+
+/**
+ * news common utils
+ * @author RhCheng
+ * @date   2014-9-26
+ */
+public class NewsUtils {
+	private NewsUtils(){}
+	
+	
+	/**get title by {@code jsoup}*/
+	public static String getTitle(Element e){
+		return e.ownText().trim();
+	}
+	
+	
+	/**
+	 * date pattern must as follow or will return empty
+	 * yyyy-MM-dd HH:mm
+	 * @author RhCheng
+	 * @date 2014-9-17
+	 * @param str
+	 * @return
+	 */
+	public static String getDate(String str){
+		String regex = "\\d{4}(-|年)\\d{1,2}(-|月)\\d{1,2}(.|日)? \\d{2}:\\d{2}";
+		Pattern pattern = Pattern.compile(regex);  
+        Matcher matcher = pattern.matcher(str);  
+        if(matcher.find())  
+            return matcher.group(0).replace('年', '-').replace('月', '-').replace("日", "");
+        else  
+            return DateUtils.formatDate(new Date(),"yyyy-MM-dd HH:mm");  
+	}
+	
+	public static Date parseDate(String date){
+		return DateUtils.strToDate(getDate(date), "yyyy-MM-dd HH:mm"); 
+	}
+	
+	
+	/** convert String to list*/
+	public static List<String> string2List(String str){
+		if(StringUtils.isNotBlank(str)){
+			String[] a = str.split("\\|");
+			List<String> res = new ArrayList<String>();
+			for(int i=0;i<a.length;i++){
+				if(StringUtils.isNotBlank(a[i])){
+					res.add(a[i]);
+				}
+			}
+			return res;
+		}else return null;
+		
+	}
+	
+	public static long dateInterval(Date date){
+		return new Date().getTime()-date.getTime();
+	}
+	
+	/** interval smaller than {@code NewsUrls.INTERVAL}*/
+	public static boolean ifok(Date date) {
+		return dateInterval(date)<NewsUrls.INTERVAL?true:false;
+	}
+	
+	
+	public static String replaceSomeChar(String resstr){
+		resstr=resstr.replace("width", "w");
+		resstr=resstr.replace("height", "h");
+		resstr=resstr.replace("WIDTH", "w");
+		resstr=resstr.replace("HEIGHT", "h");
+		resstr=resstr.replace("alt_src", "src");
+		return resstr;
+	}
+	
+	public static boolean ifNumbers(String str){
+		String regex = "\\d{1,}";
+		Pattern pattern = Pattern.compile(regex);  
+        Matcher matcher = pattern.matcher(str);  
+        if(matcher.matches()){
+        	return true;
+        }else{
+        	return false;
+        }
+	}
+	
+	
+	public static void main(String[] args){
+		System.out.println(ifNumbers("2s2"));
+	}
+	
+}

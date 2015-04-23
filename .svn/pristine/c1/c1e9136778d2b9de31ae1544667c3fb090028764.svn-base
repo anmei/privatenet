@@ -1,0 +1,48 @@
+package com.rhcheng.news.webmagic;
+
+import java.util.List;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.rhcheng.news.entity.NewsAbstract;
+import com.rhcheng.news.service.ContentProcessor;
+import com.rhcheng.news.service.NewsListProcessor;
+
+public class Test {
+	
+	
+	//http://news.sun0769.com/dg/headnews/
+	public static void main(String[] args){
+		
+		BeanFactory beanFactory = new ClassPathXmlApplicationContext("/configure/applicationContext.xml") ;  
+		NewsListProcessor listProcess = (NewsListProcessor) beanFactory.getBean("listProcess");
+		ContentProcessor contentProcess = (ContentProcessor) beanFactory.getBean("contentProcess");
+		
+		List<NewsAbstract> list = listProcess.getAll(NewsUrls.URL_AND_PROCESSOR_DG);
+		contentProcess.contentProcessAndPersis(list, "dgnewsabs","dgnewsdetail");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		new DgNewsListProcessor().getSpide("gb2312","http://news.sun0769.com/dg/headnews/","http://news.sun0769.com/dg/sh/").run();
+//		for(int i=0;i<li.size();i++){
+//			System.out.println(li.get(i).getTitle());
+//		}
+		
+//		System.out.println(NewsListProcessor.res.size());
+//		for(int i=0;i<NewsListProcessor.res.size();i++){
+//			System.out.println(i+": "+NewsListProcessor.res.get(i).getTitle());
+//		}
+//		DgPipeLing.res.clear();
+		
+	}
+	
+}

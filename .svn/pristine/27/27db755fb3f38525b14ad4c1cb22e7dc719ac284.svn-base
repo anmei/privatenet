@@ -1,0 +1,113 @@
+package com.rhcheng.news.dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.rhcheng.base.BaseDAO;
+import com.rhcheng.common.PageFormBean;
+import com.rhcheng.common.Pagination;
+import com.rhcheng.common.SysConstants;
+import com.rhcheng.news.entity.NewsAbstract;
+import com.rhcheng.news.entity.NewsDetails;
+
+@Repository("dgDao")
+public class DgDao extends BaseDAO{
+	
+	//----------------------------------------------------------------news abstract
+	public Long getSequence(String sequenceName){
+		return super.getSequenceIdOfMysql(sequenceName);
+	}
+	public int resetSequence(String sequenceName){
+		String sql = " update sequence set "+sequenceName+" = 0 ";
+		return super.saveORUpdate(sql, new Object[]{});
+	}
+	
+	
+	/**
+	 * batch update the news abstract list
+	 * @author RhCheng
+	 * @date 2014-9-17
+	 * @param args
+	 * @return
+	 */
+	public int batchUpdateNewsAbs(List<Object[]> args){
+		String sql = " insert into dgnewsabs(id,title,url,auth,originalDate,date,imgPath) values(?,?,?,?,?,?,?) ";
+		return super.batchUpdate(sql, args);
+		
+	} 
+	
+
+	/**
+	 * update the news abstract list one by one
+	 * @author RhCheng
+	 * @date 2014-9-17
+	 * @param args
+	 * @return
+	 */
+	public int updateNewsAbs(NewsAbstract args,String tableName,String sequenceName){
+		String sql = " insert into "+tableName+" (id,title,url,auth,originalDate,date,imgPath) values(?,?,?,?,?,?,?) ";
+		return super.saveORUpdate(sql, this.getSequence(sequenceName),args.getTitle(),args.getUrl(),args.getAuth(),args.getOriginalDate(),args.getDate(),args.getImgPath());
+		
+	} 
+	
+	public int addNewsAbs(NewsAbstract args,String tableName){
+		String sql = " insert into "+tableName+" (title,url,auth,originalDate,date,imgPath) values(?,?,?,?,?,?) ";
+		return super.saveORUpdate(sql, args.getTitle(),args.getUrl(),args.getAuth(),args.getOriginalDate(),args.getDate(),args.getImgPath());
+		
+	} 
+	
+	
+	public int deleteNewsAbs(Long begin,Long end,String tableName){
+		String sql="";
+		if(end == null){
+			sql = " delete from "+tableName+" where id>=? ";
+			return super.saveORUpdate(sql, begin);
+		}else{
+			sql = " delete from "+tableName+" where id>=? and id<=? ";
+			return super.saveORUpdate(sql, begin,end);
+		}
+		
+	}
+	
+	
+	public Pagination<NewsAbstract> findNewsAbs(PageFormBean pf,String absTableName){
+		String sql = " select * from "+absTableName+" group by url order by date desc ";
+		return super.queryForPage(SysConstants.MYSQL_SEARCH, pf.getPageSize(), pf.getToPage(), sql, NewsAbstract.class, null);
+	}
+	
+	public NewsAbstract getNewsabsByUrl(String url,String tableName){
+		String sql = " select * from "+tableName+" where url = ? ";
+		return super.queryForListBean(sql, new Object[]{url}, NewsAbstract.class).get(0);
+	}
+	
+	
+	
+	//-----------------------------------------------------------------------news detail
+	public int getNewsDetail(String url,String tableName){
+		String sql = " select count(1) from "+tableName+" where url=? ";
+		return super.queryCount(sql, new Object[]{url});
+	}
+	
+	public int deleteDetail(String url){
+		String sql = " delete from dgnewsdetail where url = ? ";
+		return super.saveORUpdate(sql, url);
+	}
+	
+	public int deleteDetailNotInAbs(String abstableName,String detailTableName){
+		String sql = " delete from "+detailTableName+" where url not in (select a.url from "+abstableName+" a) ";
+		return super.saveORUpdate(sql,new Object[]{});
+	}
+
+	public int addDetail(String url,String content,String tableName){
+		String sql = " insert into "+tableName+" (url,content) values (?,?)";
+		return super.saveORUpdate(sql, url,content);
+	}
+	
+	public NewsDetails getNewsDetailByUrl(String url,String tableName){
+		String sql = " select * from "+tableName+" where url=? ";
+		return super.queryForBean(sql, new Object[]{url}, NewsDetails.class);
+	}
+	
+	
+}

@@ -1,0 +1,132 @@
+package com.rhcheng.news.webmagic.dg;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import us.codecraft.webmagic.Page;
+
+import com.rhcheng.news.extract.TextExtract;
+import com.rhcheng.news.service.ContentProcessor;
+import com.rhcheng.news.webmagic.BaseSpider;
+import com.rhcheng.util.string.NewsUtils;
+
+/**
+ * get news content without relative image path,imgPath and publish date
+ * @author RhCheng
+ * @date   2014-9-26
+ */
+public class DgNewsContentProcessor extends BaseSpider{
+	
+	/**
+	 * return content with absolute img src value
+	 */
+	@Override
+	public void process(Page page) {
+		List<String> requesturl = getRequestUrl(page.getHtml().getDocument(),page.getRequest().getUrl());
+		String temcontent = "";
+		temcontent = page.getHtml().getDocument().select(".TRS_Editor").get(0).toString().trim();
+		temcontent = NewsUtils.replaceSomeChar(temcontent);
+		temcontent = imgRelativeToAbsolute(page.getRequest().getUrl(), temcontent);
+		ContentProcessor.content += temcontent;
+		if(requesturl.size()>0){
+			page.addTargetRequests(requesturl);
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	//--------------------------------------------------------------------------------content process utils
+	
+	/**
+	 * 
+	 * @param url content url
+	 * @return
+	 */
+	public static String getPrefixOfImg(String url){
+		return url.substring(0, url.lastIndexOf("/")+1);
+	}
+	
+	/** get the absolute src value*/
+	public static String getImgAbsoluteSrcValue(String url,String imgTag){
+		return getPrefixOfImg(url)+TextExtract.getImgName(imgTag);
+	}
+
+	/** convert content relative img src to absolute, and return good content*/
+	public static String imgRelativeToAbsolute(String url,String content){
+		List<String> imglist = TextExtract.getImgTag(content);
+		for(String img:imglist){
+			if(TextExtract.getImgSrc(img).indexOf("http://") == -1){
+				content = content.replace(TextExtract.getSrcValue(img), getImgAbsoluteSrcValue(url, img));
+			}
+		}
+		return content;
+	}
+	
+	/**
+	 * get different page url
+	 * @author RhCheng
+	 * @date 2014-9-26
+	 * @param doc
+	 * @param currenturl
+	 * @return
+	 */
+	public static List<String> getRequestUrl(Document doc,String currenturl){
+//		System.out.println(doc.toString());
+		List<String> urls = new ArrayList<String>();
+		Elements eles = doc.select(".clsTRSNavigatorDIV a");
+		for(Element e:eles){
+			if(NewsUtils.ifNumbers(e.ownText().trim()) && !e.ownText().trim().equals("1")){
+				urls.add(currenturl.substring(0, currenturl.lastIndexOf('.'))
+						+"_"+(Integer.valueOf(e.ownText().trim())-1)
+						+currenturl.substring(currenturl.lastIndexOf('.')));
+			}
+		}
+		return urls;
+	}
+	
+	
+	
+	/** get the img list of content*/
+	@Override
+	public String getImgPath(String url,String content){
+		String allimg = "";
+		List<String> imglist = TextExtract.getImgTag(content);
+		for(int i=0;i<3 && i<imglist.size();i++){
+			if(TextExtract.getImgSrc(imglist.get(i)).indexOf("http://") == -1){
+				allimg += getImgAbsoluteSrcValue(url, imglist.get(i)) + "|";
+			}else{
+				allimg += TextExtract.getSrcValue(imglist.get(i)) + "|";
+			}
+		}
+		return allimg;
+	}
+	
+	
+	
+	@Override
+	public String getOriginalDate(String content) {
+		return NewsUtils.getDate(content);
+	}
+
+	@Override
+	public Date getPublishDate(String date) {
+		return NewsUtils.parseDate(date);
+	}
+
+	@Override
+	public boolean ifnewest(Date date) {
+		return NewsUtils.ifok(date);
+	}
+
+	
+
+}

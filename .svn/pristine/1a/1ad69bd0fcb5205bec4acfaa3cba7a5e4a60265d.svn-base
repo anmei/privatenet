@@ -1,0 +1,10 @@
+#东莞阳光网
+dg_hot=http\://news.sun0769.com/
+dg_head=http\://news.sun0769.com/dg/headnews/
+dg_sh=http\://news.sun0769.com/dg/sh/default.shtml
+dg_town_ss=http\://news.sun0769.com/town/ss/
+dg_town_ms=http\://news.sun0769.com/town/ms/
+dg_town_ys=http\://news.sun0769.com/town/ys/
+
+#头条_娱乐
+toutiao_entertainment=http\://toutiao.com/toutiao/api/article/recent/?category\=news_entertainment&count\=20&offset\=0&utm_source\=toutiao&flow_typ\=flow&page_id\=/toutiao/news_entertainment/

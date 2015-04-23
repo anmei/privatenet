@@ -1,0 +1,183 @@
+package com.rhcheng.news.service;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Service;
+
+import com.rhcheng.common.PageFormBean;
+import com.rhcheng.common.Pagination;
+import com.rhcheng.news.ESun0769;
+import com.rhcheng.news.TouTiao;
+import com.rhcheng.news.dao.DgDao;
+import com.rhcheng.news.entity.NewsAbstract;
+import com.rhcheng.news.entity.NewsDetails;
+import com.rhcheng.news.extract.TextExtract;
+import com.rhcheng.util.string.NewsUtils;
+
+@Service("dgService")
+public class DGService implements IDgService{
+	@Resource
+	private DgDao dgDao;
+	
+
+	//-------------------------------------------------------------------common
+
+	@Override
+	public Pagination<NewsAbstract> findNewsAbs(PageFormBean pf,String absTableName) {
+		Pagination<NewsAbstract> newslist = dgDao.findNewsAbs(pf,absTableName);
+		for(NewsAbstract news:newslist.getObjLists()){
+			news.setImglist(NewsUtils.string2List(news.getImgPath()));
+		}
+		return newslist;
+	}
+	
+
+	@Override
+	public NewsDetails getNewsDetailByUrl(String url,String tableName) {
+		return dgDao.getNewsDetailByUrl(url,tableName);
+	}
+
+
+	@Override
+	public NewsAbstract getNewsabsByUrl(String url,String tableName) {
+		return dgDao.getNewsabsByUrl(url,tableName);
+	}
+
+	
+	//--------------------------------------------------------------------update news
+	
+
+	@Override
+	public void updateNewsOfDG(List<NewsAbstract> args,
+			String sequenceName,String absTableName,String detailTableName) {
+		Document doc =new Document("");
+		String url="",temurl="",content="";
+		//category
+		dgDao.resetSequence(sequenceName);
+		dgDao.deleteNewsAbs(1L, (long)(args.size()/2),absTableName);
+		for(int i=0;i<args.size()/2;i++){
+			
+			url = args.get(i).getUrl();
+			temurl = url.replace("?", "c");
+			temurl = temurl.replace("&", "r");
+			
+			// get detail
+			if(dgDao.getNewsDetail(temurl,detailTableName)<=0){
+				try {
+					doc = TextExtract.getDocument(url);
+					args.get(i).setDate(ESun0769.getDateOfDg(doc));
+					content = ESun0769.imgRelativeToAbsolute(url, doc);
+					args.get(i).setImgPath(ESun0769.getImgList(url, doc));
+				} catch (IOException e) {
+					System.out.println("404 error---"+url);
+				}
+			
+				dgDao.addDetail(temurl, content,detailTableName);
+			}
+			args.get(i).setUrl(temurl);
+			dgDao.updateNewsAbs(args.get(i),absTableName,sequenceName);
+		}
+		
+		
+		dgDao.deleteNewsAbs((long)(args.size()/2)+1, null,absTableName);
+		for(int i=args.size()/2;i<args.size();i++){
+			url = args.get(i).getUrl();
+			temurl = url.replace("?", "c");
+			temurl = temurl.replace("&", "r");
+			
+			// get detail
+			if(dgDao.getNewsDetail(temurl,detailTableName)<=0){
+				try {
+					doc = TextExtract.getDocument(url);
+					args.get(i).setDate(ESun0769.getDateOfDg(doc));
+					content = ESun0769.imgRelativeToAbsolute(url, doc);
+					args.get(i).setImgPath(ESun0769.getImgList(url, doc));
+				} catch (IOException e) {
+					System.out.println("404 error---"+url);
+				}
+			
+				dgDao.addDetail(temurl, content,detailTableName);
+			}
+			args.get(i).setUrl(temurl);
+			dgDao.updateNewsAbs(args.get(i),absTableName,sequenceName);
+		}
+		
+		dgDao.deleteDetailNotInAbs(absTableName,detailTableName);
+		
+		
+		
+	}
+
+
+	@Override
+	public void updateNewsOfYLtoutiao(List<NewsAbstract> args,
+			String sequenceName, String absTableName, String detailTableName){
+		Document doc = new Document("");
+		String url="",temurl="",content="";
+		//category
+		dgDao.resetSequence(sequenceName);
+		dgDao.deleteNewsAbs(1L, (long)(args.size()/2),absTableName);
+		for(int i=0;i<args.size()/2;i++){
+			
+			url = args.get(i).getUrl();
+			temurl = url.replace("?", "c");
+			temurl = temurl.replace("&", "r");
+			
+			// get detail
+			if(dgDao.getNewsDetail(temurl,detailTableName)<=0){
+				try {
+					doc = TextExtract.getDocument(url);
+				} catch (IOException e) {
+					System.out.println("404 error---"+url);
+				}
+				content = TextExtract.parse(doc.toString(), url);
+				//content img process
+				content = TouTiao.makeImgAbsolute(content,Arrays.asList(args.get(i).getImgPath().split("\\|")));
+				
+				dgDao.addDetail(temurl, content,detailTableName);
+			}
+			
+			args.get(i).setUrl(temurl);
+			dgDao.updateNewsAbs(args.get(i),absTableName,sequenceName);
+		}
+		
+		
+		dgDao.deleteNewsAbs((long)(args.size()/2)+1, null,absTableName);
+		for(int i=args.size()/2;i<args.size();i++){
+			url = args.get(i).getUrl();
+			temurl = url.replace("?", "c");
+			temurl = temurl.replace("&", "r");
+			
+			// get detail
+			if(dgDao.getNewsDetail(temurl,detailTableName)<=0){
+				try {
+					doc = TextExtract.getDocument(url);
+				} catch (IOException e) {
+					System.out.println("404 error---"+url);
+				}
+				content = TextExtract.parse(doc.toString(), url);
+				//content img process
+				content = TouTiao.makeImgAbsolute(content,Arrays.asList(args.get(i).getImgPath().split("\\|")));
+				
+				dgDao.addDetail(temurl, content,detailTableName);
+			}
+			
+			args.get(i).setUrl(temurl);
+			dgDao.updateNewsAbs(args.get(i),absTableName,sequenceName);
+		}
+		
+		dgDao.deleteDetailNotInAbs(absTableName,detailTableName);
+		
+		
+		
+	}
+	
+	
+
+	
+}

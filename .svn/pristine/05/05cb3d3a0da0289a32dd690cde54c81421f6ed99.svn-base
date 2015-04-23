@@ -1,0 +1,89 @@
+package com.rhcheng.news.entity;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * 新闻概要
+ * @author RhCheng
+ * @date   2014-8-4
+ */
+public class NewsAbstract {  
+	private Long id; 
+    private String title;  // 新闻标题
+    private String url;  // 新闻链接
+    private String auth;// 新闻来源
+    private String originalDate;// 新闻发布日期,原始样式
+    private Date date;//处理后的发布日期
+    private String imgPath;// 新闻图片路径
+    private List<String> imglist;// 图片路径list形式
+    
+    private String contentCharset;// content charset
+    private String contentProcessClassName;// content process class name
+    
+	
+	public String getContentCharset() {
+		return contentCharset;
+	}
+	public void setContentCharset(String contentCharset) {
+		this.contentCharset = contentCharset;
+	}
+	public String getContentProcessClassName() {
+		return contentProcessClassName;
+	}
+	public void setContentProcessClassName(String contentProcessClassName) {
+		this.contentProcessClassName = contentProcessClassName;
+	}
+	public List<String> getImglist() {
+		return imglist;
+	}
+	public void setImglist(List<String> imglist) {
+		this.imglist = imglist;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+	public String getAuth() {
+		return auth;
+	}
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+	
+	public String getOriginalDate() {
+		return originalDate;
+	}
+	public void setOriginalDate(String originalDate) {
+		this.originalDate = originalDate;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public String getTitle() {  
+        return title;  
+    }  
+    public void setTitle(String title) {  
+        this.title = title;  
+    }  
+    public String getUrl() {  
+        return url;  
+    }  
+    public void setUrl(String url) {  
+        this.url = url;  
+    }  
+          
+      
+}  

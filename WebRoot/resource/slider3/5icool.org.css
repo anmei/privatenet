@@ -1,0 +1,20 @@
+﻿/* 酷站代码整理 http://www.5icool.org */
+@charset "utf-8";
+/* CSS Document */
+/* div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:400;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-weight:inherit;font-size:100%;line-height:1.2;margin:0;}legend{color:#000;}a img,img{-ms-interpolation-mode:bicubic;}body{font:12px/1.5 arial,SimSun,helvetica,sans-serif;background:#FFF;color:#666;}.clearfix:after{clear:both;content:".";display:block;height:0;line-height:0;visibility:hidden;}.clearfix{zoom:1;}.inlblo{display:inline-block;diplay:inline;zoom:1;} */
+.section-focus-pic{margin:8px 0 0 0;height:200px;/* width:570px; */width:100%;overflow:hidden;position:relative;}
+.section-focus-pic ul li{position:absolute;top:0;/*left:570px; width:570px;height:300px;*/left:100%;width:100%;height:200px;}
+.section-focus-pic ul li h3{position:absolute;bottom:-10px;left:0;/* width: 400px; */width:100%;font-weight:normal;color:#FFF;margin-left: 20px;z-index: 111;font-size: 18px; font-family:"微软雅黑";}
+.section-focus-pic ul li div{position:absolute;bottom:0px;left:0;height:40px;background-color:#000;/* width:570px; */width:100%;opacity: 0.6;filter: alpha(opacity=60);}
+.section-focus-pic .pages{/* width:570px; */width:100%;height:200px;}
+.section-focus-pic .controler{position:absolute;bottom:20px;right:20px;}
+.section-focus-pic .controler b{cursor:pointer;width:20px;height:10px;display:block;overflow:hidden;text-indent:20px;background:url(imgs/news_index_icon.png) no-repeat -136px 3px; float:left;margin:0 0 0 5px;}
+.section-focus-pic .controler b.down{background-position:-161px 1px;}
+.section-focus-pic .controler2 a{display:block; width:40px;position:absolute;top:90px;height:40px;}
+.section-focus-pic .controler2 a i{cursor:pointer;display:block;width:22px;height:34px; background:url(imgs/star.png) no-repeat;}
+.section-focus-pic .controler2 .prev{left:5px;}
+.section-focus-pic .controler2 .prev i{background-position:-34px -68px;_background:none;_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='imgs/star_05.png');margin-left:5px;}
+.section-focus-pic .controler2 .prev:hover i{left:10px;background-position:-34px -24px;_background:none;_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='imgs/star_03.png');}
+.section-focus-pic .controler2 .next{right:10px;}
+.section-focus-pic .controler2 .next i{background-position:-62px -68px;_background:none;_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='imgs/star_06.png');margin-left:10px;}
+.section-focus-pic .controler2 .next:hover i{right:10px;background-position:-62px -24px;_background:none;_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='imgs/star_04.png');}
