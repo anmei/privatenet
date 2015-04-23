@@ -1,4 +1,5 @@
 #/usr/bin/which: no unzip in (/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin)
+<<<<<<< HEAD
 考虑session集成存储，现在比较好的方案就是nosql存储，修改tomcat、jetty和jboss等session的存储方式是很容易的
 根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区》》》
 -------others----------
@@ -107,4 +108,8 @@ Lucene中的一些比较复杂的词法分析是用JavaCC生成的（JavaCC：Ja
 
 
 
+=======
+
+根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区
+>>>>>>> remote_privatenet/master
 
