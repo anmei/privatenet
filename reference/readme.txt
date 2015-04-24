@@ -97,6 +97,22 @@ Lucene是一个高性能的java全文检索工具包，它使用的是倒排文�
 目前比较大的搜索引擎的语言分析算法一般是基于以上2个机制的结合(自动切分、词表切分)。
 Lucene中的一些比较复杂的词法分析是用JavaCC生成的（JavaCC：JavaCompilerCompiler，纯Java的词法分析生成器）
 分词：paoding、IKAnalyzer
+数据库——表——字段
+索引库——document——field
+非结构化数据又一种叫法叫全文数据。
+lucene既保存了正向信息也保存了反向信息
+一个索引(index)就相当于是一张表，索引中有许多document(就是对非结构化数据结构化，如web网页等)好比是表记录，document由众多field组成
+没有被存储的域是不会作为搜索结果展现的
+所有的索引存在多个segment
+大文本一般不要store，这样会消耗大量存储空间
+Luke：用于检查索引细节
+近实时搜索：索引优化、
+线程安全控制：多个线程可以共享indexreader、indexwriter，不仅是线程安全而且是线程友好的，单不能同时打开多个indexwriter
+
+norm(加权基准)：记录域的加权等附属信息
+日期、数字域的索引
+域截取
+index——document——field(索引选项、存储选项、域向量选项、域排序选项、多值域)——term
 
 
 ------------------------

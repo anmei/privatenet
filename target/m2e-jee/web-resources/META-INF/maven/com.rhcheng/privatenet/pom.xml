@@ -11,6 +11,7 @@
 	<properties>
 		<java-version>1.6</java-version>
 		<org.springframework-version>4.0.6.RELEASE</org.springframework-version>
+		<lucene-version>3.6.0</lucene-version>
 	</properties>
 	
 	<dependencies>
@@ -92,17 +93,27 @@
 		<dependency>
 		  <groupId>org.apache.lucene</groupId>
 		  <artifactId>lucene-core</artifactId>
-		  <version>5.1.0</version>
+		  <version>${lucene-version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.lucene</groupId>
+		  <artifactId>lucene-queryparser</artifactId>
+		  <version>${lucene-version}</version>
 		</dependency>
 		<dependency>
 		  <groupId>org.apache.lucene</groupId>
 		  <artifactId>lucene-queries</artifactId>
-		  <version>5.1.0</version>
+		  <version>${lucene-version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.lucene</groupId>
+		  <artifactId>lucene-highlighter</artifactId>
+		  <version>${lucene-version}</version>
 		</dependency>
 		<dependency>
 		  <groupId>org.apache.lucene</groupId>
 		  <artifactId>lucene-demo</artifactId>
-		  <version>4.9.0</version>
+		  <version>${lucene-version}</version>
 		</dependency>
 		
 		<!-- 分词 -->
