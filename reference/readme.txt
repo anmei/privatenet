@@ -10,6 +10,7 @@ jndi
 directory memory：无法主动需要gc、只能full gc后再顺便为其收集垃圾，NIO频繁的操作需要慎重该内存区域
 32位系统,linux中每个线程只能使用4G(2^32)内存；windows中最多只能使用2G
 RPC、RMI
+远程通信主要考虑两个问题：通信协议；序列化协议
 
 
 
@@ -40,6 +41,9 @@ metadata\schema
 
 
 ------concurrent-------------
+Java语言规范规定对任何引用变量和基本变量的赋值都是原子的，除了long和double以外。
+DCL(Double Check Lock)就是一个典型
+
 
 
 -----JVM--------------
@@ -97,22 +101,65 @@ Lucene是一个高性能的java全文检索工具包，它使用的是倒排文�
 目前比较大的搜索引擎的语言分析算法一般是基于以上2个机制的结合(自动切分、词表切分)。
 Lucene中的一些比较复杂的词法分析是用JavaCC生成的（JavaCC：JavaCompilerCompiler，纯Java的词法分析生成器）
 分词：paoding、IKAnalyzer
-数据库——表——字段
-索引库——document——field
 非结构化数据又一种叫法叫全文数据。
 lucene既保存了正向信息也保存了反向信息
-一个索引(index)就相当于是一张表，索引中有许多document(就是对非结构化数据结构化，如web网页等)好比是表记录，document由众多field组成
 没有被存储的域是不会作为搜索结果展现的
 所有的索引存在多个segment
 大文本一般不要store，这样会消耗大量存储空间
 Luke：用于检查索引细节
-近实时搜索：索引优化、
 线程安全控制：多个线程可以共享indexreader、indexwriter，不仅是线程安全而且是线程友好的，单不能同时打开多个indexwriter
-
 norm(加权基准)：记录域的加权等附属信息
 日期、数字域的索引
 域截取
-index——document——field(索引选项、存储选项、域向量选项、域排序选项、多值域)——term
+
+
+>>创建索引
+index——document(如一个web页、doc文档等)——field(索引选项、存储选项、域向量选项、域排序选项、多值域)——term(主题)
+表——记录——字段
+索引库——document——field
+一个索引(index)就相当于是一张表，索引中有许多document(就是对非结构化数据结构化，如web网页等)好比是表记录，document由众多field组成
+索引包含多个段，每个段都是独立的索引，它是所有文档索引的一个子集。每当增加、删除索引时都会增加段,会自动周期性的合并段
+每个文档都可以有多个域，每个域都可以有自己的选项
+新增索引，调用commit()或close()——向索引提交更改
+删除索引(deleteDocument)，不会立即删除，只是多了一个删除的标记位
+
+关键类
+Field<Store\Index>
+Document
+MergePolicy
+
+索引优化
+索引过程对文档和域进行加权
+
+
+>>搜索
+新建IndexReader的代价是很高的，每次都要重新加载索引结构，所以尽量用单例共用之.
+要看到最新索引，必须重新打开Reader，可通过以下方法：可以通过reopen()方法，获取最新索引，或者重建Reader，或者从IndexWriter中获取近实时Reader
+通过文档号访问某个文档被存储的域值
+域缓存：只能用于包含单个域的项，即索引时必须是:not_analyzed；可以将所有文档的指定域值以数组形式加载到缓冲
+过滤器、高亮显示、近实时搜索
+
+关键类
+analyzer——去噪、分词等
+QueryParser——解析用户输入的搜索表达式，使用该类解析时会出现大量奇怪的情况
+Query——lucene搜索引擎能识别的语句
+IndexSearch
+TopDocs<ScoreDocs>——存储索引结果
+BooleanQuery合并子查询
+
+对搜索结果排序(Sort、SortField),使用该对象会有额外的开销
+1、按相关程度排序(Sort.RELEVANCE)即lucene默认的评分方式
+2、通过文档索引排序，即只根据文档id升序排序
+3、根据单个域排序，该域值必须是单个索引单元，不能被分词
+4、针对多个域进行排序
+在一个域上通过多个项查询(MultiPhraseQuery)
+针对多个域的一次性查询
+1、MultiFieldQueryParser
+2、DisjunctionMaxQuery
+项向量：搜索相似文档或者自动归类文档
+对搜索结果分页
+
+
 
 
 ------------------------

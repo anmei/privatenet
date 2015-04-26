@@ -19,30 +19,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-<<<<<<< HEAD
-	
-=======
->>>>>>> remote_privatenet/master
+
   </head>
   
   <body>
   	<%-- <jsp:forward page="${base}/jqgrid/toMainPage"></jsp:forward>  --%>
   	
   	<!-- response.sendRedirect(request.getContextPath() + "/blogMainPage/blogmainpage"); -->
-<<<<<<< HEAD
+
   	
   	<%
   	/* response.sendRedirect(request.getContextPath() + "/news/list"); */
   	response.sendRedirect(request.getContextPath() + "/photoswipe.jsp");
   	%>
   	
-  	
-  	
-=======
-  	<%
-  	response.sendRedirect(request.getContextPath() + "/news/list");
-  	%>
-  	
->>>>>>> remote_privatenet/master
+
   </body>
 </html>

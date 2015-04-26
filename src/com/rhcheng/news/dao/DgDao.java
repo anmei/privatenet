@@ -210,6 +210,15 @@ public class DgDao extends BaseDAO{
 		return super.queryForBean(sql, new Object[]{absid}, NewsDetails.class);
 	}
 	
+	public List<NewsDetails> FindAllNewsDetail(String tableName){
+		String sql = " select * from "+tableName;
+		//SELECT a.absid,a.title,b.content,b.date FROM dgnewsabs a,dgnewsdetail b where a.absid=b.absidf
+		return super.queryForListBean(sql, null, NewsDetails.class);
+	}
+	
+	
+	
+	
 	
 	
 	//----------------------------------------------------------------------------------------------profile

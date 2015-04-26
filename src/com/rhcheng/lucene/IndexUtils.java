@@ -29,29 +29,33 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
+import com.rhcheng.util.LoadProperties;
 import com.rhcheng.util.date.DateUtils;
 import com.rhcheng.util.string.StringUtil;
 
-
 /**
- * lucene的索引工具类
  * 
- * @author 黄文韬
- * @since 1.0
- * @Copyright 2013 东莞市邮政局All rights reserved.
+ * @author RhCheng
+ * 2015-4-25
  */
 public class IndexUtils {
 	private static final Logger LOGGER = Logger.getLogger(IndexUtils.class);
 	// 索引的存放路径
-	private static final String indexPath = "H:\\2T_E_S_T\\GIT\\privatenet\\WebRoot\\lucene\\index\\";
-		
-	// 庖丁解牛分词器（单例）
+	private static final String indexPath = LoadProperties.getPropertieByKeyFromCache("luceneIndex", "/properties/sysProperties.properties");
+	
+	// （单例）每次打开search都会重新加载索引
 	private static Analyzer ANALYZER = null;
+	private static volatile Directory directory=null; 
+	private static volatile IndexReader reader = null;
+	private static volatile IndexSearcher searcher = null;
+	
 	static {
 		if (ANALYZER == null) {
 			ANALYZER = new PaodingAnalyzer();
 		}
 	}
+	
+	//--------------------------------------------------------
 	/**
 	 * 得到庖丁解牛分词器
 	 * 
@@ -68,11 +72,16 @@ public class IndexUtils {
 	 * @return
 	 */
 	public static Directory getDirectory(String path) {
-		Directory directory = null;
-		try {
-			directory = FSDirectory.open(new File(path));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(directory == null){
+			synchronized(IndexUtils.class){
+				if(directory == null){
+					try {
+						directory = FSDirectory.open(new File(path));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 		return directory;
 	}
@@ -82,17 +91,63 @@ public class IndexUtils {
 	 * @return
 	 */
 	public static IndexReader getIndexReader() {
-		IndexReader reader = null;
-		try {
-			reader = IndexReader.open(getDirectory(indexPath));
-		} catch (CorruptIndexException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(reader == null){
+			synchronized (IndexUtils.class) {
+				if(reader == null){
+					try {
+						reader = IndexReader.open(getDirectory(indexPath));
+					} catch (CorruptIndexException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}	
+				}
+			}
 		}
 		return reader;
 	}
 
+	
+
+	/**
+	 * 得到索引搜索类
+	 * @return
+	 */
+	public static IndexSearcher getIndexSearcher() {
+		if(searcher == null){
+			synchronized (IndexUtils.class) {
+				if(searcher == null){
+					try {
+						searcher = new IndexSearcher(getIndexReader());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return searcher;
+	}
+
+	/**
+	 * 查询
+	 * @param fieldname 字段名
+	 * @param queryText 查询内容，需要被解析的表达式
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Query getQuery(String fieldname,String queryText) throws ParseException{
+		queryText = queryText.trim();
+		if (queryText.length() > 1) {
+			QueryParser queryParser = new QueryParser(Version.LUCENE_36, fieldname, IndexUtils.getAnalyzer());
+			// 也可以通过Query直接实例化Query对象
+			return queryParser.parse(queryText);
+		}else{
+			return new WildcardQuery(new Term(fieldname,"*"+queryText+"*"));
+		}
+	}
+	
+	//------------------------------------------------
+	
 	/**
 	 * 得到些索引类
 	 * @return
@@ -273,37 +328,7 @@ public class IndexUtils {
 		}
 	}
 	
-	/**
-	 * 查询
-	 * @param fieldname 字段名
-	 * @param queryText 查询内容
-	 * @return
-	 * @throws ParseException
-	 */
-	public static Query getQuery(String fieldname,String queryText) throws ParseException{
-		queryText = queryText.trim();
-		if (queryText.length() > 1) {
-			QueryParser queryParser = new QueryParser(Version.LUCENE_36, fieldname, IndexUtils.getAnalyzer());
-			return queryParser.parse(queryText);
-		}else{
-			return new WildcardQuery(new Term(fieldname,"*"+queryText+"*"));
-		}
-	}
 	
-
-	/**
-	 * 得到索引搜索类
-	 * @return
-	 */
-	public static IndexSearcher getIndexSearcher() {
-		IndexSearcher searcher = null;
-		try {
-			searcher = new IndexSearcher(getIndexReader());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return searcher;
-	}
 
 	
 	/**
