@@ -130,9 +130,14 @@ public class TestAction {
 	
 	
 	@RequestMapping(value="testEhcache.action")
-	public String testEhcache(String param){
+	public String testEhcache(String param) throws InterruptedException{
 		String res = testService.find(param);
 		System.out.println(res);
+		
+		Thread.sleep(5000);
+		String abc = testService.find(param);
+		System.out.println(res);
+		
 		return "";
 	}
 	
