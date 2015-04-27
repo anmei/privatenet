@@ -1,24 +1,30 @@
 package com.rhcheng.user.action;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rhcheng.common.PageFormBean;
 import com.rhcheng.common.Pagination;
+import com.rhcheng.user.dao.TestDao;
 import com.rhcheng.user.entity.User;
 import com.rhcheng.user.service.TestService;
 
@@ -30,6 +36,8 @@ import com.rhcheng.user.service.TestService;
 public class TestAction {
 	@Resource
 	private TestService testService;
+	@Resource
+	private TestDao testDao;
 	
 	private long id = 0L;
 
@@ -131,12 +139,16 @@ public class TestAction {
 	
 	@RequestMapping(value="testEhcache.action")
 	public String testEhcache(String param) throws InterruptedException{
-		String res = testService.find(param);
+		System.out.println(param);
+		String res = testDao.find(param);
 		System.out.println(res);
 		
-		Thread.sleep(5000);
-		String abc = testService.find(param);
+		String abc = testDao.find(param);
 		System.out.println(res);
+		
+		CacheManager manager = (CacheManager)ContextLoader.getCurrentWebApplicationContext().getBean("cacheManager");
+	    Cache cache = manager.getCache("tempCache");
+		System.out.println("缓冲："+cache.get("find_fsd"));
 		
 		return "";
 	}

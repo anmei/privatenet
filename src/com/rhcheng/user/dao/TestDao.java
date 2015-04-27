@@ -14,7 +14,7 @@ public class TestDao{
 	 * @return
 	 */
 	@Cacheable(value="tempCache",key="'find_'+#para")
-	public String getPar(String para){
+	public String find(String para){
 		System.out.println("get from db");
 		return "a";
 	}

@@ -16,15 +16,21 @@
 	 http://www.springframework.org/schema/context 
      http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	
-	<!-- 加载jdbc配置文件 -->
-	<bean id="configBean" 
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+	<description>spring应用配置</description>
+	
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.rhcheng.* "/>
+	
+	<!-- 加载配置文件 -->
+	<bean id="configBean" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
 		<property name="locations"> 
 			<list>
 				<value>classpath:/properties/jdbc.properties</value>
+			<!-- 	<value>classpath:sysConfig.properties</value> -->
 			</list>
 		</property>
     </bean>
+	
 	<!-- 数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
 	destroy-method="close">
@@ -50,6 +56,8 @@
         <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />  
         <!-- 检查空闲连接的时间间隔 -->  
         <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" /> 
+        <property name="poolPreparedStatements" value="false" />
+		<property name="defaultAutoCommit" value="true" />
 	</bean>
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
@@ -58,14 +66,9 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	
-	<!-- 扫描包,controller不扫描 -->
-	<context:component-scan base-package="com.rhcheng.*">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-	
 	<!-- 缓存配置 -->
-	<aop:aspectj-autoproxy proxy-target-class="true"/>  
-	<cache:annotation-driven cache-manager="cacheManager"/>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>  
 	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:ehcache.xml"></property>
 	</bean>
@@ -73,10 +76,11 @@
 		<property name="cacheManager" ref="cacheManagerFactory"></property>
 	</bean>
 	
-	<!-- 事务 -->
-	<!-- 事务配置 -->
+	
+	
+	<!-- 配置事务控制 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -92,6 +96,8 @@
 			<tx:method name="*" propagation="NOT_SUPPORTED"/>
 		</tx:attributes>
 	</tx:advice>
+	<!-- 切面事务控制 -->
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true"/>   -->
 	<aop:config>
 		<aop:pointcut expression="execution(* com.rhcheng..service..*(..))" id="Pointcut" />
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="Pointcut" />
@@ -101,7 +107,7 @@
 
 	<!-- 邮件发送 -->
  	<bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.exmail.qq.com"></property>
+		<property name="host" value="smtp.163.com"></property>
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
@@ -112,8 +118,6 @@
 		<property name="password" value="dg11185shgw"></property>
 	</bean> 
 	
-	
-	<!-- 定时器的配置 会导致main中启动容器执行完相关操作后不会自动关闭容器-->
 	<!-- job定时器 每隔5小时定时更新news-->
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
@@ -155,8 +159,13 @@
 		<property name="cronExpression" value="0 */2 * * * ?" />
 	</bean> -->
 	
+	
+	
 	<!-- bean -->
 	<bean id="uploadFileHandler" class="com.rhcheng.util.fileuploadinfram.UploadToRepoHandler"></bean>
 	<bean id="localFileWriter" class="com.rhcheng.util.fileuploadinfram.LocalFileWriter"></bean>
 	
+	
+	
 </beans>
+	
