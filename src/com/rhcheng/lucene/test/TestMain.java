@@ -26,12 +26,13 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.rhcheng.lucene.IndexUtils;
+import com.rhcheng.lucene.PagingLucene;
 import com.rhcheng.lucene.service.ILuceneService;
 import com.rhcheng.news.entity.NewsDetails;
 
 @SuppressWarnings("unused")
 public class TestMain {
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, IOException {
 //		ILuceneService luceServ = ServiceFacade.getBean("luceneService", ILuceneService.class);
 		
 		/**创建索引*/
@@ -39,59 +40,66 @@ public class TestMain {
 //		ILuceneService luceServ = (ILuceneService)fac.getBean("luceneService");
 //				
 //		List<NewsDetails> newslist = luceServ.FindAllNewsDetail("dgnewsdetail");
-//		String[] analyzedFiled = {"content"};
-//		String[] excludField = new String[]{};
+//		String[] analyzedFiled = {"content","title"};
+//		String[] excludField = new String[]{"tableName"};
 //		for(NewsDetails news:newslist){
 //			IndexUtils.createIndex(news, excludField, analyzedFiled, "dgnews");
 //		}
 //		System.out.println("ok");
 		
 //		IndexUtils.deleteAll();
-		Query query = null;
-				
+//		IndexUtils.mergeIndex();
+
+		
+		
 		// 搜索
-		try {
-			/**内置查询类*/
-//			// 关键字搜索
-//			query = new TermQuery(new Term("date","2015-03-21 10:49:00"));
-//			query = new TermQuery(new Term("content","天气"));
-			// 文本范围搜索
-//			query = new TermRangeQuery("date", "2015-03-21 10:49:00", "2015-03-22 10:49:00", true, true);
-			// 数字类型范围搜索
-//			query = NumericRangeQuery.newIntRange("date", 20150321, 20150322, true,true);
-//			query = new PrefixQuery(new Term("content","东莞"));
-			//组合查询
-			/*BooleanQuery bquery = new BooleanQuery();
-			bquery.add(query, BooleanClause.Occur.MUST);*/
-			//短语搜索(某个距离范围内的项对应的文档)
-//			PhraseQuery
-			//通配符搜索
-//			WildCardQuery
-			//模糊查询
-//			query = new FuzzyQuery(new Term("date","2016-03-21 10:49:00"));
+		/**内置查询类*/
+		Query query = null;
+		// 关键字搜索
+//		query = new TermQuery(new Term("date","2015-03-21 10:49:00"));
+		query = new TermQuery(new Term("content","天气"));
+		// 文本范围搜索
+//		query = new TermRangeQuery("date", "2015-03-21 10:49:00", "2015-03-22 10:49:00", true, true);
+		// 数字类型范围搜索
+//		query = NumericRangeQuery.newIntRange("date", 20150321, 20150322, true,true);
+//		query = new PrefixQuery(new Term("content","东莞"));
+		//组合查询
+		/*BooleanQuery bquery = new BooleanQuery();
+		bquery.add(query, BooleanClause.Occur.MUST);*/
+		//短语搜索(某个距离范围内的项对应的文档)
+//		PhraseQuery
+		//通配符搜索
+//		WildCardQuery
+		//模糊查询
+//		query = new FuzzyQuery(new Term("date","2016-03-21 10:49:00"));
 			
-			////高级搜索功能////
-			//对搜索结国排序
-			//MultiPhraseQuery
-			//DisjunctionMaxQuery
+		////高级搜索功能////
+		//对搜索结国排序
+		//MultiPhraseQuery
+		//DisjunctionMaxQuery
 			
-			/**解析用户输入语句*/
-			QueryParser queryParser = new QueryParser(Version.LUCENE_36, "content", IndexUtils.getAnalyzer());
-			query= queryParser.parse("天气");
-			//MultiFieldQueryParser
+		/**解析用户输入语句*/
+//		QueryParser queryParser = new QueryParser(Version.LUCENE_36, "content", IndexUtils.getAnalyzer());
+//		query= queryParser.parse("天气");
+		//MultiFieldQueryParser
 			
-			IndexSearcher searcher = IndexUtils.getIndexSearcher();
-			TopDocs hits = searcher.search(query, 3);
-//			TopDocs hits = searcher.search(query, 1, new Sort());//指定排序
-			ScoreDoc[] scoreDocs = hits.scoreDocs;
-			for(ScoreDoc sc:scoreDocs){
-				Document dc = searcher.doc(sc.doc);
-				System.out.println(dc.get("content")+" "+dc.get("date"));
-			}
-			
-		}catch (IOException e) {
-			e.printStackTrace();
+		/** 执行搜索*/
+		IndexSearcher searcher = IndexUtils.getIndexSearcher();
+		TopDocs hits = searcher.search(query, 3);
+		/*TopDocs hits = searcher.search(query, 1, new Sort());*///指定排序
+		ScoreDoc[] scoreDocs = hits.scoreDocs;
+		for(ScoreDoc sc:scoreDocs){
+			Document dc = searcher.doc(sc.doc);
+			System.out.println(dc.get("content")+" "+dc.get("date"));
 		}
+			
+		
+//		List<NewsDetails> haha = new PagingLucene().search(query, 3, null, NewsDetails.class, new String[]{});
+//		for(NewsDetails nd:haha){
+//			System.out.println(nd.getUrl()+" "+nd.getAbsidf()+" "+nd.getDate()+" "+nd.getTitle());
+//		}
+			
+
 		System.out.println("ok");
 		
 		

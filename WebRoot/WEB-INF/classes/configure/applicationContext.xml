@@ -90,12 +90,19 @@
 		<aop:pointcut expression="execution(* com.rhcheng..service..*(..))" id="Pointcut" />
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="Pointcut" />
 	</aop:config>
-	
 	<!-- 注解事务控制 -->
 	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
 	
 	
-	<!-- 缓冲配置 -->
+	<!-- 缓存配置 -->
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml"></property>
+	</bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="cacheManagerFactory"></property>
+	</bean>
+	<cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
+
 
 	<!-- 邮件发送 -->
  	<bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

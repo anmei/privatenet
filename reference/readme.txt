@@ -1,5 +1,4 @@
 #/usr/bin/which: no unzip in (/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin)
-<<<<<<< HEAD
 考虑session集成存储，现在比较好的方案就是nosql存储，修改tomcat、jetty和jboss等session的存储方式是很容易的
 根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区》》》
 -------others----------
@@ -118,10 +117,15 @@ index——document(如一个web页、doc文档等)——field(索引选项、�
 表——记录——字段
 索引库——document——field
 一个索引(index)就相当于是一张表，索引中有许多document(就是对非结构化数据结构化，如web网页等)好比是表记录，document由众多field组成
-索引包含多个段，每个段都是独立的索引，它是所有文档索引的一个子集。每当增加、删除索引时都会增加段,会自动周期性的合并段
+索引包含多个段，每个段都是独立的索引，它是所有文档索引的一个子集。每当增加、删除索引时都会增加段,同时会自动周期性的合并段
 每个文档都可以有多个域，每个域都可以有自己的选项
-新增索引，调用commit()或close()——向索引提交更改
-删除索引(deleteDocument)，不会立即删除，只是多了一个删除的标记位
+新增索引，调用commit()或close()——向索引提交更改，使得可以读到最新更改
+删除索引(deleteDocument)，不会立即删除，只是多了一个删除的标记位,optimize()优化时才真正删除对应的存储块或者合并相关索引段
+更新索引：updateDocument(),其实就是先删后增
+要看到最新索引，前提是写方已提交，同时必须重新打开Reader，可通过以下方法：可以通过reopen()方法，获取最新索引，或者重建Reader，或者从IndexWriter中获取近实时Reader
+IndexWriter与IndexReader执行增删改的区别，最好使用IndexWriter完成所有操作
+提交(关闭IndexWriter也会自动提交)是为了让更新对新的reader可见，将缓存刷新到磁盘；合并优化是为了物理地合并、删除索引段，提高搜索速度
+
 
 关键类
 Field<Store\Index>
@@ -129,12 +133,19 @@ Document
 MergePolicy
 
 索引优化
+通过optimize()合并索引，在这优化期间会消耗大约平常的3倍内存，合并完后执行commit()提交，内存恢复。所以不要频繁优化
+MergePolicy、MergeScheduler
+
 索引过程对文档和域进行加权
+setBoost()——设置域或文档的加权值
+Norms(加权基准)，可通过Field.index.NO_NORMS关闭
+Similarity
+
 
 
 >>搜索
 新建IndexReader的代价是很高的，每次都要重新加载索引结构，所以尽量用单例共用之.
-要看到最新索引，必须重新打开Reader，可通过以下方法：可以通过reopen()方法，获取最新索引，或者重建Reader，或者从IndexWriter中获取近实时Reader
+要看到最新索引，前提是写方已提交，同时必须重新打开Reader，可通过以下方法：可以通过reopen()方法，获取最新索引，或者重建Reader，或者从IndexWriter中获取近实时Reader
 通过文档号访问某个文档被存储的域值
 域缓存：只能用于包含单个域的项，即索引时必须是:not_analyzed；可以将所有文档的指定域值以数组形式加载到缓冲
 过滤器、高亮显示、近实时搜索
@@ -159,10 +170,75 @@ BooleanQuery合并子查询
 项向量：搜索相似文档或者自动归类文档
 对搜索结果分页
 
+		/**创建索引*/
+//		BeanFactory fac = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
+//		ILuceneService luceServ = (ILuceneService)fac.getBean("luceneService");
+//				
+//		List<NewsDetails> newslist = luceServ.FindAllNewsDetail("dgnewsdetail");
+//		String[] analyzedFiled = {"content","title"};
+//		String[] excludField = new String[]{"tableName"};
+//		for(NewsDetails news:newslist){
+//			IndexUtils.createIndex(news, excludField, analyzedFiled, "dgnews");
+//		}
+//		System.out.println("ok");
+		
+//		IndexUtils.deleteAll();
+//		IndexUtils.mergeIndex();
+
+		
+		
+		// 搜索
+		/**内置查询类*/
+		Query query = null;
+		// 关键字搜索
+//		query = new TermQuery(new Term("date","2015-03-21 10:49:00"));
+		query = new TermQuery(new Term("content","天气"));
+		// 文本范围搜索
+//		query = new TermRangeQuery("date", "2015-03-21 10:49:00", "2015-03-22 10:49:00", true, true);
+		// 数字类型范围搜索
+//		query = NumericRangeQuery.newIntRange("date", 20150321, 20150322, true,true);
+//		query = new PrefixQuery(new Term("content","东莞"));
+		//组合查询
+		/*BooleanQuery bquery = new BooleanQuery();
+		bquery.add(query, BooleanClause.Occur.MUST);*/
+		//短语搜索(某个距离范围内的项对应的文档)
+//		PhraseQuery
+		//通配符搜索
+//		WildCardQuery
+		//模糊查询
+//		query = new FuzzyQuery(new Term("date","2016-03-21 10:49:00"));
+			
+		////高级搜索功能////
+		//对搜索结国排序
+		//MultiPhraseQuery
+		//DisjunctionMaxQuery
+			
+		/**解析用户输入语句*/
+//		QueryParser queryParser = new QueryParser(Version.LUCENE_36, "content", IndexUtils.getAnalyzer());
+//		query= queryParser.parse("天气");
+		//MultiFieldQueryParser
+			
+		/** 执行搜索*/
+		IndexSearcher searcher = IndexUtils.getIndexSearcher();
+		TopDocs hits = searcher.search(query, 3);
+		/*TopDocs hits = searcher.search(query, 1, new Sort());*///指定排序
+		ScoreDoc[] scoreDocs = hits.scoreDocs;
+		for(ScoreDoc sc:scoreDocs){
+			Document dc = searcher.doc(sc.doc);
+			System.out.println(dc.get("content")+" "+dc.get("date"));
+		}
+
+
+--------缓存----------------
+》》通过spring在服务端缓存
+Spring仅仅是提供了对缓存的支持，但它并没有任何的缓存功能的实现，spring使用的是第三方的缓存框架来实现缓存的功能。
+spring支持的缓存机制，是方法级的缓存，而不关注底层是否使用了数据库以及通过什么方式访问的数据库；因此这种缓存不止可以放到DAO层，也可以放置到Service层，甚至可以对各种代码数据进行缓存。
+@CacheEvict、@Cacheable
+由于Spring的缓存机制是基于Spring的AOP，那么在Spring Cache中应该存在着一个Advice
+ehcache：页面缓存、对象缓存
 
 
 
-------------------------
 
 
 
@@ -171,8 +247,13 @@ BooleanQuery合并子查询
 
 
 
-=======
 
-根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区
->>>>>>> remote_privatenet/master
+
+
+
+
+
+
+
+
 

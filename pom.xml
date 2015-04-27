@@ -79,7 +79,13 @@
 		  <artifactId>spring-webmvc</artifactId>
 		  <version>${org.springframework-version}</version>
 		</dependency>
-		<!-- 缓存 -->
+		<!-- ehcache缓存 -->
+		<dependency>
+		  <groupId>net.sf.ehcache</groupId>
+		  <artifactId>ehcache-core</artifactId>
+		  <version>2.6.9</version>
+		</dependency>
+
 
 		<!-- 数据库连接 -->
 		<dependency>
@@ -192,6 +198,7 @@
 		  <artifactId>thumbnailator</artifactId>
 		  <version>0.4.7</version>
 		</dependency> -->
+		
 		
 				        
     </dependencies>

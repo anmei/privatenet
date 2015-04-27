@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.context.annotation.Scope;
@@ -18,12 +20,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.rhcheng.common.PageFormBean;
 import com.rhcheng.common.Pagination;
 import com.rhcheng.user.entity.User;
+import com.rhcheng.user.service.TestService;
 
 
 @Controller
-@Scope("")//http://blog.csdn.net/mastermind/article/details/1932787; "singleton" default
+//如下注解表示非单例，对每个线程都各自创建对应的Controller实例, "singleton" default
+//@Scope("prototype")//http://blog.csdn.net/mastermind/article/details/1932787;
 @RequestMapping(value="/test/*")
 public class TestAction {
+	@Resource
+	private TestService testService;
 	
 	private long id = 0L;
 
@@ -121,5 +127,15 @@ public class TestAction {
 		model.addAttribute("pagetest", new Pagination<User>());
 		return "user/login";
 	}
+	
+	
+	@RequestMapping(value="testEhcache.action")
+	public String testEhcache(String param){
+		String res = testService.find(param);
+		System.out.println(res);
+		return "";
+	}
+	
+	
 	
 }
