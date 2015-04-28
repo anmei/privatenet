@@ -10,5 +10,6 @@
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_6_CONTAINER"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/thumbnailator-0.4.7-all.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/paoding-analysis.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aspectjrt.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

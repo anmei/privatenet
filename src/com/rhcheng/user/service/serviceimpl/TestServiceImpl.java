@@ -14,7 +14,7 @@ public class TestServiceImpl implements TestService{
 	private TestDao testDao;
 	
 	@Override
-//	@Cacheable(value="tempCache",key="'find_'+#para")
+	@Cacheable(value="tempCache",key="'find_'+#para")
 	public String find(String para) {
 		return testDao.find(para);
 	}

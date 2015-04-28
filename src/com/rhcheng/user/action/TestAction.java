@@ -138,19 +138,25 @@ public class TestAction {
 	
 	
 	@RequestMapping(value="testEhcache.action")
+	@ResponseBody
 	public String testEhcache(String param) throws InterruptedException{
-		System.out.println(param);
-		String res = testDao.find(param);
+		//按执行第一步,会输出：
+		//get from db
+		// a
+		String res = testService.find(param);
 		System.out.println(res);
 		
-		String abc = testDao.find(param);
-		System.out.println(res);
 		
-		CacheManager manager = (CacheManager)ContextLoader.getCurrentWebApplicationContext().getBean("cacheManager");
-	    Cache cache = manager.getCache("tempCache");
-		System.out.println("缓冲："+cache.get("find_fsd"));
+		//第二步，会输出：
+		//a
+		String abc = testService.find(param);
+		System.out.println(abc);
 		
-		return "";
+//		CacheManager manager = (CacheManager)ContextLoader.getCurrentWebApplicationContext().getBean("cacheManager");
+//	    Cache cache = manager.getCache("tempCache");
+//		System.out.println("缓冲："+cache.get("find_fsd"));
+		
+		return "success";
 	}
 	
 	

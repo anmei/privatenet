@@ -65,7 +65,7 @@
 	
 	<!-- 缓存配置 -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>  
-	<cache:annotation-driven cache-manager="cacheManager"/>
+	<cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
 	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:ehcache.xml"></property>
 	</bean>
@@ -115,36 +115,36 @@
 	
 	<!-- 定时器的配置 会导致main中启动容器执行完相关操作后不会自动关闭容器-->
 	<!-- job定时器 每隔5小时定时更新news-->
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<!-- <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<!-- <ref bean="newsUpdateTrigger"/>
-				<ref bean="sequenceUpdateTrigger"/> -->
+				<ref bean="newsUpdateTrigger"/>
+				<ref bean="sequenceUpdateTrigger"/>
 				
-				<!-- <ref bean="testTrigger"/> -->
+				<ref bean="testTrigger"/>
 				
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 	<!-- 定时更新news -->
-	<bean id="triggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<!-- <bean id="triggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="updateNews" />
 		<property name="targetMethod" value="doUpdate" />
 	</bean>
 	<bean id="newsUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="triggerDetail" />
 		<property name="cronExpression" value="0 0 */2 * * ?" />
-		<!-- <property name="cronExpression" value="0 */10 * * * ?" /> -->
-	</bean>
+		<property name="cronExpression" value="0 */10 * * * ?" />
+	</bean> -->
 	<!-- 定时更新sequence -->
-	<bean id="sequenceTriggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<!-- <bean id="sequenceTriggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="updateNews" />
 		<property name="targetMethod" value="resetSequence" />
 	</bean>
 	<bean id="sequenceUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="sequenceTriggerDetail" />
 		<property name="cronExpression" value="0 0 23 * * ?" />
-	</bean>
+	</bean> -->
 	
 	<!-- <bean id="testTriggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="updateNews" />

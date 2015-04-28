@@ -22,9 +22,8 @@ public class TestEhcache {
 		BeanFactory bf = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
 //		TestDao ehcachedao = (TestDao)bf.getBean("testDao");
 		TestService ts = (TestService)bf.getBean("testService");
-		
-		manager = (CacheManager)bf.getBean("cacheManager");
-		cache = manager.getCache("tempCache");  
+//		manager = (CacheManager)bf.getBean("cacheManager");
+//		cache = manager.getCache("tempCache");  
 		
 //		URL url = TestEhcache.class.getResource("ehcache.xml");  
 //	    CacheManager manager = new CacheManager(url);
@@ -37,7 +36,7 @@ public class TestEhcache {
 		
 		System.out.println(ts.find("haha"));
 
-		System.out.println(cache.get("find_haha"));
+//		System.out.println(cache.get("find_haha"));
 		
 //		System.out.println(ehcachedao.find("haha"));
 //		Thread.sleep(5000);
