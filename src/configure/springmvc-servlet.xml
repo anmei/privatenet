@@ -9,8 +9,10 @@
 	http://www.springframework.org/schema/context 
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	
-	<!-- 扫描包 -->
-	<context:component-scan base-package="com.rhcheng.*" />
+	<!-- 只扫描控制层包 -->
+	<context:component-scan base-package="com.rhcheng" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
 	<!-- 开始spring mvc的注解 -->
 	<mvc:annotation-driven />

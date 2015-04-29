@@ -59,13 +59,13 @@
 	</bean>
 	
 	<!-- 扫描包,controller不扫描 -->
-	<context:component-scan base-package="com.rhcheng.*">
+	<context:component-scan base-package="com.rhcheng">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
 	<!-- 缓存配置 -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>  
-	<cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
+	<cache:annotation-driven cache-manager="cacheManager" />
 	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:ehcache.xml"></property>
 	</bean>
@@ -92,12 +92,13 @@
 			<tx:method name="*" propagation="NOT_SUPPORTED"/>
 		</tx:attributes>
 	</tx:advice>
+	<!-- 注解事务控制 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<aop:config>
 		<aop:pointcut expression="execution(* com.rhcheng..service..*(..))" id="Pointcut" />
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="Pointcut" />
 	</aop:config>
-	<!-- 注解事务控制 -->
-	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- 邮件发送 -->
  	<bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

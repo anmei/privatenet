@@ -237,9 +237,19 @@ spring支持的缓存机制，是方法级的缓存，而不关注底层是否�
 由于Spring的缓存机制是基于Spring的AOP，那么在Spring Cache中应该存在着一个Advice
 ehcache：页面缓存、对象缓存
 
+》》AOP
+CGLIB:通过继承，无法代理final、无默认构造方法的类
+JDK：通过实现接口，无法代理无接口的类
+首选如<aop:config>，而不是自己定义如×××AutoProxyCreator，而且使用<aop:config>方式能更好的描述切面，且这样一个容器永远只有一个AutoProxyCreator。
+    AspectJAwareAdvisorAutoProxyCreator会创建一个代理（因为<aop:config proxy-target-class="true">），这个代理是CGLIB代理；
+    DefaultAdvisorAutoProxyCreator会对代理对象再创建代理，但是因为没有告诉它代理类，所以默认代理接口，即代理是JDK动态代理；
+观察类是$Proxy…… 还是 ……$$EnhancerByCGLIB$$……，来判断是JDK动态代理还是CGLIB代理。
+通过观察$Proxy的实现中是否包含org.springframework.cglib.proxy.Factory来判断是否是二次代理。
+<aop:aspectj-autoproxy expose-proxy="true"/> 实现@AspectJ注解的，默认使用AnnotationAwareAspectJAutoProxyCreator进行AOP代理，它是BeanPostProcessor的子类，在容器启动时Bean初始化开始和结束时调用进行AOP代理的创建，因此只对当容器启动时有效，使用时注意此处。
+<context:component-scan>——使用务必注意，使用不好，最典型的错误就是：事务不起作用
 
-
-
+》》IOC
+表现层配置文件，只应加装表现层Bean，否则可能引起问题。
 
 
 
