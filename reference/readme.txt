@@ -248,10 +248,22 @@ JDK：通过实现接口，无法代理无接口的类
 <aop:aspectj-autoproxy expose-proxy="true"/> 实现@AspectJ注解的，默认使用AnnotationAwareAspectJAutoProxyCreator进行AOP代理，它是BeanPostProcessor的子类，在容器启动时Bean初始化开始和结束时调用进行AOP代理的创建，因此只对当容器启动时有效，使用时注意此处。
 <context:component-scan>——使用务必注意，使用不好，最典型的错误就是：事务不起作用
 
+AOP框架(Spring AOP\Aspectj)——CGLIB\JDK 动态代理——asm代码生成器
+这就是为什么execution(protected * *(..))在纯Spring AOP环境下不行的原因。Spring AOP框架只能拦截public方法
+之所以protected方法能被无访问修修饰符的execution拦截，是因为这个类里面其他public方法被execution匹配了，导致spring认为这个类可以被代理，而不是protected的方法本身被execution匹配
+在使用代理的时候，@Transactional 注解应该只被应用到 public 可见度的方法上。 如果你在 protected、private 或者 package-visible 的方法上使用 @Transactional 注解，系统也不会报错， 但是这个被注解的方法将不会执行已配置的事务设置。如果你非要注解非公共方法的话，请参考使用AspectJ 
+如果想要实现拦截private方法的 可以使用 原生 AspectJ 编译期/运行期织入。 
+静态切入点代理：如果有匹配的advice就走代理； 
+动态切入点代理：需要在运行时进行匹配。 
+Schema风格只支持singleton实例化模型，而@AspectJ风格支持这三种实例化模型。
+低耦合、非侵入式、可重用
+
+
+
 》》IOC
-表现层配置文件，只应加装表现层Bean，否则可能引起问题。
-
-
+表现层配置文件，只应加装表现层Bean，否则可能引起aop被覆盖的问题。
+DI—Dependency Injection，即“依赖注入”：是组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。
+而Bean定义在容器内部由BeanDefinition对象表示
 
 
 

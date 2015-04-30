@@ -17,8 +17,8 @@
 	<!-- 开始spring mvc的注解 -->
 	<mvc:annotation-driven />
 	
-	<!-- 加载资源路径 -->
-	<mvc:resources location="/resource/" mapping="/resource/**" />	
+	<!-- 加载静态资源路径 -->
+	<!-- <mvc:resources location="/resource/" mapping="/resource/**" /> -->	
 	
 	<!-- 静态资源解析支持 -->
 	<mvc:default-servlet-handler />
