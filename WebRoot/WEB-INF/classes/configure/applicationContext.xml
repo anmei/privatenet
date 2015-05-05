@@ -63,7 +63,7 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	
-	
+	<!-- 启动对@aspectJ注解aop的支持，并且强制使用cglib实现aop -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	
 	<!-- 事务配置 -->

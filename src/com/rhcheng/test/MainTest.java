@@ -24,11 +24,22 @@ import com.rhcheng.user.entity.User;
 public class MainTest {
 	
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException{
-		ApplicationContext ac = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
-		TestDI td = ac.getBean("testDI", TestDI.class);
-		td.print();
+		int[][] a = new int[1][-1];
 		
 		
+//		int a;
+//		try{
+//			a=0;
+//		}catch(Exception e ){
+//			a=1;
+//		}finally{
+//			a=2;
+//		}
+//		System.out.println(a);
+		
+//		ApplicationContext ac = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
+//		TestDI td = ac.getBean("testDI", TestDI.class);
+//		td.print();
 		
 //		User user=new User(); //Java Object
 //		user.setName("hah虎");

@@ -262,6 +262,14 @@ AOP框架(Spring AOP\Aspectj)——CGLIB\JDK 动态代理——asm代码生成�
 动态切入点代理：需要在运行时进行匹配。 
 Schema风格只支持singleton实例化模型，而@AspectJ风格支持这三种实例化模型。
 低耦合、非侵入式、可重用
+接下来再让我们具体看看Spring有哪些通知类型：
+前置通知（Before Advice）:在切入点选择的连接点处的方法之前执行的通知，该通知不影响正常程序执行流程（除非该通知抛出异常，该异常将中断当前方法链的执行而返回）。
+后置通知（After Advice）:在切入点选择的连接点处的方法之后执行的通知，包括如下类型的后置通知：
+后置返回通知（After returning Advice）:在切入点选择的连接点处的方法正常执行完毕时执行的通知，必须是连接点处的方法没抛出任何异常正常返回时才调用后置通知。
+后置异常通知（After throwing Advice）: 在切入点选择的连接点处的方法抛出异常返回时执行的通知，必须是连接点处的方法抛出任何异常返回时才调用异常通知。
+后置最终通知（After finally Advice）: 在切入点选择的连接点处的方法返回时执行的通知，不管抛没抛出异常都执行，类似于Java中的finally块。
+环绕通知（Around Advices）：环绕着在切入点选择的连接点处的方法所执行的通知，环绕通知可以在方法调用之前和之后自定义任何行为，并且可以决定是否执行连接点处的方法、替换返回值、抛出异常等等
+在Spring配置文件中，所以AOP相关定义必须放在<aop:config>标签下，该标签下可以有<aop:pointcut>、<aop:advisor>、<aop:aspect>标签，配置顺序不可变
 
 
 
@@ -293,5 +301,7 @@ dumpStream方法很抽象定义了访问流的三部曲：打开资源、读取�
 Resource
 ResourceLoader
 对于目前所有ApplicationContext都实现了ResourceLoader，因此可以使用其来加载资源。
+
+》》SpEL 表达式语言
 
 
