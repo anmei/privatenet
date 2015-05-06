@@ -242,6 +242,48 @@ spring支持的缓存机制，是方法级的缓存，而不关注底层是否�
 由于Spring的缓存机制是基于Spring的AOP，那么在Spring Cache中应该存在着一个Advice
 ehcache：页面缓存、对象缓存
 
+》》IOC/DI
+表现层配置文件，只应加装表现层Bean，否则可能引起aop被覆盖的问题。
+DI—Dependency Injection，即“依赖注入”：是组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。
+而Bean定义在容器内部由BeanDefinition对象表示
+如何设计好类结构才是关键，依赖注入只是一种装配对象手段
+Spring类型转换系统对于boolean类型进行了容错处理，除了可以使用“true/false”标准的Java值进行注入，还能使用“yes/no”、“on/off”、“1/0”来代表“真/假”，所以大家在学习或工作中遇到这种类似问题不要觉得是人家配置错了，而是Spring容错做的非常好
+可以注入普通类型、集合、数组、bean等
+内部Bean就是在<property>或<constructor-arg>内通过<bean>标签定义的Bean，该Bean不管是否指定id或name，该Bean都会有唯一的匿名标识符，而且不能指定别名，该内部Bean对其他外部Bean不可见
+spring通过当前正在创建的Bean池解决循环依赖问题
+补充：出现循环依赖是设计上的问题，一定要避免！请参考《敏捷软件开发：原则、模式与实践》中的“无环依赖”原则
+延迟初始化也叫做惰性初始化，指不提前初始化Bean，而是只有在真正使用时才创建及初始化Bean。配置方式很简单只需在<bean>标签上指定 “lazy-init” 属性值为“true”即可延迟初始化Bean。Spring容器会在创建容器时提前初始化“singleton”作用域的Bean,只有“singleton”Bean能被Spring管理销毁
+一般情况初始化容器时也初始化有配置或有注解的bean
+init-method="init" ：指定初始化方法，在构造器注入和setter注入完毕后执行。
+destroy-method="destroy"：指定销毁方法，只有“singleton”作用域能销毁，“prototype”作用域的一定不能，其他作用域不一定能。
+自动装配的好处是减少构造器注入和setter注入配置，减少配置文件的长度。自动装配通过配置<bean>标签的“autowire”属性来改变自动装配方式。推荐使用Java 5+支持的（@Autowired）注解方式代替
+自动装配注入方式能和配置注入方式一同工作吗？当然可以，大家只需记住配置注入的数据会覆盖自动装配注入的数据
+不是所有类型都能自动装配：不能自动装配的数据类型：Object、基本数据类型（Date、CharSequence、Number、URI、URL、Class、int）等；
+上一节介绍的自动装配，很可能发生没有匹配的Bean进行自动装配，如果此种情况发生，只有在程序运行过程中发生了空指针异常才能发现错误，如果能提前发现该多好啊，这就是依赖检查的作用。
+因为Spring是通过CGLIB动态代理方式实现方法注入，也就是通过动态修改类的字节码来实现的，本质就是生成需方法注入的类的子类方式实现。
+因为“singleton”Bean在容器中只有一个实例，而“prototype”Bean是每次获取时容器都返回一个全新的实例
+方法注入
+单例模式：通过静态块、通过注册表模式实现
+
+*****
+* IOC、DI 容器初始化、bean的初始化、依赖注入bean
+* 配置注入需要set方法、构造方法等，注解注入不需要set方法、构造方法等
+* 
+* java代码面向接口编程，真正的实现由配置文件指定，低耦合、可重用
+* bean可以延迟初始化
+* Spring提供“singleton”和“prototype”两种基本作用域，另外提供“request”、“session”、“global session”三种web作用域；Spring还允许用户定制自己的作用域。
+* 注解实现Bean配置主要用来进行如依赖注入、生命周期回调方法定义等，不能消除XML文件中的Bean元数据定义，且基于XML配置中的依赖注入的数据将覆盖基于注解配置中的依赖注入的数据。
+* 基于@Autowired的自动装配，默认是根据类型注入，可以用于构造器、字段、方法注入。@Qualifier限定描述符除了能根据名字进行注入，还能进行更细粒度的控制如何选择候选者
+* Spring提供通过扫描类路径中的特殊注解类来自动注册Bean定义。同注解驱动事务一样需要开启自动扫描并注册Bean定义支持
+* @Resource的作用相当于@Autowired，只不过@Autowired按byType自动注入，而@Resource默认按 byName自动注入罢了
+* 
+* 1、不需要任何注解，通过配置xml文件，通过set方法\构造方法等 DI（dependency inject）
+* 2、自动装配，不需要任何注解，在配置文件的bean中配置{@code autowire="byType"},减少配置文件的配置项，最终同样还是通过set方法\构造方法等 DI（dependency inject）
+* 3、@Autowired 基于注解注入，在需要的地方（字段、set方法、构造方法）上加此注解即可，同时需要在配置文件中配置相关的具体实现类
+* 4、基于注解(@comment\@service等)实现bean的定义初始化，无需再在配置文件中配置bean的实现
+******
+
+
 》》AOP
 CGLIB:通过继承，无法代理final、无默认构造方法的类
 JDK：通过实现接口，无法代理无接口的类
@@ -271,30 +313,6 @@ Schema风格只支持singleton实例化模型，而@AspectJ风格支持这三种
 环绕通知（Around Advices）：环绕着在切入点选择的连接点处的方法所执行的通知，环绕通知可以在方法调用之前和之后自定义任何行为，并且可以决定是否执行连接点处的方法、替换返回值、抛出异常等等
 在Spring配置文件中，所以AOP相关定义必须放在<aop:config>标签下，该标签下可以有<aop:pointcut>、<aop:advisor>、<aop:aspect>标签，配置顺序不可变
 
-
-
-》》IOC/DI
-表现层配置文件，只应加装表现层Bean，否则可能引起aop被覆盖的问题。
-DI—Dependency Injection，即“依赖注入”：是组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。
-而Bean定义在容器内部由BeanDefinition对象表示
-如何设计好类结构才是关键，依赖注入只是一种装配对象手段
-Spring类型转换系统对于boolean类型进行了容错处理，除了可以使用“true/false”标准的Java值进行注入，还能使用“yes/no”、“on/off”、“1/0”来代表“真/假”，所以大家在学习或工作中遇到这种类似问题不要觉得是人家配置错了，而是Spring容错做的非常好
-可以注入普通类型、集合、数组、bean等
-内部Bean就是在<property>或<constructor-arg>内通过<bean>标签定义的Bean，该Bean不管是否指定id或name，该Bean都会有唯一的匿名标识符，而且不能指定别名，该内部Bean对其他外部Bean不可见
-spring通过当前正在创建的Bean池解决循环依赖问题
-补充：出现循环依赖是设计上的问题，一定要避免！请参考《敏捷软件开发：原则、模式与实践》中的“无环依赖”原则
-延迟初始化也叫做惰性初始化，指不提前初始化Bean，而是只有在真正使用时才创建及初始化Bean。配置方式很简单只需在<bean>标签上指定 “lazy-init” 属性值为“true”即可延迟初始化Bean。Spring容器会在创建容器时提前初始化“singleton”作用域的Bean,只有“singleton”Bean能被Spring管理销毁
-一般情况初始化容器时也初始化有配置或有注解的bean
-init-method="init" ：指定初始化方法，在构造器注入和setter注入完毕后执行。
-destroy-method="destroy"：指定销毁方法，只有“singleton”作用域能销毁，“prototype”作用域的一定不能，其他作用域不一定能。
-自动装配的好处是减少构造器注入和setter注入配置，减少配置文件的长度。自动装配通过配置<bean>标签的“autowire”属性来改变自动装配方式。推荐使用Java 5+支持的（@Autowired）注解方式代替
-自动装配注入方式能和配置注入方式一同工作吗？当然可以，大家只需记住配置注入的数据会覆盖自动装配注入的数据
-不是所有类型都能自动装配：不能自动装配的数据类型：Object、基本数据类型（Date、CharSequence、Number、URI、URL、Class、int）等；
-上一节介绍的自动装配，很可能发生没有匹配的Bean进行自动装配，如果此种情况发生，只有在程序运行过程中发生了空指针异常才能发现错误，如果能提前发现该多好啊，这就是依赖检查的作用。
-因为Spring是通过CGLIB动态代理方式实现方法注入，也就是通过动态修改类的字节码来实现的，本质就是生成需方法注入的类的子类方式实现。
-因为“singleton”Bean在容器中只有一个实例，而“prototype”Bean是每次获取时容器都返回一个全新的实例
-方法注入
-单例模式：通过静态块、通过注册表模式实现
 
 》》资源
 dumpStream方法很抽象定义了访问流的三部曲：打开资源、读取资源、关闭资源，所以dunpStrean可以再进行抽象从而能在自己项目中使用；byteArrayResourceTest测试方法，也定义了基本步骤：定义资源、验证资源存在、访问资源

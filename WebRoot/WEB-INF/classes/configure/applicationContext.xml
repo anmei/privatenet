@@ -160,9 +160,34 @@
 	<!-- bean -->
 	<bean id="uploadFileHandler" class="com.rhcheng.util.fileuploadinfram.UploadToRepoHandler"></bean>
 	<bean id="localFileWriter" class="com.rhcheng.util.fileuploadinfram.LocalFileWriter"></bean>
+	
+	
+	<!-- test -->
+	<!-- 基于set方法、构造方法等注入 -->
+	<!-- 
+	<bean id="someclass" class="com.rhcheng.test.SomeClass"/>
 	<bean id="testDI" class="com.rhcheng.test.TestDI" >
 		<property name="a" value="你好ma"/>
+		<property name="isc" ref="someclass"></property>
+	</bean> 
+	-->
+	
+	<!-- 
+	<bean id="someclass" class="com.rhcheng.test.SomeClass"/>
+	<bean id="testDI" class="com.rhcheng.test.TestDI" autowire="byType"/>
+	 -->
+	
+	
+	<!-- 基于注解注入 -->
+	<!-- 
+	<bean id="b" class="java.lang.String">
+		<constructor-arg index="0" value="ha哈哈"/>
 	</bean>
+	<bean id="someclass" class="com.rhcheng.test.SomeClass"/>
+	<bean id="testAnotationDI" class="com.rhcheng.test.TestAnotationDI"/>
+	  -->
+	 
+	<!-- 注解定义bean -->
 	
 	
 </beans>

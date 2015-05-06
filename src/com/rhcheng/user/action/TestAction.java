@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Scope;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rhcheng.common.PageFormBean;
 import com.rhcheng.common.Pagination;
+import com.rhcheng.test.TestMain;
 import com.rhcheng.user.dao.TestDao;
 import com.rhcheng.user.entity.User;
 import com.rhcheng.user.service.TestService;
@@ -41,6 +44,9 @@ public class TestAction {
 	
 	private long id = 0L;
 
+
+	private final Logger logger = LoggerFactory.getLogger(TestMain.class);
+	
 	
 	/**
 	 * 未登陆时对ajax的拦截
@@ -140,21 +146,24 @@ public class TestAction {
 	@RequestMapping(value="testEhcache.action")
 	@ResponseBody
 	public String testEhcache(String param) throws InterruptedException{
-		//按执行第一步,会输出：
-		//get from db
-		// a
-		String res = testService.find(param);
-		System.out.println(res);
-		
-		
-		//第二步，会输出：
-		//a
-		String abc = testService.find(param);
-		System.out.println(abc);
+		/**测试ehcache缓存*/
+		/*按执行第一步,会输出：*/
+//		String res = testService.find(param);
+//		System.out.println(res);
+//		/*第二步，会输出：*/
+//		String abc = testService.find(param);
+//		System.out.println(abc);
 		
 //		CacheManager manager = (CacheManager)ContextLoader.getCurrentWebApplicationContext().getBean("cacheManager");
 //	    Cache cache = manager.getCache("tempCache");
 //		System.out.println("缓冲："+cache.get("find_fsd"));
+		
+		/**测试slf4j*/
+//		int a=9;
+//		String b="fdsfds";
+//		logger.error("hello,kitty {},fds 我觉得{}",a,b);
+//		logger.error("hello,kitty {},fds 我觉得{}");
+		
 		
 		return "success";
 	}

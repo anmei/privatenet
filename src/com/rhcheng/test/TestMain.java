@@ -11,21 +11,21 @@ import java.util.Map;
 
 import javax.faces.application.Application;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.Assert;
 
 import com.rhcheng.user.entity.User;
 
 
-public class MainTest {
+public class TestMain {
 	
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException{
-		int[][] a = new int[1][-1];
-		
 		
 //		int a;
 //		try{
@@ -37,9 +37,14 @@ public class MainTest {
 //		}
 //		System.out.println(a);
 		
-//		ApplicationContext ac = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
+		/**初始化容器**/
+		ApplicationContext ac = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
 //		TestDI td = ac.getBean("testDI", TestDI.class);
 //		td.print();
+		
+		TestAnotationDI td = ac.getBean("testAnotationDI", TestAnotationDI.class);
+		td.print();
+		
 		
 //		User user=new User(); //Java Object
 //		user.setName("hah虎");
