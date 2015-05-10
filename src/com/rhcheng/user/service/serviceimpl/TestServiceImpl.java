@@ -19,4 +19,9 @@ public class TestServiceImpl implements TestService{
 		return testDao.find(para);
 	}
 
+	@Override
+	public void testAop() {
+		System.out.println("业务逻辑");
+	}
+
 }

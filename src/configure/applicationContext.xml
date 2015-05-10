@@ -157,7 +157,7 @@
 		<property name="cronExpression" value="0 */2 * * * ?" />
 	</bean> -->
 	
-	<!-- bean -->
+	<!-- IOC\DI -->
 	<bean id="uploadFileHandler" class="com.rhcheng.util.fileuploadinfram.UploadToRepoHandler"></bean>
 	<bean id="localFileWriter" class="com.rhcheng.util.fileuploadinfram.LocalFileWriter"></bean>
 	
@@ -188,6 +188,23 @@
 	  -->
 	 
 	<!-- 注解定义bean -->
+	
+	<!-- /IOC\DI -->
+	
+	
+	
+	<!-- aop -->
+	<!-- 通知\伪切面	与切点组装后才是真正的切面 -->
+	<bean id="rhaspect" class="com.rhcheng.aop.AopAspect"/>
+	<!-- 切点与伪切面的组装 -->
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* com.rhcheng.user.service..*.*(..))"/>
+		<aop:aspect ref="rhaspect">
+			<aop:before method="beforeAdvice" pointcut-ref="pc"/>
+			<aop:after method="afterFinallyAdvice" pointcut-ref="pc"/>
+		</aop:aspect>
+	</aop:config>
+	<!-- /aop -->
 	
 	
 </beans>

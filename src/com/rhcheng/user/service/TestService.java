@@ -10,5 +10,13 @@ public interface TestService {
 	 * @return
 	 */
 	public String find(String para);
+	/**
+	 * 测试aop
+	 * @author RhCheng
+	 * @date 2015-4-27
+	 * @param para
+	 * @return
+	 */
+	public void testAop();
 
 }	
