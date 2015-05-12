@@ -13,6 +13,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Scope;
@@ -168,6 +169,11 @@ public class TestAction {
 		return "success";
 	}
 	
+	
+	@RequestMapping(value="testaop")
+	public void testAop(){
+		testService.testAop();
+	}
 	
 	
 }
