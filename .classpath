@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/thumbnailator-0.4.7-all.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/paoding-analysis.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aspectjrt.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
