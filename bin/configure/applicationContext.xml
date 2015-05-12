@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	 http://www.springframework.org/schema/cache
+     http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+	 http://www.springframework.org/schema/context 
+     http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<!-- 扫描包,controller不扫描 -->
+	<context:component-scan base-package="com.rhcheng">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<!-- 加载jdbc配置文件 -->
+	<bean id="configBean" 
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> 
+			<list>
+				<value>classpath:/properties/jdbc.properties</value>
+			</list>
+		</property>
+    </bean>
+	<!-- 数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+	destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="${driverClassName}"/>
+		<!-- URL -->
+		<property name="url" value="${url}"/>
+		<!-- 用户名 -->
+		<property name="username" value="${username}"/>
+		<!-- 密码 -->
+		<property name="password" value="${password}"/>
+		<!-- 连接池的初始大小 -->
+		<property name="initialSize" value="${initialSize}" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="${maxActive}" />
+		<!-- 最大空闲连接数 -->
+		<property name="maxIdle" value="${maxIdle}" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="${minIdle}" />
+		<!-- 超时等待时间(以毫秒为单位) -->
+		<property name="maxWait" value="${maxWait}" />
+		<!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位.  -->  
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />  
+        <!-- 检查空闲连接的时间间隔 -->  
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" /> 
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="jdbcSupport" class="org.springframework.jdbc.core.support.JdbcDaoSupport" abstract="true">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	
+	<!-- 启动对@aspectJ注解aop的支持，并且强制使用cglib实现aop -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+	<!-- 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="NOT_SUPPORTED"/>
+			<tx:method name="load*" propagation="NOT_SUPPORTED"/>
+			<tx:method name="find*" propagation="NOT_SUPPORTED" />
+			<tx:method name="*" propagation="NOT_SUPPORTED"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- 注解事务控制 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.rhcheng..service..*(..))" id="Pointcut" />
+		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="Pointcut" />
+	</aop:config>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+	<!-- 缓存配置 -->
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml"></property>
+	</bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="cacheManagerFactory"></property>
+	</bean>
+	<cache:annotation-driven cache-manager="cacheManager" />
+
+	<!-- 邮件发送 -->
+ 	<bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.exmail.qq.com"></property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.timeout">25000</prop>
+			</props>
+		</property>
+		<property name="username" value="dg11185_shgw@163.com"></property>
+		<property name="password" value="dg11185shgw"></property>
+	</bean> 
+	
+	
+	<!-- 定时器的配置 会导致main中启动容器执行完相关操作后不会自动关闭容器-->
+	<!-- job定时器 每隔5小时定时更新news-->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- <ref bean="newsUpdateTrigger"/>
+				<ref bean="sequenceUpdateTrigger"/>
+				
+				<ref bean="testTrigger"/> -->
+				
+			</list>
+		</property>
+	</bean>
+	<!-- 定时更新news -->
+	<bean id="triggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="updateNews" />
+		<property name="targetMethod" value="doUpdate" />
+	</bean>
+	<bean id="newsUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="triggerDetail" />
+		<property name="cronExpression" value="0 0 */2 * * ?" />
+		<!-- <property name="cronExpression" value="0 */10 * * * ?" /> -->
+	</bean>
+	<!-- 定时更新sequence -->
+	<bean id="sequenceTriggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="updateNews" />
+		<property name="targetMethod" value="resetSequence" />
+	</bean>
+	<bean id="sequenceUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="sequenceTriggerDetail" />
+		<property name="cronExpression" value="0 0 23 * * ?" />
+	</bean>
+	
+	<!-- <bean id="testTriggerDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="updateNews" />
+		<property name="targetMethod" value="testMysql" />
+	</bean>
+	<bean id="testTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="testTriggerDetail" />
+		<property name="cronExpression" value="0 */2 * * * ?" />
+	</bean> -->
+	
+	<!-- IOC\DI -->
+	<bean id="uploadFileHandler" class="com.rhcheng.util.fileuploadinfram.UploadToRepoHandler"></bean>
+	<bean id="localFileWriter" class="com.rhcheng.util.fileuploadinfram.LocalFileWriter"></bean>
+	
+	
+	<!-- test -->
+	<!-- 基于set方法、构造方法等注入 -->
+	<!-- 
+	<bean id="someclass" class="com.rhcheng.test.SomeClass"/>
+	<bean id="testDI" class="com.rhcheng.test.TestDI" >
+		<property name="a" value="你好ma"/>
+		<property name="isc" ref="someclass"></property>
+	</bean> 
+	-->
+	
+	<!-- 
+	<bean id="someclass" class="com.rhcheng.test.SomeClass"/>
+	<bean id="testDI" class="com.rhcheng.test.TestDI" autowire="byType"/>
+	 -->
+	
+	
+	<!-- 基于注解注入 -->
+	<!-- 
+	<bean id="b" class="java.lang.String">
+		<constructor-arg index="0" value="ha哈哈"/>
+	</bean>
+	<bean id="someclass" class="com.rhcheng.test.SomeClass"/>
+	<bean id="testAnotationDI" class="com.rhcheng.test.TestAnotationDI"/>
+	  -->
+	 
+	<!-- 注解定义bean -->
+	
+	<!-- /IOC\DI -->
+	
+	
+	
+	<!-- aop -->
+	<!-- 通知\伪切面	与切点组装后才是真正的切面 -->
+	<bean id="rhaspect" class="com.rhcheng.aop.AopAspect"/>
+	<!-- 切点与伪切面的组装 -->
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* com.rhcheng.user.service..*.*(..))"/>
+		<aop:aspect ref="rhaspect">
+			<aop:before method="beforeAdvice" pointcut-ref="pc"/>
+			<aop:after method="afterFinallyAdvice" pointcut-ref="pc"/>
+		</aop:aspect>
+	</aop:config>
+	<!-- /aop -->
+	
+	
+</beans>
