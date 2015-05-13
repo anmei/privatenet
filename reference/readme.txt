@@ -8,8 +8,8 @@ MIME
 
 ASCII字符——控制字符与可打印字符组成
 unicode编码——\u60a8\u597d\uff01 
-url编码(java.net.URLEncoder.encode("fds","UTF-8");)——
-
+url编码(java.net.URLEncoder.encode("fds","UTF-8");)——%E4%B8%AD%E6
+url编码的参数在url中以get方式提交会自动解码，
 
 -------english----------
 
