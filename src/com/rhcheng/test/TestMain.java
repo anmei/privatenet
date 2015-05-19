@@ -2,6 +2,7 @@ package com.rhcheng.test;
 
 import java.applet.AppletContext;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,8 @@ import java.util.Map;
 
 import javax.faces.application.Application;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -28,6 +31,14 @@ public class TestMain {
 	
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException{
 		
+		
+		
+		
+//		System.out.println(IOUtils.toString(new URL("http://rebecca.iteye.com/blog/234724")));
+//		System.out.println(FilenameUtils.normalize("d:/sfd/32/fsd"));
+//		System.out.println(FilenameUtils.getExtension("d:/sfd/32/fsd.s"));
+
+		
 //		int a;
 //		try{
 //			a=0;
@@ -39,12 +50,11 @@ public class TestMain {
 //		System.out.println(a);
 		
 		/**初始化容器**/
-		ApplicationContext ac = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
+//		ApplicationContext ac = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
 //		TestDI td = ac.getBean("testDI", TestDI.class);
 //		td.print();
-		
-		TestAnotationDI td = ac.getBean("testAnotationDI", TestAnotationDI.class);
-		td.print();
+//		TestAnotationDI td = ac.getBean("testAnotationDI", TestAnotationDI.class);
+//		td.print();
 		
 		
 //		User user=new User(); //Java Object

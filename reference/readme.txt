@@ -2,39 +2,22 @@
 考虑session集成存储，现在比较好的方案就是nosql存储，修改tomcat、jetty和jboss等session的存储方式是很容易的
 根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区》》》
 -------others----------
-EDraw
-SOA
-MIME
 
-ASCII字符——控制字符与可打印字符组成
-unicode编码——\u60a8\u597d\uff01 
-url编码(java.net.URLEncoder.encode("fds","UTF-8");)——%E4%B8%AD%E6
-url编码的参数在url中以get方式提交会自动解码，
+
 
 -------english----------
+dispose
+boundary
+delimiter
 
 
 
 
 ---------java基础--------------
-国际化消息
-为每种语言提供一套相应的资源文件，并以规范化命名的方式保存在特定的目录中，由系统自动根据客户端语言选择适合的资源文件
-“国际化信息”也称为“本地化信息”，一般需要两个条件才可以确定一个特定类型的本地化信息，它们分别是“语言类型”和“国家/地区的类型”。如中文本地化信息既有中国大陆地区的中文，又有中国台湾、中国香港地区的中文，还有新加坡地区的中文。Java通过java.util.Locale类表示一个本地化对象，它允许通过语言参数和国家/地区参数创建一个确定的本地化对象。 
-国际化资源文件的命名规范规定资源名称采用以下的方式进行命名：
-<资源名>_<语言代码>_<国家/地区代码>.properties
-其中，语言代码和国家/地区代码都是可选的。<资源名>.properties命名的国际化资源文件是默认的资源文件，即某个本地化类型在系统中找不到对应的资源文件，就采用这个默认的资源文件。<资源名>_<语言代码>.properties命名的国际化资源文件是某一语言默认的资源文件，即某个本地化类型在系统中找不到精确匹配的资源文件，将采用相应语言默认的资源文件。 
-JDK的java.util包中提供了几个支持本地化的格式化操作工具类：NumberFormat、DateFormat、MessageFormat。
-ResourceBundle rb = ResourceBundle.getBundle("com/baobaotao/i18n/resource", locale)
-rb.getString("greeting.common")  
-我们发现ApplicationContext实现了MessageSource的接口。也就是说ApplicationContext的实现类本身也是一个MessageSource对象。 
-国际化信息一般在系统输出信息时使用，如Spring MVC的页面标签，控制器Controller等，不同的模块都可能通过这些组件访问国际化信息，因此Spring就将国际化消息作为容器的公共基础设施对所有组件开放。 
+System.arraycopy()
+String result = new String(chars, i1, i2 - i1);
 
-HTTP请求报文
-1xx 消息，一般是告诉客户端，请求已经收到了，正在处理，别急...
-2xx 处理成功，一般表示：请求收悉、我明白你要的、请求已受理、已经处理完成等信息.
-3xx 重定向到其它地方。它让客户端再发起一个请求以完成整个处理。
-4xx 处理发生错误，责任在客户端，如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。
-5xx 处理发生，责任在服务端，如服务端抛出异常，路由出错，HTTP版本不支持等。 
+
 
 
 
@@ -44,12 +27,18 @@ HTTP请求报文
 
 
 ------concurrent-------------
-Java语言规范规定对任何引用变量和基本变量的赋值都是原子的，除了long和double以外。
-DCL(Double Check Lock)就是一个典型
+
 
 
 
 -----JVM--------------
+System.gc()只是建议jvm执行GC，但是到底GC执行与否是由jvm决定的
+当新建一个对象时，会置位该对象的一个内部标识finalizable，当某一点GC检查到该对象不可达时，就把该对象放入finalize queue(F queue)，GC会在对象销毁前执行finalize方法并且清空该对象的finalizable标识。
+ReferenceQueue中存储的是执行GC后等待被finalized的对象，最终有可能会重生
+后来该static对象也被置null,然后GC，可以从结果看到finalize方法只运行了1次。为什么呢，因为第一次finalize运行过后，该对象的finalizable置为false了，所以该对象即使以后被gc运行，也不会执行finalize方法了。
+简而言之，一个简单的对象生命周期为，Unfinalized Finalizable Finalized Reclaimed。
+我记着java编程语言书中说是一切可以finalize的对象的finalize方法的执行顺序是不确定的
+
 
 
 
@@ -75,6 +64,19 @@ DCL(Double Check Lock)就是一个典型
 不过应用级的远程通信协议并不会在传输协议上做什么多大的改进，主要是在流操作方面，让应用层生成流和处理流的这个过程更加的贴合所使用的语言或标准，至于传输协议则通常都是可选的，在java领域中知名的有：RMI、XML-RPC、Binary-RPC、SOAP、CORBA、JMS，来具体的看看这些远程通信的应用级协议：
 目前java领域可用于实现远程通讯的框架或library，知名的有：JBoss-Remoting、Spring-Remoting、Hessian、Burlap、XFire(Axis)、ActiveMQ、Mina、Mule、EJB3等等，来对每种做个简单的介绍和评价，其实呢，要做分布式服务框架，这些东西都是要有非常深刻的了解的，因为分布式服务框架其实是包含了解决分布式领域以及应用层面领域两方面问题的。
 NIO在并发量增长时对比BIO而言会有明显的性能提升，而java性能的提升，与其NIO这块与OS的紧密结合是有不小的关系的
+
+
+------------IO----------------------
+(1)These are good reasons not to work with filenames as Strings.Using java.io.File instead handles many of the above cases nicely. 
+(2)Make sure you're properly buffering streams when reading or writing streams. especially when working with files. Just decorate your FileInputStream with a BufferedInputStream
+If you use our CopyUtils or IOUtils you don't need to additionally buffer the streams you use as the code in there already buffers the copy process.
+
+
+
+
+
+
+
 
 
 
