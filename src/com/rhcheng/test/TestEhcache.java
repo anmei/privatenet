@@ -5,6 +5,10 @@ package com.rhcheng.test;
 //import net.sf.ehcache.CacheManager;
 //import net.sf.ehcache.Element;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -16,7 +20,7 @@ import com.rhcheng.user.service.TestService;
 
 public class TestEhcache {
 	
-	public static void main(String[] args) throws InterruptedException{
+	public static void main(String[] args) throws InterruptedException, UnsupportedEncodingException{
 		Cache cache;
 		CacheManager manager;
 		BeanFactory bf = new ClassPathXmlApplicationContext("/configure/applicationContext.xml");
@@ -50,7 +54,6 @@ public class TestEhcache {
 //		System.out.println(cache.get("a"));
 		
 		System.out.println("ok");
-
 	}
 }
 

@@ -2,18 +2,22 @@
 考虑session集成存储，现在比较好的方案就是nosql存储，修改tomcat、jetty和jboss等session的存储方式是很容易的
 根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区》》》
 -------others----------
-EDraw
-SOA
-
 
 
 
 -------english----------
+dispose
+boundary
+delimiter
 
 
 
 
 ---------java基础--------------
+System.arraycopy()
+Arrays.copyOf()
+String result = new String(chars, i1, i2 - i1);
+
 
 
 
@@ -24,12 +28,18 @@ SOA
 
 
 ------concurrent-------------
-Java语言规范规定对任何引用变量和基本变量的赋值都是原子的，除了long和double以外。
-DCL(Double Check Lock)就是一个典型
+
 
 
 
 -----JVM--------------
+System.gc()只是建议jvm执行GC，但是到底GC执行与否是由jvm决定的
+当新建一个对象时，会置位该对象的一个内部标识finalizable，当某一点GC检查到该对象不可达时，就把该对象放入finalize queue(F queue)，GC会在对象销毁前执行finalize方法并且清空该对象的finalizable标识。
+ReferenceQueue中存储的是执行GC后等待被finalized的对象，最终有可能会重生
+后来该static对象也被置null,然后GC，可以从结果看到finalize方法只运行了1次。为什么呢，因为第一次finalize运行过后，该对象的finalizable置为false了，所以该对象即使以后被gc运行，也不会执行finalize方法了。
+简而言之，一个简单的对象生命周期为，Unfinalized Finalizable Finalized Reclaimed。
+我记着java编程语言书中说是一切可以finalize的对象的finalize方法的执行顺序是不确定的
+
 
 
 
@@ -55,6 +65,22 @@ DCL(Double Check Lock)就是一个典型
 不过应用级的远程通信协议并不会在传输协议上做什么多大的改进，主要是在流操作方面，让应用层生成流和处理流的这个过程更加的贴合所使用的语言或标准，至于传输协议则通常都是可选的，在java领域中知名的有：RMI、XML-RPC、Binary-RPC、SOAP、CORBA、JMS，来具体的看看这些远程通信的应用级协议：
 目前java领域可用于实现远程通讯的框架或library，知名的有：JBoss-Remoting、Spring-Remoting、Hessian、Burlap、XFire(Axis)、ActiveMQ、Mina、Mule、EJB3等等，来对每种做个简单的介绍和评价，其实呢，要做分布式服务框架，这些东西都是要有非常深刻的了解的，因为分布式服务框架其实是包含了解决分布式领域以及应用层面领域两方面问题的。
 NIO在并发量增长时对比BIO而言会有明显的性能提升，而java性能的提升，与其NIO这块与OS的紧密结合是有不小的关系的
+
+
+------------IO----------------------
+(1)These are good reasons not to work with filenames as Strings.Using java.io.File instead handles many of the above cases nicely. 
+(2)Make sure you're properly buffering streams when reading or writing streams. especially when working with files. Just decorate your FileInputStream with a BufferedInputStream
+If you use our CopyUtils or IOUtils you don't need to additionally buffer the streams you use as the code in there already buffers the copy process.
+
+The default buffer size of 4K has been shown to be efficient in tests.
+An OutputStreamWriter is a bridge from character streams to byte streams. 
+
+
+
+
+
+
+
 
 
 
