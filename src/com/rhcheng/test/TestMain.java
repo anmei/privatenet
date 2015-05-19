@@ -1,7 +1,19 @@
 package com.rhcheng.test;
 
 import java.applet.AppletContext;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,20 +36,71 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
 
-import com.rhcheng.user.entity.User;
+/*
+ * java.io
+ * 
+ * InputStream\OutputStream（操作字节数组）\Reader\Writer（操作字符数组） —— 好比是连接器，使得用户能够方便地与File等交互.
+ * 连接器模型：
+ * |----------------------------|
+ * |			 |				|
+ * |		File | Writer		|
+ * |			 |				|
+ * |OutputStream | Writer		|
+ * |			 |				|
+ * |	Buffered | Writer		|
+ * |			 |				|
+ * |		File | OutputSteram	|
+ * |			 |				|
+ * |	Buffered | OutputStream	|
+ * |			 |				|
+ * | InputStream | Reader		|
+ * |			 |				|
+ * |	 ……		 |	……			|
+ * |----------------------------|
+ * 
+ * 数组扩容、装饰器模式
+ * 不论是字节还是字符类型，底层最终操作的都是字节
+ * 
+ * 字节：
+ * FileInputStream\FileOutputStream\ObjectOutputStream\ObjectInputStream\ByteArrayInputStream\ByteArrayOutputStream
+ * 字符：
+ * FileReader\FileWriter\CharArrayReader\CharArrayWriter\InputStreamReader\OutputStreamWriter\
+ * 缓冲：
+ * BufferedInputStream\BufferedOutputStream\BufferedReader\BufferedWriter\
+ * 
+ * commons.io.IOUtils中的思想：先转换为CharArrayWriter\ByteArrayOutputStream\StringWriter，然后再进一步操作。其中基本涵盖了所有可能情况
+ * 
+ */
 
 
 public class TestMain {
 	
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException{
 		
+		System.out.println(IOUtils.toString(new FileInputStream("H:\\2T_E_S_T\\c.jpg")));
 		
+//		StringWriter s = new StringWriter();
+//		PrintWriter p = new PrintWriter(s);
+//		p.print("fdsa发大水发松岛枫");
+//		System.out.println(s.toString());
 		
+//		BufferedInputStream b = new BufferedInputStream(new FileInputStream("H:\\2T_E_S_T\\c.jpg"));
+//		File f = new File("H:\\2T_E_S_T\\c_bak.jpg");
+//		FileOutputStream o = new FileOutputStream(f);
+//		int c;
+//		while((c=b.read())!=-1){
+//			o.write(c);
+//		}
+		
+//		BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+//		String l = r.readLine();
+//		OutputStreamWriter b = new OutputStreamWriter(System.out,"GBK");
+//		b.write(l);
+//		b.flush();
 		
 //		System.out.println(IOUtils.toString(new URL("http://rebecca.iteye.com/blog/234724")));
 //		System.out.println(FilenameUtils.normalize("d:/sfd/32/fsd"));
 //		System.out.println(FilenameUtils.getExtension("d:/sfd/32/fsd.s"));
-
 		
 //		int a;
 //		try{

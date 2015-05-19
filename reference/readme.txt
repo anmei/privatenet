@@ -15,6 +15,7 @@ delimiter
 
 ---------java基础--------------
 System.arraycopy()
+Arrays.copyOf()
 String result = new String(chars, i1, i2 - i1);
 
 
@@ -70,6 +71,9 @@ NIO在并发量增长时对比BIO而言会有明显的性能提升，而java性�
 (1)These are good reasons not to work with filenames as Strings.Using java.io.File instead handles many of the above cases nicely. 
 (2)Make sure you're properly buffering streams when reading or writing streams. especially when working with files. Just decorate your FileInputStream with a BufferedInputStream
 If you use our CopyUtils or IOUtils you don't need to additionally buffer the streams you use as the code in there already buffers the copy process.
+
+The default buffer size of 4K has been shown to be efficient in tests.
+An OutputStreamWriter is a bridge from character streams to byte streams. 
 
 
 
