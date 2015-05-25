@@ -2,6 +2,23 @@
 考虑session集成存储，现在比较好的方案就是nosql存储，修改tomcat、jetty和jboss等session的存储方式是很容易的
 根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区》》》
 -------others----------
+Server元素下可以有多个Service
+每个Service元素只能有一个Engine元素
+一个Engine元素可以包含多个<Host>元素
+一个<Host>可以包含多个<Context>元素
+数据库连接池、线程池、虚拟目录
+JNDI( Java Naming and Directory Interface )
+Tomcat不同版本间的配置有差异
+Server.xml中可以配置部署应用需要的所有信息，从Tomcat5开始，应用配置可以从Server.xml独立出来，这也是 Tomcat现在所推荐的配置方式
+注意：在分拆配置后， Context的path属性将不再起作用，这是Tomcat6和之前的版本不同的地方
+
+
+------nginx----------------
+进入nginx根目录
+start nginx
+nginx -s stop
+
+
 
 
 
@@ -9,6 +26,9 @@
 dispose
 boundary
 delimiter
+specific primitive
+arbitrary
+intimately
 
 
 
@@ -47,7 +67,7 @@ ReferenceQueue中存储的是执行GC后等待被finalized的对象，最终有�
 ------密码学-------------
 
 
--------网络通信-------------
+---------------网络通信-------------
 应用层协议(数据格式、数据格式与流之间转换、接收流)如：RMI、XML-RPC、Binary-RPC、SOAP
 传输协议
 
@@ -67,7 +87,7 @@ ReferenceQueue中存储的是执行GC后等待被finalized的对象，最终有�
 NIO在并发量增长时对比BIO而言会有明显的性能提升，而java性能的提升，与其NIO这块与OS的紧密结合是有不小的关系的
 
 
-------------IO----------------------
+------------IO(阻塞)----------------------
 (1)These are good reasons not to work with filenames as Strings.Using java.io.File instead handles many of the above cases nicely. 
 (2)Make sure you're properly buffering streams when reading or writing streams. especially when working with files. Just decorate your FileInputStream with a BufferedInputStream
 If you use our CopyUtils or IOUtils you don't need to additionally buffer the streams you use as the code in there already buffers the copy process.
@@ -77,7 +97,40 @@ An OutputStreamWriter is a bridge from character streams to byte streams.
 
 
 
+------------NIO(非阻塞)----------------
+Buffer
+Invariants: mark <= position <= limit <= capacity
+get\put方法
+使用buffers中的复杂的方面,譬如buffer的allocation,wrapping,slicing
+read-only的buffer,可以保护数据不被修改;direct的buffer,可以直接和底层的OS进行映射（A direct byte buffer whose content is a memory-mapped region of a file.）；
+Memory-mapped file I/O 是一种比I/O stream和 channel-based-I/O还要快得多的处理读写的方式;Memory-mapped file I/O的实现,是通过把file中的数据处理地看起来好像memory array中的内容的方式;实际上,Memory-mapped file并没有把整个文件一次性的读进memory，它只把实际读写的部分map到内存中
 
+
+SelectableChannel
+Selector
+Provider
+All three sets are empty in a newly-created selector.
+
+|-----------|							|---------------|
+|(Server	|							| (client		|				
+| Selector)	|							|	Selector	|
+|			|							|				|
+| Channel1	|							|	Channel1	|
+| Channel2	|<------communicate------->	|	Channel2	|
+| Channel3	|							|	Channel3	|
+| Channel4	|							|	Channel4	|
+| Channel5	|							|	Channel5	|
+| Channel6	|							|	Channel6	|
+|	……		|							|		……		|
+|-----------|							|---------------|
+
+
+------------Netty----------------------
+
+java NIO采用了双向通道（channel）进行数据传输，而不是单向的流（stream），在通道上可以注册我们感兴趣的事件
+等待读写（阻塞\非阻塞）——读写期间（同步\非同步）
+
+(BootStrap(Channel(ChannelPipeline(ChannelHandler))))
 
 
 
