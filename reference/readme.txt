@@ -2,15 +2,7 @@
 考虑session集成存储，现在比较好的方案就是nosql存储，修改tomcat、jetty和jboss等session的存储方式是很容易的
 根结构下的任何目录都可以作为挂载点，而您也可以将同一文件系统同时挂载于不同的挂载点上,但是不能在同一个挂载点上挂载多个不同的分区》》》
 -------others----------
-Server元素下可以有多个Service
-每个Service元素只能有一个Engine元素
-一个Engine元素可以包含多个<Host>元素
-一个<Host>可以包含多个<Context>元素
-数据库连接池、线程池、虚拟目录
-JNDI( Java Naming and Directory Interface )
-Tomcat不同版本间的配置有差异
-Server.xml中可以配置部署应用需要的所有信息，从Tomcat5开始，应用配置可以从Server.xml独立出来，这也是 Tomcat现在所推荐的配置方式
-注意：在分拆配置后， Context的path属性将不再起作用，这是Tomcat6和之前的版本不同的地方
+
 
 
 ------nginx----------------
@@ -95,7 +87,40 @@ If you use our CopyUtils or IOUtils you don't need to additionally buffer the st
 The default buffer size of 4K has been shown to be efficient in tests.
 An OutputStreamWriter is a bridge from character streams to byte streams. 
 
-
+/*
+ * java.io
+ * 
+ * InputStream\OutputStream（操作字节数组）\Reader\Writer（操作字符数组） —— 好比是连接器，使得用户能够方便地与File等交互.
+ * 连接器模型：
+ * |----------------------------|
+ * |			 |				|
+ * |		File | Writer		|
+ * |			 |				|
+ * |OutputStream | Writer		|
+ * |			 |				|
+ * |	Buffered | Writer		|
+ * |			 |				|
+ * |		File | OutputSteram	|
+ * |			 |				|
+ * |	Buffered | OutputStream	|
+ * |			 |				|
+ * | InputStream | Reader		|
+ * |			 |				|
+ * |	 ……		 |	……			|
+ * |----------------------------|
+ * 
+ * 数组扩容、装饰器模式
+ * 不论是字节还是字符类型，底层最终操作的都是字节
+ * 
+ * 字节：
+ * FileInputStream\FileOutputStream\ObjectOutputStream\ObjectInputStream\ByteArrayInputStream\ByteArrayOutputStream
+ * 字符：
+ * FileReader\FileWriter\CharArrayReader\CharArrayWriter\InputStreamReader\OutputStreamWriter\
+ * 缓冲：
+ * BufferedInputStream\BufferedOutputStream\BufferedReader\BufferedWriter\
+ * 
+ * commons.io.IOUtils中的思想：先转换为CharArrayWriter\ByteArrayOutputStream\StringWriter，然后再进一步操作。其中基本涵盖了所有可能情况
+ * 
 
 ------------NIO(非阻塞)----------------
 Buffer
