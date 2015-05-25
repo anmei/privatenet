@@ -67,7 +67,7 @@ ReferenceQueue中存储的是执行GC后等待被finalized的对象，最终有�
 ------密码学-------------
 
 
--------网络通信-------------
+---------------网络通信-------------
 应用层协议(数据格式、数据格式与流之间转换、接收流)如：RMI、XML-RPC、Binary-RPC、SOAP
 传输协议
 
@@ -110,9 +110,31 @@ SelectableChannel
 Selector
 Provider
 All three sets are empty in a newly-created selector.
------------
+
+|-----------|							|---------------|
+|(Server	|							| (client		|				
+| Selector)	|							|	Selector	|
+|			|							|				|
+| Channel1	|							|	Channel1	|
+| Channel2	|<------communicate------->	|	Channel2	|
+| Channel3	|							|	Channel3	|
+| Channel4	|							|	Channel4	|
+| Channel5	|							|	Channel5	|
+| Channel6	|							|	Channel6	|
+|	……		|							|		……		|
+|-----------|							|---------------|
+
+
+------------Netty----------------------
 
 java NIO采用了双向通道（channel）进行数据传输，而不是单向的流（stream），在通道上可以注册我们感兴趣的事件
 等待读写（阻塞\非阻塞）——读写期间（同步\非同步）
+
+(BootStrap(Channel(ChannelPipeline(ChannelHandler))))
+
+
+
+
+
 
 
