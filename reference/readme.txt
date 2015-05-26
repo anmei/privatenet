@@ -123,17 +123,16 @@ An OutputStreamWriter is a bridge from character streams to byte streams.
  * 
 
 ------------NIO(非阻塞)----------------
-Buffer
+>>Buffer
 Invariants: mark <= position <= limit <= capacity
 get\put方法
 使用buffers中的复杂的方面,譬如buffer的allocation,wrapping,slicing
 read-only的buffer,可以保护数据不被修改;direct的buffer,可以直接和底层的OS进行映射（A direct byte buffer whose content is a memory-mapped region of a file.）；
 Memory-mapped file I/O 是一种比I/O stream和 channel-based-I/O还要快得多的处理读写的方式;Memory-mapped file I/O的实现,是通过把file中的数据处理地看起来好像memory array中的内容的方式;实际上,Memory-mapped file并没有把整个文件一次性的读进memory，它只把实际读写的部分map到内存中
 
-
-SelectableChannel
-Selector
-Provider
+>>SelectableChannel
+>>Selector
+>>Provider
 All three sets are empty in a newly-created selector.
 
 |-----------|							|---------------|
@@ -155,10 +154,36 @@ All three sets are empty in a newly-created selector.
 java NIO采用了双向通道（channel）进行数据传输，而不是单向的流（stream），在通道上可以注册我们感兴趣的事件
 等待读写（阻塞\非阻塞）——读写期间（同步\非同步）
 
+A {@link ChannelEvent} is handled by a series of {@link ChannelHandler}s in a {@link ChannelPipeline}.
+
+* When your server receives a message from a client, the event associated with
+* the received message is an upstream event.  When your server sends a message
+* or reply to the client, the event associated with the write request is a
+* downstream event.  The same rule applies for the client side. 
+ 
+* Upstream events are
+* often the result of inbound operations such as {@link InputStream#read(byte[])},
+* and downstream events are the request for outbound operations such as
+* {@link OutputStream#write(byte[])}, {@link Socket#connect(SocketAddress)},
+* and {@link Socket#close()}.
+
+It is because a {@link Channel} is always open when it is created by a {@link ChannelFactory}
+
+
+
+
+------
 (BootStrap(Channel(ChannelPipeline(ChannelHandler))))
 
+>>ChannelBuffer:
 
+>>Channel：ChannelEvent\ChannelPipeline\ChannelHandler\ChannelHandlerContext\ChannelSink\ChannelFactory
 
+All I/O operations in Netty are asynchronous.
+you will be returned with a {@link ChannelFuture} instance which will notify you when the requested I/O operation has succeeded, failed, or canceled.
+
+ 
+>>handler:Codec\
 
 
 
