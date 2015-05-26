@@ -48,7 +48,9 @@ public class TestMain {
 	
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException{
 		
-		System.out.println(IOUtils.toString(new FileInputStream("H:\\2T_E_S_T\\c.jpg")));
+		System.out.println(System.getProperty("sun.arch.data.model"));
+		
+//		System.out.println(IOUtils.toString(new FileInputStream("H:\\2T_E_S_T\\c.jpg")));
 		
 //		StringWriter s = new StringWriter();
 //		PrintWriter p = new PrintWriter(s);
