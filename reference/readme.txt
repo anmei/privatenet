@@ -149,10 +149,11 @@ All three sets are empty in a newly-created selector.
 |-----------|							|---------------|
 
 
-------------Netty----------------------
 
-java NIO采用了双向通道（channel）进行数据传输，而不是单向的流（stream），在通道上可以注册我们感兴趣的事件
-等待读写（阻塞\非阻塞）——读写期间（同步\非同步）
+-------------NIO2.0-----------------
+
+
+------------Netty----------------------
 
 A {@link ChannelEvent} is handled by a series of {@link ChannelHandler}s in a {@link ChannelPipeline}.
 
@@ -170,19 +171,58 @@ A {@link ChannelEvent} is handled by a series of {@link ChannelHandler}s in a {@
 It is because a {@link Channel} is always open when it is created by a {@link ChannelFactory}
 
 
-
-
-------
+----------
 (BootStrap(Channel(ChannelPipeline(ChannelHandler))))
 
->>ChannelBuffer:
+然而，一个适合普通目的的协议或其实现并不具备其规模上的扩展性。
+Netty 是一个吸收了多种协议的实现经验，这些协议包括FTP,SMPT,HTTP，各种二进制，文本协议，并经过相当精心设计的项目
+一个ChannelFuture 对象代表了一个尚未发生的I/O操作。这意味着，任何已请求的操作都可能是没有被立即执行的，因为在Netty内部所有的操作都是异步的
+对于例如TCP/IP这种基于流的传输协议实现，接收到的数据会被存储在socket的接受缓冲区内。不幸的是，这种基于流的传输缓冲区并不是一个包队列，而是一个字节队列。
+在你的ChannelHandler实现中使用POJO的优势是很明显的；从你的ChannelHandler实现中分离从ChannelBuffer获取数据的代码，将有助于提高你的ChannelHandler实现的可维护性和可重用性。在时间协议服务的客户/服务端代码中，直接使用ChannelBuffer读取一个32位的整数并不是一个主要的问题。然而，你会发现，当你试图实现一个真实的协议的时候，这种代码上的分离是很有必要的。
+因为这个encoder是无状态的，所以其使用的ChannelPipelineCoverage注解值是“all”。实际上，大多数encoder实现都是无状态的。
 
->>Channel：ChannelEvent\ChannelPipeline\ChannelHandler\ChannelHandlerContext\ChannelSink\ChannelFactory
+一个典型的网络应用的关闭过程由以下三步组成：
+    关闭负责接收所有请求的server socket。
+    关闭所有客户端socket或服务端为响应某个请求而创建的socket。
+    释放ChannelFactory使用的所有资源。
 
+ChannelGroup是Java 集合 API的一个特有扩展，ChannelGroup内部持有所有打开状态的Channel通道。
+不管这个Channel对象属于服务端，客户端，还是为响应某一个请求创建，任何一种类型的Channel对象都会被加入ChannelGroup。因此，你尽可在关闭服务时关闭所有的Channel对象
+传统的Java I/O API在应对不同的传输协议时需要使用不同的类型和方法，这种模式上的不匹配使得在更换一个网络应用的传输协议时变得繁杂和困难。由于（Java I/O API）缺乏协议间的移植性，当你试图在不修改网络传输层的前提下增加多种协议的支持，这时便会产生问题
+让这种情况变得更糟的是，Java新的I/O（NIO）API与原有的阻塞式的I/O（OIO）API并不兼容，NIO.2(AIO)也是如此。由于所有的API无论是在其设计上还是性能上的特性都与彼此不同
+
+Netty有一个叫做Channel的统一的异步I/O编程接口，这个编程接口抽象了所有点对点的通信操作。也就是说，如果你的应用是基于Netty的某一种传输实现，那么同样的，你的应用也可以运行在Netty的另一种传输实现上。Netty提供了几种拥有相同编程接口的基本传输实现：
+    NIO-based TCP/IP transport (See org.jboss.netty.channel.socket.nio),
+    OIO-based TCP/IP transport (See org.jboss.netty.channel.socket.oio),
+    OIO-based UDP/IP transport, and
+    Local transport (See org.jboss.netty.channel.local).
+切换不同的传输实现通常只需对代码进行几行的修改调整，例如选择一个不同的ChannelFactory实现。
+
+一个定义良好并具有扩展能力的事件模型是事件驱动开发的必要条件。Netty具有定义良好的I/O事件模型。
+在一个ChannelPipeline内部一个ChannelEvent被一组ChannelHandler处理。这个管道是拦截过滤器 模式的一种高级形式的实现，因此对于一个事件如何被处理以及管道内部处理器间的交互过程，你都将拥有绝对的控制力。
+从业务逻辑代码中分离协议处理部分总是一个很不错的想法。
+因此，一个好的网络应用框架应该提供一种可扩展，可重用，可单元测试并且是多层的codec框架，为用户提供易维护的codec代码。
+HTTP无疑是互联网上最受欢迎的协议，并且已经有了一些例如Servlet容器这样的HTTP实现，netty实现http高度可扩展
+TimeClientHandler共享的问题
+接收到不一致的字节流的问题
+
+
+>>ChannelBuffer:ChannelBuffers\
+Netty使用新的buffer类型ChannelBuffer，ChannelBuffer被设计为一个可从底层解决ByteBuffer问题，并可满足日常网络应用开发需要的缓冲类型。这些很酷的特性包括：
+    如果需要，允许使用自定义的缓冲类型。
+    复合缓冲类型中内置的透明的零拷贝实现。
+    开箱即用的动态缓冲类型，具有像StringBuffer一样的动态缓冲能力。
+    不再需要调用的flip()方法。
+    正常情况下具有比ByteBuffer更快的响应速度。
+
+
+
+>>Channel：Channels\ChannelEvent\ChannelPipeline\ChannelHandler\ChannelHandlerContext\ChannelSink\ChannelFactory\ChannelFuture
 All I/O operations in Netty are asynchronous.
 you will be returned with a {@link ChannelFuture} instance which will notify you when the requested I/O operation has succeeded, failed, or canceled.
 
- 
+
+
 >>handler:Codec\
 
 
