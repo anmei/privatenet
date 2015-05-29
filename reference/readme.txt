@@ -44,7 +44,7 @@ String result = new String(chars, i1, i2 - i1);
 
 
 
------JVM--------------
+--------JVM-----------------
 System.gc()只是建议jvm执行GC，但是到底GC执行与否是由jvm决定的
 当新建一个对象时，会置位该对象的一个内部标识finalizable，当某一点GC检查到该对象不可达时，就把该对象放入finalize queue(F queue)，GC会在对象销毁前执行finalize方法并且清空该对象的finalizable标识。
 ReferenceQueue中存储的是执行GC后等待被finalized的对象，最终有可能会重生
@@ -170,6 +170,28 @@ A {@link ChannelEvent} is handled by a series of {@link ChannelHandler}s in a {@
 
 It is because a {@link Channel} is always open when it is created by a {@link ChannelFactory}
 
+a connectionless transport such as UDP/IP which does not accept an incoming connection but receives messages by itself without creating a child channel
+
+* A parent channel is a channel which is supposed to accept incoming
+* connections.  It is created by this bootstrap's {@link ChannelFactory} via
+* {@link #bind()} and {@link #bind(SocketAddress)}.
+* <p>
+* Once successfully bound, the parent channel starts to accept incoming
+* connections, and the accepted connections become the children of the
+* parent channel.
+
+{@link ServerBootstrap} is just a helper class.  It neither allocates nor manages any resources.  What manages the resources is the
+{@link ChannelFactory} implementation you specified in the constructor of {@link ServerBootstrap}.
+
+* A {@link ChannelFuture} is either <em>uncompleted</em> or <em>completed</em>.
+* When an I/O operation begins, a new future object is created.  The new future
+* is uncompleted initially - it is neither succeeded, failed, nor cancelled
+* because the I/O operation is not finished yet.  If the I/O operation is
+* finished either successfully, with failure, or by cancellation, the future is
+* marked as completed with more specific information, such as the cause of the
+* failure.  Please note that even failure and cancellation belong to the
+* completed state.
+
 
 ----------
 (BootStrap(Channel(ChannelPipeline(ChannelHandler))))
@@ -206,6 +228,9 @@ HTTP无疑是互联网上最受欢迎的协议，并且已经有了一些例如S
 TimeClientHandler共享的问题
 接收到不一致的字节流的问题
 
+--------------------------
+>>ServerBootstrap\ClientBootstrap\ConnectionlessBootstrap
+
 
 >>ChannelBuffer:ChannelBuffers\
 Netty使用新的buffer类型ChannelBuffer，ChannelBuffer被设计为一个可从底层解决ByteBuffer问题，并可满足日常网络应用开发需要的缓冲类型。这些很酷的特性包括：
@@ -217,7 +242,7 @@ Netty使用新的buffer类型ChannelBuffer，ChannelBuffer被设计为一个可�
 
 
 
->>Channel：Channels\ChannelEvent\ChannelPipeline\ChannelHandler\ChannelHandlerContext\ChannelSink\ChannelFactory\ChannelFuture
+>>Channel：Channels\ChannelEvent\ChannelPipeline\ChannelHandler\ChannelHandlerContext\ChannelSink\ChannelFactory\ChannelFuture\ChannelConfig
 All I/O operations in Netty are asynchronous.
 you will be returned with a {@link ChannelFuture} instance which will notify you when the requested I/O operation has succeeded, failed, or canceled.
 
