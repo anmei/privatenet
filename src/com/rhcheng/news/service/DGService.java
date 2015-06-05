@@ -51,7 +51,6 @@ public class DGService implements IDgService{
 			url = args.get(i).getUrl();
 			temurl = url.replace("?", "c");
 			temurl = temurl.replace("&", "r");
-			
 			// get detail
 			if(dgDao.getNewsDetail(temurl,detailTableName)<=0){
 				try {
