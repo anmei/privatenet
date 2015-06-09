@@ -34,12 +34,13 @@ public class UtilClient {
 		long begainTime = System.currentTimeMillis();
 		HttpClient client = new HttpClient();
 		// 设置超时时间 假如超时 则返回 ""
-		 client.getHttpConnectionManager().getParams().setConnectionTimeout(15*1000);
+		client.getHttpConnectionManager().getParams().setConnectionTimeout(15*1000);
 		// 表示用Post方式提交
 		PostMethod method = new PostMethod(urlStr);
-		// 编码
+		// 设置请求头信息
 		method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, charSet);
 		method.getParams().setParameter(HttpMethodParams.USER_AGENT, "Mozilla");
+		method.setRequestHeader("Cookie","JSESSIONID=9C67C7783FF72158AA820D9336B6BE22");
 		
 		// 设置请求参数
 		if (null != parmap && parmap.size() > 0) {

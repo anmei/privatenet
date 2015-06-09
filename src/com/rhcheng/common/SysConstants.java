@@ -26,7 +26,7 @@ public class SysConstants {
 	//随机字母
 	public static final String LETTERS = "abcdefghijkmnopqrstuvwxyABCDEFGHIJKLMNPQRSTVUWXY23456789";
 	//加密后缀
-	public static final String SIGNKEY = "@i#p$o%*&s!~t";
+	public static final String SIGNKEY = "f5324324";
 	//加密用字符串
 	public static final String SALT = "14fadNw5KIVh2SBP";
 	//oracle 数据库

@@ -129,8 +129,14 @@
 		  <artifactId>ehcache-core</artifactId>
 		  <version>2.6.9</version>
 		</dependency>
-
-
+	
+		<!-- jedis -->
+		<dependency>
+		  <groupId>redis.clients</groupId>
+		  <artifactId>jedis</artifactId>
+		  <version>2.7.2</version>
+		</dependency>
+		
 		<!-- 数据库连接 -->
 		<dependency>
 		  <groupId>mysql</groupId>
