@@ -21,15 +21,17 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<!-- 加载jdbc配置文件 -->
-	<bean id="configBean" 
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+	<!-- 加载相关配置文件 -->
+	<bean id="configBean" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
 		<property name="locations"> 
 			<list>
-				<value>classpath:/properties/jdbc.properties</value>
+				<value>classpath:/properties/*.properties</value>
 			</list>
 		</property>
     </bean>
+   
+    
+    
 	<!-- 数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
 	destroy-method="close">
@@ -206,5 +208,8 @@
 	</aop:config>
 	<!-- /aop -->
 	
+	
+	<import resource="spring-data-redis.xml"/>
+	<import resource="spring-jms.xml"/>
 	
 </beans>

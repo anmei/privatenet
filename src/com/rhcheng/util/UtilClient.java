@@ -33,15 +33,15 @@ public class UtilClient {
 	public static String sendPostRequest(String urlStr,Map<String, String> parmap, String charSet) {
 		long begainTime = System.currentTimeMillis();
 		HttpClient client = new HttpClient();
-		// 设置超时时间 假如超时 则返回 ""
-		client.getHttpConnectionManager().getParams().setConnectionTimeout(15*1000);
 		// 表示用Post方式提交
 		PostMethod method = new PostMethod(urlStr);
+		// 设置超时时间 假如超时 则返回 ""
+		client.getHttpConnectionManager().getParams().setConnectionTimeout(15*1000);
 		// 设置请求头信息
 		method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, charSet);
 		method.getParams().setParameter(HttpMethodParams.USER_AGENT, "Mozilla");
-		method.setRequestHeader("Cookie","JSESSIONID=9C67C7783FF72158AA820D9336B6BE22");
-		
+		// 模拟登陆
+		method.setRequestHeader("Cookie","JSESSIONID=D205E544E58143AE764B1200529F8F37");
 		// 设置请求参数
 		if (null != parmap && parmap.size() > 0) {
 			Iterator it = parmap.entrySet().iterator();
@@ -54,6 +54,7 @@ public class UtilClient {
 			int status = client.executeMethod(method);
 			if (status == 200) {
 				String rs = new String(method.getResponseBody(), charSet);
+				System.out.println("Set-Cookie------------->"+method.getResponseHeader("Set-Cookie"));
 				log.info("----->sendPostRequest....URL:"+urlStr+"----result:"+rs);
 				return rs;
 			}
@@ -83,10 +84,10 @@ public class UtilClient {
 	public static String sendGetRequest(String urlStr, String charSet) {
 		long begainTime = System.currentTimeMillis();
 		HttpClient client = new HttpClient();
-		// 设置超时时间 假如超时 则返回 ""
-		 client.getHttpConnectionManager().getParams().setConnectionTimeout(15*1000);
 		// 表示用Post方式提交
 		GetMethod method = new GetMethod(urlStr);
+		// 设置超时时间 假如超时 则返回 ""
+		client.getHttpConnectionManager().getParams().setConnectionTimeout(15*1000);
 		// 编码
 		method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, charSet);
 	
