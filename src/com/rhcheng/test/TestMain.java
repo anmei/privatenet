@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.Validate;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
@@ -48,7 +49,11 @@ public class TestMain {
 	
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException{
 		
+<<<<<<< HEAD
 		System.out.println(System.getProperty("sun.arch.data.model"));
+=======
+//		Validate.notNull("你好","fsddsafasdf");
+>>>>>>> remote_privatenet/master
 		
 //		System.out.println(IOUtils.toString(new FileInputStream("H:\\2T_E_S_T\\c.jpg")));
 		

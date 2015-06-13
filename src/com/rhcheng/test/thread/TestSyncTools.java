@@ -1,19 +1,39 @@
 package com.rhcheng.test.thread;
 
-import com.rhcheng.test.thread.serv.ServClassOne;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Semaphore;
 
-public class TestSynTools {
+import com.rhcheng.test.thread.serv.ServClassOne;
+/**
+ * 测试众多同步、互斥工具方法\类
+ * 
+ * volatile\final\ThreadLoal
+ * synchronize\ReentrantLock|Condition
+ * 
+ * {@code CountDownLatch}
+ * {@code CyclicBarrier}
+ * {@code Semaphore}
+ * 
+ * @author RhCheng
+ * @date   2015年5月29日
+ */
+public class TestSyncTools {
 	static ServClassOne sc = new ServClassOne();
 	
+	
 	public static void main(String[] args){
-		int i=0;
-		while(i++ <= 4){
-			new Thread1(sc,i).start();
-			
-		}
+		// 使用内置锁
+//		int i=0;
+//		while(i++ <= 4){
+//			new Thread1(sc,i).start();
+//			
+//		}
+		
 		
 		
 	}
+	
 	
 	
 	

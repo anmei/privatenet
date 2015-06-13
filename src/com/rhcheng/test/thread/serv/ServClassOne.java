@@ -7,6 +7,10 @@ public class ServClassOne {
 	public int getA() {
 		return a;
 	}
+	
+	/*
+	 * 使用内置锁，默认情况：调用方法所在的对象即为锁
+	 */
 	public synchronized void setA(int a) {
 		try {
 			Thread.sleep(100000);

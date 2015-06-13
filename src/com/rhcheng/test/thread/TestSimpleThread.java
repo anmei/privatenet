@@ -5,7 +5,7 @@ package com.rhcheng.test.thread;
  * @author RhCheng
  * @date   2015年5月27日
  */
-public class TestThread {
+public class TestSimpleThread {
 	
 	public static void main(String[] args) {
 		
