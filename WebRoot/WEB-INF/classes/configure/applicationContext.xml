@@ -86,11 +86,12 @@
 			<tx:method name="*" propagation="NOT_SUPPORTED"/>
 		</tx:attributes>
 	</tx:advice>
-	<!-- 注解事务控制 -->
+	<!-- 通过xml配置aop实现事务，推荐使用 -->
 	<aop:config>
 		<aop:pointcut expression="execution(* com.rhcheng..service..*(..))" id="Pointcut" />
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="Pointcut" />
 	</aop:config>
+	<!-- 支持注解事务控制，不推荐使用 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 
@@ -158,6 +159,8 @@
 		<property name="jobDetail" ref="testTriggerDetail" />
 		<property name="cronExpression" value="0 */2 * * * ?" />
 	</bean> -->
+	
+	
 	
 	<!-- IOC\DI -->
 	<bean id="uploadFileHandler" class="com.rhcheng.util.fileuploadinfram.UploadToRepoHandler"></bean>

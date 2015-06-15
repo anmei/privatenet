@@ -80,17 +80,25 @@
 		  <artifactId>spring-webmvc</artifactId>
 		  <version>${org.springframework-version}</version>
 		</dependency>
+		
 		<!-- spring test -->
 		<dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-test</artifactId>
 		  <version>4.0.6.RELEASE</version>
 		</dependency>
+		<!-- 单元测试模拟利器 -->
 		<dependency>
+		  <groupId>org.mockito</groupId>
+		  <artifactId>mockito-all</artifactId>
+		  <version>1.9.5</version>
+		</dependency>
+		
+		<!-- <dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>org.springframework.test</artifactId>
 		  <version>3.2.5.RELEASE</version>
-		</dependency>
+		</dependency> 
 		<dependency>
 		  <groupId>org.jmock</groupId>
 		  <artifactId>jmock-junit4</artifactId>
@@ -125,7 +133,19 @@
 		  <groupId>org.objenesis</groupId>
 		  <artifactId>objenesis</artifactId>
 		  <version>1.0</version>
+		</dependency> -->
+		
+		<!-- unitils 测试框架 -->
+		<!-- <dependency>
+		  <groupId>org.unitils</groupId>
+		  <artifactId>unitils-dbunit</artifactId>
+		  <version>3.4.2</version>
 		</dependency>
+		<dependency>
+		  <groupId>org.unitils</groupId>
+		  <artifactId>unitils-core</artifactId>
+		  <version>3.4.2</version> 
+		</dependency> -->
 		
 		
 		<!-- ehcache缓存 -->

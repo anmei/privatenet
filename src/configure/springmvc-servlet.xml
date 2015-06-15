@@ -68,6 +68,32 @@
 	    </property>
 	</bean>
 	
+	<!-- 重复提交拦截处理类 -->
+	<bean id="tokenInterceptor" class="com.rhcheng.interceptor.TokenInterceptor"  />
+	<!-- 其他拦截处理类 -->
+	<!-- <bean id="customizeImgUploadInterceptor" class="com.dg11185.ipost.interceptor.UploadInterceptor">
+		<property name="maxMB" value="5"/>
+	</bean> -->
+	
+	<!-- 拦截器 -->
+    <mvc:interceptors>
+		<!-- 可以写多个interceptor -->
+		<mvc:interceptor>
+			<mvc:mapping path="/customize/**"/>
+			<ref bean="customizeImgUploadInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<!-- 可以写多个<mvc:mapping> -->
+			<mvc:mapping path="/user/**" />
+			<mvc:mapping path="/customize/**" />
+			<mvc:mapping path="/cart/**" />
+			<mvc:mapping path="/album/**" />
+			<mvc:mapping path="/dirFav/**" />
+			<mvc:mapping path="/message/isLike.action"/>
+			<mvc:mapping path="/mall/saveComment.action"/>
+			<ref bean="userInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors> 
 	
 	
 	<!-- 文件上传 -->
@@ -80,25 +106,6 @@
 		<!-- 前提这个文件夹要存在你的项目中 -->
 		<!-- <property name="uploadTempDir" value="/temp"></property> -->
 	</bean>
-	
-	<!-- 拦截器 -->
-    <mvc:interceptors>
-		<!-- 可以写多个interceptor -->
-		<mvc:interceptor>
-			<!-- 可以写多个<mvc:mapping> -->
-			<mvc:mapping path="/user/**" />
-			<mvc:mapping path="/customize/**" />
-			<mvc:mapping path="/cart/**" />
-			<mvc:mapping path="/album/**" />
-			<mvc:mapping path="/dirFav/**" />
-			<mvc:mapping path="/message/isLike.action"/>
-			<mvc:mapping path="/mall/saveComment.action"/>
-			<ref bean="userInterceptor" />
-		</mvc:interceptor>
-		<!-- 重复提交拦截器 -->
-		<bean id="tokenInterceptor" class="com.rhcheng.interceptor.TokenInterceptor"  />
-	</mvc:interceptors> 
-	
 	
 	
 </beans>

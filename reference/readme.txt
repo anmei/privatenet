@@ -7,6 +7,17 @@ java ee
 对于消息的传递有两种类型，一种是点对点的，即一个生产者和一个消费者一一对应；另一种是发布/订阅模式，即一个生产者产生消息并进行发送后，可以由多个消费者进行接收。
 在ActiveMQ中实现了两种类型的Destination，一个是点对点的ActiveMQQueue，另一个就是支持订阅/发布模式的ActiveMQTopic。
 
+按照软件工程思想，软件测试可以分为单元测试、集成测试、功能测试、系统测试等。功能测试和系统测试一般来说是测试人员的职责，但单元测试和集成测试则必须由开发人员保证。 
+
+spring:
+jdbc——JdbcDaoSupport\JdbcTemplate
+事务——提供了多种事务管理器，如DataSourceTransactionManager
+资源配置文件——PropertyPlaceholderConfigure
+AOP——（切点、增强）——>切面;静态代理、动态代理（jdk、cglib）
+IOC——bean的注入、管理（通过xml配置方式注入、注解注入）
+spring-mvc——前端控制器、视图解析器(内容协商……)、页面控制器
+
+
 
 ------nginx----------------
 进入nginx根目录
