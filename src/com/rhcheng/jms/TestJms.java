@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.rhcheng.jms.service.IMessageProducer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/configure/applicationContext.xml")
+@ContextConfiguration(locations={"/configure/applicationContext.xml"})
 public class TestJms {
 	@Autowired
 	private IMessageProducer messageProducer;

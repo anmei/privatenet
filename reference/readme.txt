@@ -6,6 +6,32 @@
 java ee
 对于消息的传递有两种类型，一种是点对点的，即一个生产者和一个消费者一一对应；另一种是发布/订阅模式，即一个生产者产生消息并进行发送后，可以由多个消费者进行接收。
 在ActiveMQ中实现了两种类型的Destination，一个是点对点的ActiveMQQueue，另一个就是支持订阅/发布模式的ActiveMQTopic。
+按照软件工程思想，软件测试可以分为单元测试、集成测试、功能测试、系统测试等。功能测试和系统测试一般来说是测试人员的职责，但单元测试和集成测试则必须由开发人员保证。 
+
+spring:
+jdbc——JdbcDaoSupport\JdbcTemplate
+事务——提供了多种事务管理器，如DataSourceTransactionManager
+资源配置文件——PropertyPlaceholderConfigure
+AOP——（切点、增强）——>切面;静态代理、动态代理（jdk、cglib）
+IOC——bean的注入、管理（通过xml配置方式注入、注解注入）
+spring-mvc——前端控制器、视图解析器(内容协商……)、页面控制器
+外部缓存——ehcache……
+
+多线程
+一、原子性、可见性等基础
+实际上final的语义和volatile是有冲突的，这两个关键字不能同时存在。
+尽管volatile变量的特性不错，但是volatile并不能保证线程安全的，也就是说volatile字段的操作不是原子性的，volatile变量只能保证可见性（一个线程修改后其它线程能够理解看到此变化后的结果），要想保证原子性，目前为止只能加锁！
+指令重排序——>happens-before原则
+CAS——乐观锁，有可能会出现ABA问题。AtomicInteger一系列原子操作类的实现就是通过CAS实现的
+synchronize——悲观锁
+
+
+
+
+二、并发工具
+
+三、容器、线程池
+
 
 
 ------nginx----------------
@@ -40,6 +66,7 @@ String result = new String(chars, i1, i2 - i1);
 -------------------
 单一、隔离、开闭、里氏替换、依赖倒置、迪米特 原则
 
+这种通过方法、参数的名称就能够得到函数意义的写法是非常值得称赞的
 
 
 ------concurrent-------------
