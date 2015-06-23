@@ -28,10 +28,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- response.sendRedirect(request.getContextPath() + "/blogMainPage/blogmainpage"); -->
 
   	
-  	<%
+  	<%--
   	/* response.sendRedirect(request.getContextPath() + "/news/list"); */
   	response.sendRedirect(request.getContextPath() + "/photoswipe.jsp");
-  	%>
+  	--%>
+  	
+  	<h6><a href="${base}/photoswipe.jsp">photoGallery</a></h6>
+  	
   	
 
   </body>

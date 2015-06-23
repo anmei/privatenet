@@ -14,6 +14,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.rhcheng.netty.NettyCommon;
+import com.rhcheng.netty.test.personalpro.codec.NettyMessageDecoder;
+import com.rhcheng.netty.test.personalpro.codec.NettyMessageEncoder;
+import com.rhcheng.netty.test.personalpro.handler.HeartBeatReqHandler;
+import com.rhcheng.netty.test.personalpro.handler.LoginAuthReqHandler;
+
 public class NettyClient {
 	private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 	
@@ -40,7 +46,7 @@ public class NettyClient {
 			ChannelFuture f = b.connect(host, port).sync();
 			System.out.println("client connect success……");
 			f.channel().closeFuture().sync();
-			System.out.println("client has closed.");
+			System.out.println("client closed success.");
 			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -51,7 +57,7 @@ public class NettyClient {
 				public void run() {
 					try {
 						TimeUnit.SECONDS.sleep(5);// 客户端关闭连接后5秒进行重连
-						connect(NettyConstant.host, NettyConstant.port);
+						connect(NettyCommon.host, NettyCommon.port);
 						
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -65,7 +71,7 @@ public class NettyClient {
 	}
 	
 	public static void main(String[] args){
-		new NettyClient().connect(NettyConstant.host, NettyConstant.port);
+		new NettyClient().connect(NettyCommon.host, NettyCommon.port);
 	}
 	
 	

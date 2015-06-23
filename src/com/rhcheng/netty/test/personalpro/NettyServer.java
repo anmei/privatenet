@@ -12,6 +12,12 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 
+import com.rhcheng.netty.NettyCommon;
+import com.rhcheng.netty.test.personalpro.codec.NettyMessageDecoder;
+import com.rhcheng.netty.test.personalpro.codec.NettyMessageEncoder;
+import com.rhcheng.netty.test.personalpro.handler.HeartBeatRespHandler;
+import com.rhcheng.netty.test.personalpro.handler.LoginAuthRespHandler;
+
 public class NettyServer {
 	public void run(int port){
 		try {
@@ -46,6 +52,6 @@ public class NettyServer {
 	}
 	
 	public static void main(String[] args){
-		new NettyServer().run(NettyConstant.port);
+		new NettyServer().run(NettyCommon.port);
 	}
 }
