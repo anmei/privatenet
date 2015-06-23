@@ -18,7 +18,8 @@
      
     <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->  
 	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  
-	    <property name="brokerURL" value="tcp://192.183.3.202:61616"/>  
+<!-- 	    <property name="brokerURL" value="tcp://192.183.3.202:61616"/> -->  
+	    <property name="brokerURL" value="tcp://121.41.29.20:61616"/>  
 	</bean>  
   	<!-- 配置连接池 -->
   	<bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">  
