@@ -33,14 +33,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	response.sendRedirect(request.getContextPath() + "/photoswipe.jsp");
   	--%>
   	
-<<<<<<< HEAD
-  	<h6><a href="${base}/photoswipe.jsp">photoGallery</a></h6>
-  	
-=======
   	<h3><a href="${base}/photoswipe.jsp">photoGallery</a></h3>
   	<h3><a href="${base}/news/list">newslist</a></h3>
   	<h3><a href="${base}/webSocketChart.jsp">webSocketChart</a></h3>
->>>>>>> remote_privatenet/master
+
   	
 
   </body>
