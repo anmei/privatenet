@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <form action="">
     	<input value="" name="userid" id="id"/>
-    	<button onclick="getAccount()">获取账号</button><button onclick="dologin()">登陆</button>
+    	<input onclick="getAccount()" value="获取账号" type="button"><input onclick="dologin()" value="登陆" type="button"/>
     </form>
   </body>
 </html>

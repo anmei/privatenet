@@ -26,12 +26,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			window.WebSocket=window.MozWebSocket;
 		}
 		if(window.WebSocket){
-			socket = new WebSocket("ws://localhost:8080/websocket");
+			socket = new WebSocket("ws://localhost:8082/websocket");
 			socket.onmessage = function(event){	
-				$("#rewponseTest").val(event.data);
+				$("#rewponseTest").val($("#rewponseTest").val()+event.data);
 			};
 			socket.onopen = function(event){
-				$("#rewponseTest").val("开启websocket");
+				$("#rewponseTest").val("欢迎使用html5websocket，现在可以开始会话啦。");
 			};
 			socket.onclose = function(event){
 				$("#rewponseTest").val("关闭websocket");

@@ -2,6 +2,7 @@ package com.rhcheng.twitter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -15,7 +16,7 @@ import com.rhcheng.redis.JedisTemplate;
 import com.rhcheng.twitter.entity.User;
 
 @Controller("twitterAction")
-@RequestMapping(value="/twitter")
+@RequestMapping(value="/twitter/")
 public class TwitterAction {
 	@Resource
 	private ITwitterService twitterService;
@@ -30,7 +31,7 @@ public class TwitterAction {
 	
 	@RequestMapping(value="dologin")
 	public String doLogin(User user,Model model){
-		jt.getJedis().rpush("userOnLinelist", String.valueOf(user.getUserid()));
+		jt.getJedis().sadd("userOnLinelist", String.valueOf(user.getUserid()));
 		List<User> onuser = getAllUserOnline();
 		model.addAttribute("users", onuser);
 		return "twitter/index";
@@ -46,15 +47,22 @@ public class TwitterAction {
 		return userid;
 	}
 	
+	@RequestMapping(value="loginout")
+	public String loginout(User user,Model model){
+		jt.getJedis().srem("userOnLinelist", String.valueOf(user.getUserid()));
+		return "twitter/login";
+	}
+
+	
+	
 	//-----------------------------
 	public List<User> getAllUserOnline(){
-		List<String> userids =  jt.lrange("userOnLinelist", 0, -1);
+		Set<String> userids =  jt.smembers("userOnLinelist");
 		List<User> userOnline = new ArrayList<User>();
 		for(String id:userids){
 			User u = new User();
 			u.setUserid(Integer.valueOf(id));
 			u.setName(jt.hget("user:"+id, "name"));
-			System.out.println(u.getName());
 			userOnline.add(u);
 		}
 		return userOnline;
