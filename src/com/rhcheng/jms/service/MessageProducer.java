@@ -13,17 +13,17 @@ import org.springframework.stereotype.Service;
 
 @Service("messageProducer")
 public class MessageProducer implements IMessageProducer{
-	@Autowired
-	private JmsTemplate jmsTemplate;
-	
-	@Override
-	public void sendMessage(Destination destination, final String message) {
-		jmsTemplate.send(destination, new MessageCreator() {
-			@Override
-			public Message createMessage(Session session) throws JMSException {
-				return session.createTextMessage(message);
-			}
-		});
-	}
+//	@Autowired
+//	private JmsTemplate jmsTemplate;
+//	
+//	@Override
+//	public void sendMessage(Destination destination, final String message) {
+//		jmsTemplate.send(destination, new MessageCreator() {
+//			@Override
+//			public Message createMessage(Session session) throws JMSException {
+//				return session.createTextMessage(message);
+//			}
+//		});
+//	}
 
 }

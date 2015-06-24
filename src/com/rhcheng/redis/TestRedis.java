@@ -2,26 +2,35 @@ package com.rhcheng.redis;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-
+@ContextConfiguration("/configure/applicationContext.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TestRedis {
-	JedisPool pool;
-	Jedis jedis;
+	
+	@Autowired
+	private JedisTemplate jt;
 	
 	@Before
 	public void setUp(){
-		pool = new JedisPool(new JedisPoolConfig(), "192.183.3.202");  
-		jedis = pool.getResource(); 
+//		pool = new JedisPool(new JedisPoolConfig(), "192.183.3.202");  
+//		jedis = pool.getResource(); 
 	}
 	
 	@Test
 	public void test1(){
 		// CRUD
-		System.out.println(jedis.get("abc"));
+//		jt.set("userid", "1");
+//		jt.set("blogid", "1");
+//		jt.set("commentid", "1");
+//		System.out.println(jt.get("userid"));
+//		System.out.println(jt.get("blogid"));
+//		System.out.println(jt.get("commentid"));
 		
+		System.out.println(jt.llen("user"));
 		
 	}
 	

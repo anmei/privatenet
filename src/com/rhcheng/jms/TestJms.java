@@ -14,18 +14,18 @@ import com.rhcheng.jms.service.IMessageProducer;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/configure/applicationContext.xml"})
 public class TestJms {
-	@Autowired
-	private IMessageProducer messageProducer;
-	@Autowired
-	@Qualifier("queueDestination")  
-	private Destination queueDestination;
-	
-	
-	@Test
-	public void testSendMes(){
-		for (int i=0; i<2; i++) {  
-			messageProducer.sendMessage(queueDestination, "你好，生产者！这是消息：" + (i+1));  
-        }  
-		
-	}
+//	@Autowired
+//	private IMessageProducer messageProducer;
+//	@Autowired
+//	@Qualifier("queueDestination")  
+//	private Destination queueDestination;
+//	
+//	
+//	@Test
+//	public void testSendMes(){
+//		for (int i=0; i<2; i++) {  
+//			messageProducer.sendMessage(queueDestination, "你好，生产者！这是消息：" + (i+1));  
+//        }  
+//		
+//	}
 }

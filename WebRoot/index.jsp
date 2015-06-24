@@ -36,7 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<h3><a href="${base}/photoswipe.jsp">photoGallery</a></h3>
   	<h3><a href="${base}/news/list">newslist</a></h3>
   	<h3><a href="${base}/webSocketChart.jsp">webSocketChart</a></h3>
-
+  	<h3><a href="${base}/twitter/login">twitter</a></h3>
+	
   	
 
   </body>
