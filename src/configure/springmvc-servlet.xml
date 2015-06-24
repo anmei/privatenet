@@ -70,6 +70,7 @@
 	
 	<!-- 重复提交拦截处理类 -->
 	<bean id="tokenInterceptor" class="com.rhcheng.interceptor.TokenInterceptor"  />
+	
 	<!-- 其他拦截处理类 -->
 	<!-- <bean id="customizeImgUploadInterceptor" class="com.dg11185.ipost.interceptor.UploadInterceptor">
 		<property name="maxMB" value="5"/>
@@ -78,10 +79,10 @@
 	<!-- 拦截器 -->
     <mvc:interceptors>
 		<!-- 可以写多个interceptor -->
-		<mvc:interceptor>
+		<!-- <mvc:interceptor>
 			<mvc:mapping path="/customize/**"/>
 			<ref bean="customizeImgUploadInterceptor" />
-		</mvc:interceptor>
+		</mvc:interceptor> -->
 		<mvc:interceptor>
 			<!-- 可以写多个<mvc:mapping> -->
 			<mvc:mapping path="/user/**" />
