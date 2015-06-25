@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  		<a href="${base}/twitter/loginout">登出</a>
     	在线用户列表
     	<c:forEach var="user" items="${users}" > 
     		 <li>${user.userid}#${user.name}</li>

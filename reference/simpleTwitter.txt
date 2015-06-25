@@ -9,7 +9,7 @@ blogHash	blog:blogid->blogid,text,pubdate
 commentHash	comment:commentid->commentid,blogid,text,pubdate
 
 msgList	user:userid->msg
-userOnLinelist	online->userid
+userOnLineSet	online->userid
 blogByUserList	usre:id->blogid
 allBlogList	allblog->blogid	
 commentOfBlogList	blog:blogid->commentid		

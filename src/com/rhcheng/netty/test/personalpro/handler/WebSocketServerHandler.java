@@ -51,6 +51,9 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object>{
 		if(!(msg instanceof TextWebSocketFrame)){
 			throw new UnsupportedOperationException(String.format("%s fram type not supported.", msg.getClass().getName()));
 		}
+		/*
+		 * 服务器端处理收到的客户端消息
+		 */
 		String reqmsg = ((TextWebSocketFrame)msg).text();
 		ctx.write(new TextWebSocketFrame("欢迎，receive your message: "+reqmsg));
 		
@@ -62,12 +65,13 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object>{
 			sendHttpResp(ctx,msg,new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
 			return;
 		}
-		WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory("ws://localhost:8080/websocket", null, false);
+		WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory("ws://localhost:8082/websocket", null, false);
 		handShaker = wsFactory.newHandshaker(msg);
 		if(handShaker == null){
 			WebSocketServerHandshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.channel());
 		}else{
 			handShaker.handshake(ctx.channel(), msg);
+			
 		}
 		
 	}

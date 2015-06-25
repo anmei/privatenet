@@ -30,7 +30,7 @@ public class TestRedis {
 //		System.out.println(jt.get("blogid"));
 //		System.out.println(jt.get("commentid"));
 		
-		System.out.println(jt.llen("user"));
+		System.out.println(jt.incr("userid"));
 		
 	}
 	

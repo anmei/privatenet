@@ -62,10 +62,10 @@
 
 	<!-- jedis 连接池 -->
 	<bean name="poolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
-	 	<property name="maxTotal" value="10"></property>
+	 	<property name="maxTotal" value="50"></property>
 		<property name="maxIdle" value="10"></property> 
 		<property name="timeBetweenEvictionRunsMillis" value="360000"></property>
-		<property name="MaxWaitMillis" value="60000"></property>
+		<property name="MaxWaitMillis" value="30000"></property>
 	</bean>
     
 
