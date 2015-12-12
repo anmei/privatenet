@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rhcheng.common.PageFormBean;
 import com.rhcheng.common.Pagination;
+import com.rhcheng.interceptor.CheckToken;
 import com.rhcheng.test.TestMain;
 import com.rhcheng.user.dao.TestDao;
 import com.rhcheng.user.entity.User;
