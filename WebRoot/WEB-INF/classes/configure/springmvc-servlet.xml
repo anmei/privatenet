@@ -15,7 +15,16 @@
 	</context:component-scan>
 	
 	<!-- 开始spring mvc的注解 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">    
+       <property name="converters">    
+           <list>    
+               <bean class="com.rhcheng.user.entity.DateConverter" />    
+           </list>    
+       </property>    
+   </bean>  
+	
 	
 	<!-- 加载静态资源路径 -->
 	<!-- <mvc:resources location="/resource/" mapping="/resource/**" /> -->	

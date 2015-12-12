@@ -169,4 +169,26 @@ public class TestAction {
 	}
 	
 	
+	
+	@RequestMapping(value="toFormPage")
+	public String toFormPage(){
+		return "user/formTest";
+		
+	}
+	
+	/**
+	 * 测试获取页面传输的日期
+	 * 
+	 */
+	@RequestMapping(value="getDate.action")
+	public String getDateFromPage(User user){
+		System.out.println("ok---------ok1");
+		System.out.println(user.getBirthday()+" "+user.getName());
+		System.out.println(user.getName());
+		return "user/formTest";
+		
+	}
+	
+	
+	
 }
