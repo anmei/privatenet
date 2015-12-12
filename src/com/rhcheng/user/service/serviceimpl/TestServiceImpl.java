@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.rhcheng.interceptor.CheckToken;
 import com.rhcheng.user.dao.TestDao;
 import com.rhcheng.user.service.TestService;
 
@@ -20,8 +21,9 @@ public class TestServiceImpl implements TestService{
 	}
 
 	@Override
+	@CheckToken
 	public void testAop() {
-		System.out.println("业务逻辑");
+		System.out.println("aop测试业务逻辑");
 	}
 
 }

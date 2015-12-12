@@ -7,7 +7,22 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-
+/**
+ * 基于jdk nio
+ * 1、创建SocketChannel
+ * 2、创建Selector
+ * 3、注册channel与事件到Selector上
+ * 4、非阻塞体现在建立连接、读写等IO操作上，由事件驱动
+ * 
+ * 网络通信框架reactor模式：单线程模式、多线程模式、主从多线程模式
+ * 串行化设计理念：一个线程可以处理多个channel，但是一个channel只由一个线程处理
+ * Netty的定时任务调度就是基于时间轮算法调度
+ * 
+ * 
+ * 
+ * @author RhCheng
+ * @date   2015年6月29日
+ */
 public class Server {
 	private ServerSocketChannel ssc;
 	private Selector se;
