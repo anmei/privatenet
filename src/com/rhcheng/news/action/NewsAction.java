@@ -67,12 +67,14 @@ public class NewsAction {
 	@RequestMapping(value="getContent.json")
 	public ModelAndView getContent(String url,String absid,String tableName){
 		ModelAndView mv = new ModelAndView();
-		NewsAbstract newabs = dgService.getNewsabsByabsid(absid, tableName);
-		tableName = tableName.replace("abs", "detail");
-		String content = dgService.getNewsDetailByAbsid(absid, tableName).getContent();
-		content = content==null?"暂无内容":content;
-		mv.addObject("content", content);
-		mv.addObject("newsabs", newabs);
+//		NewsAbstract newabs = dgService.getNewsabsByabsid(absid, tableName);
+//		tableName = tableName.replace("abs", "detail");
+//		String content = dgService.getNewsDetailByAbsid(absid, tableName).getContent();
+//		content = content==null?"暂无内容":content;
+//		mv.addObject("content", content);
+//		mv.addObject("newsabs", newabs);
+		mv.addObject("content", "fs");
+		mv.addObject("newsabs", "fs");
 		return mv;
 	}
 	

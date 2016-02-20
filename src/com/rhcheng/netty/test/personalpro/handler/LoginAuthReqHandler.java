@@ -23,13 +23,13 @@ public class LoginAuthReqHandler extends ChannelHandlerAdapter{
 			throws Exception {
 		NettyMessage message = (NettyMessage)msg;
 		if(message.getHead()!=null && message.getHead().getType() == (byte)3){
-			byte loginRes = (byte)message.getBody();
-			if(loginRes != (byte)0){ // 登陆失败
-				ctx.close();
-			}else{
+			//byte loginRes = (byte)message.getBody();
+//			if(loginRes != (byte)0){ // 登陆失败
+//				ctx.close();
+//			}else{
 				System.out.println("login success!");
 				ctx.fireChannelRead(msg);
-			}
+//			}
 			
 		}else{
 			ctx.fireChannelRead(msg);
