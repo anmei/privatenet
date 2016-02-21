@@ -19,7 +19,8 @@ import com.rhcheng.util.digest.SignUtils;
  * @date   2015年6月9日
  */
 public class TestHttpClient {
-	Map<String, String> map = new HashMap<String, String>();
+	Map<String,String> map = new HashMap<String,String>();
+	Map<String,String> headers = new HashMap<String,String>();
 //	String baseUrl = "http://192.183.3.163:8080/zhyd_admin/";
 //	String baseUrl = "http://admin.uyuedu.com/";
 //	String baseUrl = "http://interface.uyuedu.com:80/";
@@ -32,6 +33,17 @@ public class TestHttpClient {
 	}
 	
 	//--------------------------------------------------------------------------utils
+	@Test
+	public void test3(){
+		map.put("path", "next");
+		map.put("sid","1801");
+		headers.put("Cookie", "uc1=cookie14=UoWyiPoJbJt/8g==&existShop=false&cookie16=Vq8l+KCLySLZMFWHxqs8fwqnEw==&cookie21=UIHiLt3xSarfJWFC &tag=0&cookie15=U+GCWk/75gdr5Q==&pas=0; v=0; cookie2=1c69e51a6b05095777992627b11ea377; _tb_token_=XUTJTPkLNGjucz3; existShop=MTQ1NjA0NTU5NA==; sg=o9d; cookie1=AQCY4gnNfVfOJben3oPzwFoyh4zwDml2YZQz4sgqyUs=; unb=2401205659; skt=add0381ace30ac7d; _l_g_=Ug==; _nk_=anmeigogogo; cookie17=UUwQl69T+VQk6A==");
+		headers.put("User-Agent", "Mozilla/5.0");
+		headers.put("Content-Type", "application/x-www-form-urlencoded");
+		System.out.println(UtilClient.post("https://upload.taobao.com/auction/json/reload_cats.htm?customId=1", map, headers,"GB2312"));
+	}
+	
+	
 	@Test
 	public void test0(){
 		Map<String,String> a = SignUtils.string2map("address=%E5%B9%BF%E5%B7%9E%E5%B8%82%E5%A4%A9%E6%B2%B3%E5%8C%BA%E9%BE%99%E6%80%A1%E8%B7%AF117%E5%8F%B7%E9%93%B6%E6%B1%87%E5%A4%A7%E5%8E%A623%E5%B1%82%20&url=www.dooland.com&color=#f00e0e&subColor=#d49b83&media.url=http%3A%2F%2Fdooland.uyuedu.com%3A80%2Fupload%2Fapps%2F20150528%2F3679dea7c81fc8b4779548e15230b19e.jpg&media.w=278&media.h=150&industry=23&industry=20&industry=3&industry=19");

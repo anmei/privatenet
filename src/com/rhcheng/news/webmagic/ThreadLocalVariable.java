@@ -9,6 +9,7 @@ import com.rhcheng.news.entity.NewsDetails;
  */
 public class ThreadLocalVariable {
 	// crawl number,default is 1,when should get all the page url
+	// 第几次抓取，默认为第一次，只有第一次抓取时才会获取分页url，并添加到TargetRequests
 	private static ThreadLocal<Integer> f = new ThreadLocal<Integer>();
 	// variable which store the news content 
 	private static ThreadLocal<String> content = new ThreadLocal<String>();

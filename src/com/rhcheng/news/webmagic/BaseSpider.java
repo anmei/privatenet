@@ -45,7 +45,7 @@ public abstract class BaseSpider implements PageProcessor{
 	private Site site = Site.me()
 			.setSleepTime(0)
 			.setUserAgent("Mozilla")
-			.addCookie("data", "jquery")
+			//.addCookie("data", "jquery")
 			.setTimeOut(10000);
 	
 	
@@ -348,6 +348,7 @@ public abstract class BaseSpider implements PageProcessor{
 	protected int totalSize = 1; 
 	
 	public void addTargetUrls(List<String> requesturl,Page page){
+		// 判断，只有第一次访问时才会添加分页url，否则会重复添加
 		if(thv.getF() == 1){
 			if(requesturl.size()>0){
 				page.addTargetRequests(requesturl);
