@@ -1,0 +1,288 @@
+2016-02-20 23:19:59 [INFO ][ContextLoader] - Root WebApplicationContext: initialization started
+2016-02-20 23:19:59 [INFO ][XmlWebApplicationContext] - Refreshing Root WebApplicationContext: startup date [Sat Feb 20 23:19:59 CST 2016]; root of context hierarchy
+2016-02-20 23:19:59 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/applicationContext.xml]
+2016-02-20 23:20:00 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/spring-data-redis.xml]
+2016-02-20 23:20:01 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\jdbc.properties]
+2016-02-20 23:20:01 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\log4j.properties]
+2016-02-20 23:20:01 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\newsSources.properties]
+2016-02-20 23:20:01 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\spring-redis.properties]
+2016-02-20 23:20:01 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\sysProperties.properties]
+2016-02-20 23:20:01 [INFO ][AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-02-20 23:20:03 [INFO ][SchedulerFactoryBean] - Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+2016-02-20 23:20:04 [INFO ][EhCacheManagerFactoryBean] - Initializing EhCache CacheManager
+2016-02-20 23:20:05 [INFO ][SchedulerSignalerImpl] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2016-02-20 23:20:05 [INFO ][QuartzScheduler] - Quartz Scheduler v.1.6.1 created.
+2016-02-20 23:20:05 [INFO ][RAMJobStore] - RAMJobStore initialized.
+2016-02-20 23:20:05 [INFO ][StdSchedulerFactory] - Quartz scheduler 'org.springframework.scheduling.quartz.SchedulerFactoryBean#0' initialized from an externally provided properties instance.
+2016-02-20 23:20:05 [INFO ][StdSchedulerFactory] - Quartz scheduler version: 1.6.1
+2016-02-20 23:20:05 [INFO ][QuartzScheduler] - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@13d54e26
+2016-02-20 23:20:06 [INFO ][DefaultLifecycleProcessor] - Starting beans in phase 2147483647
+2016-02-20 23:20:06 [INFO ][SchedulerFactoryBean] - Starting Quartz Scheduler now
+2016-02-20 23:20:06 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED started.
+2016-02-20 23:20:06 [INFO ][ContextLoader] - Root WebApplicationContext: initialization completed in 7143 ms
+2016-02-20 23:20:06 [INFO ][DispatcherServlet] - FrameworkServlet 'springServlet': initialization started
+2016-02-20 23:20:06 [INFO ][XmlWebApplicationContext] - Refreshing WebApplicationContext for namespace 'springServlet-servlet': startup date [Sat Feb 20 23:20:06 CST 2016]; parent: Root WebApplicationContext
+2016-02-20 23:20:06 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/springmvc-servlet.xml]
+2016-02-20 23:20:07 [INFO ][AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/blogMainPage/blogmainpage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.blog.action.BlogMainPage.toMainPage()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/getContent.json],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.news.action.NewsAction.getContent(java.lang.String,java.lang.String,java.lang.String)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/detail],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.newsDetail(java.lang.String,java.lang.String,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/list],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.newsList(com.rhcheng.common.PageFormBean,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/getMoreList],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.getMoreList(com.rhcheng.common.PageFormBean,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//index],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.index()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//login],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.login()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//loginout],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.loginout(com.rhcheng.twitter.entity.User,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//dologin],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.doLogin(com.rhcheng.twitter.entity.User,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//doAddUser],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public int com.rhcheng.twitter.TwitterAction.doAddUser(org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/create],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.create(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile[],org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/upload],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.upload()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/shows],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.shows(javax.servlet.http.HttpServletRequest,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/creates],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.creates(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile[],org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/userlist],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridListTestAction.list()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/toUserPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.JQgridListTestAction.toUserPage()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/toMainPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.JQgridListTestAction.toMainpage()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/add],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.add(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/delete],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.delete(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/update],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.update(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/operate],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.baseJqgrid.QGridOperAction.operate(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/paginationTest.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.PaginationTest(com.rhcheng.common.PageFormBean,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/getDate.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.getDateFromPage(com.rhcheng.user.entity.User)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testaop],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public void com.rhcheng.user.action.TestAction.testAop()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/noLoginCommon],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.noLoginCommon()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testone.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.TestAction.testone()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/noLogin],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.TestAction.noLogin(java.lang.String,java.lang.Long,org.springframework.ui.Model)
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/jsontest],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.user.entity.User com.rhcheng.user.action.TestAction.returnJson()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/toFormPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.toFormPage()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testEhcache.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.testEhcache(java.lang.String) throws java.lang.InterruptedException
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/user/login],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.UserAction.login()
+2016-02-20 23:20:07 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/user/testReturnString.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.UserAction.testReturnString(com.rhcheng.user.formbean.UserFormBean,org.springframework.ui.Model)
+2016-02-20 23:20:08 [INFO ][SimpleUrlHandlerMapping] - Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
+2016-02-20 23:20:09 [INFO ][DispatcherServlet] - FrameworkServlet 'springServlet': initialization completed in 2490 ms
+2016-02-20 23:20:13 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/MyHtml.html
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:20:13 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/favicon.ico
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:20:29 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/news/getContent.json
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:20:31 [ERROR][BaseDAO] - -------->queryForListBean{ select * from null where absid = ? ,com.rhcheng.news.entity.NewsAbstract}.............Exception msg:Could not get JDBC Connection; nested exception is org.apache.commons.dbcp.SQLNestedException: Cannot create PoolableConnectionFactory (Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.)
+2016-02-20 23:20:32 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/favicon.ico
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:21:49 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/blogMainPage/blogmainpage
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:21:52 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/favicon.ico
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:24:27 [INFO ][XmlWebApplicationContext] - Closing WebApplicationContext for namespace 'springServlet-servlet': startup date [Sat Feb 20 23:20:06 CST 2016]; parent: Root WebApplicationContext
+2016-02-20 23:24:27 [INFO ][XmlWebApplicationContext] - Closing Root WebApplicationContext: startup date [Sat Feb 20 23:19:59 CST 2016]; root of context hierarchy
+2016-02-20 23:24:27 [INFO ][DefaultLifecycleProcessor] - Stopping beans in phase 2147483647
+2016-02-20 23:24:27 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED paused.
+2016-02-20 23:24:27 [INFO ][SchedulerFactoryBean] - Shutting down Quartz Scheduler
+2016-02-20 23:24:27 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED shutting down.
+2016-02-20 23:24:27 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED paused.
+2016-02-20 23:24:27 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED shutdown complete.
+2016-02-20 23:24:27 [INFO ][EhCacheManagerFactoryBean] - Shutting down EhCache CacheManager
+2016-02-20 23:24:30 [INFO ][ContextLoader] - Root WebApplicationContext: initialization started
+2016-02-20 23:24:31 [INFO ][XmlWebApplicationContext] - Refreshing Root WebApplicationContext: startup date [Sat Feb 20 23:24:31 CST 2016]; root of context hierarchy
+2016-02-20 23:24:31 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/applicationContext.xml]
+2016-02-20 23:24:31 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/spring-data-redis.xml]
+2016-02-20 23:24:32 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\jdbc.properties]
+2016-02-20 23:24:32 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\log4j.properties]
+2016-02-20 23:24:32 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\newsSources.properties]
+2016-02-20 23:24:32 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\spring-redis.properties]
+2016-02-20 23:24:32 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\sysProperties.properties]
+2016-02-20 23:24:32 [INFO ][AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-02-20 23:24:35 [INFO ][SchedulerFactoryBean] - Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+2016-02-20 23:24:38 [INFO ][EhCacheManagerFactoryBean] - Initializing EhCache CacheManager
+2016-02-20 23:24:39 [INFO ][SchedulerSignalerImpl] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2016-02-20 23:24:39 [INFO ][QuartzScheduler] - Quartz Scheduler v.1.6.1 created.
+2016-02-20 23:24:39 [INFO ][RAMJobStore] - RAMJobStore initialized.
+2016-02-20 23:24:39 [INFO ][StdSchedulerFactory] - Quartz scheduler 'org.springframework.scheduling.quartz.SchedulerFactoryBean#0' initialized from an externally provided properties instance.
+2016-02-20 23:24:39 [INFO ][StdSchedulerFactory] - Quartz scheduler version: 1.6.1
+2016-02-20 23:24:39 [INFO ][QuartzScheduler] - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@b17bda2
+2016-02-20 23:24:40 [INFO ][DefaultLifecycleProcessor] - Starting beans in phase 2147483647
+2016-02-20 23:24:40 [INFO ][SchedulerFactoryBean] - Starting Quartz Scheduler now
+2016-02-20 23:24:40 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED started.
+2016-02-20 23:24:40 [INFO ][ContextLoader] - Root WebApplicationContext: initialization completed in 9667 ms
+2016-02-20 23:24:40 [INFO ][DispatcherServlet] - FrameworkServlet 'springServlet': initialization started
+2016-02-20 23:24:40 [INFO ][XmlWebApplicationContext] - Refreshing WebApplicationContext for namespace 'springServlet-servlet': startup date [Sat Feb 20 23:24:40 CST 2016]; parent: Root WebApplicationContext
+2016-02-20 23:24:40 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/springmvc-servlet.xml]
+2016-02-20 23:24:41 [INFO ][AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/blogMainPage/blogmainpage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.blog.action.BlogMainPage.toMainPage()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/getContent.json],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.news.action.NewsAction.getContent(java.lang.String,java.lang.String,java.lang.String)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/detail],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.newsDetail(java.lang.String,java.lang.String,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/list],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.newsList(com.rhcheng.common.PageFormBean,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/getMoreList],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.getMoreList(com.rhcheng.common.PageFormBean,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//index],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.index()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//login],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.login()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//loginout],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.loginout(com.rhcheng.twitter.entity.User,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//dologin],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.doLogin(com.rhcheng.twitter.entity.User,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//doAddUser],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public int com.rhcheng.twitter.TwitterAction.doAddUser(org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/create],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.create(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile[],org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/upload],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.upload()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/shows],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.shows(javax.servlet.http.HttpServletRequest,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/creates],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.creates(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile[],org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/userlist],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridListTestAction.list()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/toUserPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.JQgridListTestAction.toUserPage()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/toMainPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.JQgridListTestAction.toMainpage()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/add],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.add(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/delete],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.delete(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/update],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.update(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/operate],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.baseJqgrid.QGridOperAction.operate(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/paginationTest.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.PaginationTest(com.rhcheng.common.PageFormBean,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/getDate.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.getDateFromPage(com.rhcheng.user.entity.User)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testaop],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public void com.rhcheng.user.action.TestAction.testAop()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/noLoginCommon],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.noLoginCommon()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testone.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.TestAction.testone()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/noLogin],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.TestAction.noLogin(java.lang.String,java.lang.Long,org.springframework.ui.Model)
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/jsontest],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.user.entity.User com.rhcheng.user.action.TestAction.returnJson()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/toFormPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.toFormPage()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testEhcache.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.testEhcache(java.lang.String) throws java.lang.InterruptedException
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/user/login],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.UserAction.login()
+2016-02-20 23:24:42 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/user/testReturnString.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.UserAction.testReturnString(com.rhcheng.user.formbean.UserFormBean,org.springframework.ui.Model)
+2016-02-20 23:24:43 [INFO ][SimpleUrlHandlerMapping] - Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
+2016-02-20 23:24:43 [INFO ][DispatcherServlet] - FrameworkServlet 'springServlet': initialization completed in 3090 ms
+2016-02-20 23:24:47 [INFO ][XmlWebApplicationContext] - Closing WebApplicationContext for namespace 'springServlet-servlet': startup date [Sat Feb 20 23:24:40 CST 2016]; parent: Root WebApplicationContext
+2016-02-20 23:24:47 [INFO ][XmlWebApplicationContext] - Closing Root WebApplicationContext: startup date [Sat Feb 20 23:24:31 CST 2016]; root of context hierarchy
+2016-02-20 23:24:47 [INFO ][DefaultLifecycleProcessor] - Stopping beans in phase 2147483647
+2016-02-20 23:24:47 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED paused.
+2016-02-20 23:24:47 [INFO ][SchedulerFactoryBean] - Shutting down Quartz Scheduler
+2016-02-20 23:24:47 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED shutting down.
+2016-02-20 23:24:47 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED paused.
+2016-02-20 23:24:47 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED shutdown complete.
+2016-02-20 23:24:47 [INFO ][EhCacheManagerFactoryBean] - Shutting down EhCache CacheManager
+2016-02-20 23:24:48 [INFO ][ContextLoader] - Root WebApplicationContext: initialization started
+2016-02-20 23:24:48 [INFO ][XmlWebApplicationContext] - Refreshing Root WebApplicationContext: startup date [Sat Feb 20 23:24:48 CST 2016]; root of context hierarchy
+2016-02-20 23:24:48 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/applicationContext.xml]
+2016-02-20 23:24:49 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/spring-data-redis.xml]
+2016-02-20 23:24:50 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\jdbc.properties]
+2016-02-20 23:24:50 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\log4j.properties]
+2016-02-20 23:24:50 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\newsSources.properties]
+2016-02-20 23:24:50 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\spring-redis.properties]
+2016-02-20 23:24:50 [INFO ][PropertyPlaceholderConfigurer] - Loading properties file from file [E:\myprograms\myeclipse10\myeclipse\works\privatenet\WebRoot\WEB-INF\classes\properties\sysProperties.properties]
+2016-02-20 23:24:50 [INFO ][AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-02-20 23:24:52 [INFO ][SchedulerFactoryBean] - Spring's Quartz 1.x support is deprecated - please upgrade to Quartz 2.0+
+2016-02-20 23:24:52 [INFO ][EhCacheManagerFactoryBean] - Initializing EhCache CacheManager
+2016-02-20 23:24:53 [INFO ][SchedulerSignalerImpl] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2016-02-20 23:24:53 [INFO ][QuartzScheduler] - Quartz Scheduler v.1.6.1 created.
+2016-02-20 23:24:53 [INFO ][RAMJobStore] - RAMJobStore initialized.
+2016-02-20 23:24:53 [INFO ][StdSchedulerFactory] - Quartz scheduler 'org.springframework.scheduling.quartz.SchedulerFactoryBean#0' initialized from an externally provided properties instance.
+2016-02-20 23:24:53 [INFO ][StdSchedulerFactory] - Quartz scheduler version: 1.6.1
+2016-02-20 23:24:53 [INFO ][QuartzScheduler] - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@39b59d74
+2016-02-20 23:24:54 [INFO ][DefaultLifecycleProcessor] - Starting beans in phase 2147483647
+2016-02-20 23:24:54 [INFO ][SchedulerFactoryBean] - Starting Quartz Scheduler now
+2016-02-20 23:24:54 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED started.
+2016-02-20 23:24:54 [INFO ][ContextLoader] - Root WebApplicationContext: initialization completed in 5337 ms
+2016-02-20 23:24:54 [INFO ][DispatcherServlet] - FrameworkServlet 'springServlet': initialization started
+2016-02-20 23:24:54 [INFO ][XmlWebApplicationContext] - Refreshing WebApplicationContext for namespace 'springServlet-servlet': startup date [Sat Feb 20 23:24:54 CST 2016]; parent: Root WebApplicationContext
+2016-02-20 23:24:54 [INFO ][XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [configure/springmvc-servlet.xml]
+2016-02-20 23:24:54 [INFO ][AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/blogMainPage/blogmainpage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.blog.action.BlogMainPage.toMainPage()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/getContent.json],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.news.action.NewsAction.getContent(java.lang.String,java.lang.String,java.lang.String)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/detail],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.newsDetail(java.lang.String,java.lang.String,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/list],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.newsList(com.rhcheng.common.PageFormBean,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/news/getMoreList],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.news.action.NewsAction.getMoreList(com.rhcheng.common.PageFormBean,java.lang.String,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//index],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.index()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//login],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.login()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//loginout],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.loginout(com.rhcheng.twitter.entity.User,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//dologin],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.twitter.TwitterAction.doLogin(com.rhcheng.twitter.entity.User,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/twitter//doAddUser],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public int com.rhcheng.twitter.TwitterAction.doAddUser(org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/create],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.create(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile[],org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/upload],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.upload()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/shows],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.shows(javax.servlet.http.HttpServletRequest,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/fileupload/creates],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.FileUpload.creates(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile[],org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/userlist],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridListTestAction.list()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/toUserPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.JQgridListTestAction.toUserPage()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqgrid/toMainPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.JQgridListTestAction.toMainpage()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/add],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.add(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/delete],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.delete(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/update],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.baseJqgrid.ListResult com.rhcheng.user.action.JQgridUpdateTestAction.update(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/jqupdate/operate],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.baseJqgrid.QGridOperAction.operate(javax.servlet.http.HttpServletRequest)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/paginationTest.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.PaginationTest(com.rhcheng.common.PageFormBean,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/getDate.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.getDateFromPage(com.rhcheng.user.entity.User)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testaop],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public void com.rhcheng.user.action.TestAction.testAop()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/noLoginCommon],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.noLoginCommon()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testone.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.TestAction.testone()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/noLogin],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.TestAction.noLogin(java.lang.String,java.lang.Long,org.springframework.ui.Model)
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/jsontest],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public com.rhcheng.user.entity.User com.rhcheng.user.action.TestAction.returnJson()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/toFormPage],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.toFormPage()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/test/testEhcache.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.TestAction.testEhcache(java.lang.String) throws java.lang.InterruptedException
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/user/login],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.rhcheng.user.action.UserAction.login()
+2016-02-20 23:24:55 [INFO ][RequestMappingHandlerMapping] - Mapped "{[/user/testReturnString.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.rhcheng.user.action.UserAction.testReturnString(com.rhcheng.user.formbean.UserFormBean,org.springframework.ui.Model)
+2016-02-20 23:24:56 [INFO ][SimpleUrlHandlerMapping] - Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
+2016-02-20 23:24:56 [INFO ][DispatcherServlet] - FrameworkServlet 'springServlet': initialization completed in 2331 ms
+2016-02-20 23:25:01 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/news/getContent.json
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:25:01 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/favicon.ico
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:25:03 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/news/getContent.json
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:25:03 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/favicon.ico
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:25:09 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/news/getContent.json
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:25:10 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/favicon.ico
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:25:11 [INFO ][ParamsFilter] - 
+==================请求=================
+request_url=http://localhost/favicon.ico
+query_params=null
+---------------post参数--------------
+
+2016-02-20 23:42:57 [INFO ][XmlWebApplicationContext] - Closing WebApplicationContext for namespace 'springServlet-servlet': startup date [Sat Feb 20 23:24:54 CST 2016]; parent: Root WebApplicationContext
+2016-02-20 23:42:57 [INFO ][XmlWebApplicationContext] - Closing Root WebApplicationContext: startup date [Sat Feb 20 23:24:48 CST 2016]; root of context hierarchy
+2016-02-20 23:42:57 [INFO ][DefaultLifecycleProcessor] - Stopping beans in phase 2147483647
+2016-02-20 23:42:57 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED paused.
+2016-02-20 23:42:57 [INFO ][SchedulerFactoryBean] - Shutting down Quartz Scheduler
+2016-02-20 23:42:57 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED shutting down.
+2016-02-20 23:42:57 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED paused.
+2016-02-20 23:42:57 [INFO ][QuartzScheduler] - Scheduler org.springframework.scheduling.quartz.SchedulerFactoryBean#0_$_NON_CLUSTERED shutdown complete.
+2016-02-20 23:42:57 [INFO ][EhCacheManagerFactoryBean] - Shutting down EhCache CacheManager

@@ -5,12 +5,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import us.codecraft.webmagic.Page;
-
 import com.rhcheng.news.entity.NewsAbstract;
 import com.rhcheng.news.webmagic.BaseSpider;
-import com.rhcheng.news.webmagic.SpiderEntrance;
 import com.rhcheng.util.string.NewsUtils;
+
+import us.codecraft.webmagic.Page;
 /**
  * get news list
  * @author RhCheng
