@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="all" kind="src" output="target/classes" path="src">
+	<classpathentry kind="src" output="WebRoot/WEB-INF/classes" path="src">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="privatenet/WebRoot/WEB-INF/lib"/>
 			<attribute name="optional" value="true"/>
@@ -18,8 +18,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/paoding-analysis.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/thumbnailator-0.4.7-all.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
