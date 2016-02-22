@@ -25,7 +25,7 @@ public class ServiceFacade {
 	 * */
 	public static <T> T getBean(String beanName, Class<T> requiredType) {
 		
-		return ContextLoader.getCurrentWebApplicationContext().getBean(
+		return (T)ContextLoader.getCurrentWebApplicationContext().getBean(
 				beanName, requiredType);
 		
 	}

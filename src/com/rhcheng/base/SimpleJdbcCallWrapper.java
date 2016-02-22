@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
 /**
@@ -41,10 +42,11 @@ public class SimpleJdbcCallWrapper {
 		if (args == null) {
 			args = new Object[0];
 		}
-		this.simpleJdbcCallFactory.getObject().withProcedureName(callableName)
-				.execute(args);
+//		this.simpleJdbcCallFactory.getObject().withProcedureName(callableName)
+//				.execute(args);
 
 	}
+	
 
 	/**
 	 * 返回多个值的存储过程调用，Map 封装 ，可以包含list，Map key为存储过程输出变量名称
@@ -57,9 +59,10 @@ public class SimpleJdbcCallWrapper {
 	 * @return 封装调用结果
 	 */
 	public Map<String, Object> callForMap(String callableName, Object args[]) {
-		this.logs("callForMap", callableName, args);
-		return this.simpleJdbcCallFactory.getObject()
-				.withProcedureName(callableName).execute(args);
+//		this.logs("callForMap", callableName, args);
+//		return this.simpleJdbcCallFactory.getObject()
+//				.withProcedureName(callableName).execute(args);
+	    return null;
 	}
 
 	/**
@@ -86,14 +89,16 @@ public class SimpleJdbcCallWrapper {
 	public <T> List<T> callSpecifiedParasForList(String callableName,
 			Class<T> clazz, Object args[], SqlParameter sqlInParameters[]) {
 		this.logs("callSpecifiedParasForList", callableName, args);
-		return (List<T>) this.simpleJdbcCallFactory
-				.getObject()
-				.withProcedureName(callableName)
-				.withoutProcedureColumnMetaDataAccess()
-				.returningResultSet(callableName,
-						BeanPropertyRowMapper.newInstance(clazz))
-				.declareParameters(sqlInParameters).execute(args)
-				.get(callableName);
+//		return (List<T>) this.simpleJdbcCallFactory
+//				.getObject()
+//				.withProcedureName(callableName)
+//				.withoutProcedureColumnMetaDataAccess()
+//				.returningResultSet(callableName,
+//						BeanPropertyRowMapper.newInstance(clazz))
+//				.returningResultSet(callableName,ParameterizedBeanPropertyRowMapper.newInstance(clazz))
+//				.declareParameters(sqlInParameters).execute(args)
+//				.get(callableName);
+		return null;
 	}
 
 	/**

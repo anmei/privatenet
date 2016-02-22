@@ -119,7 +119,8 @@ public abstract class BaseDAO extends JdbcDaoSupport {
 			Class<T> mappedClass) {
 		List<T> rs = null;
 		try {
-			rs = getJdbcTemplate().query(sql, args,new BeanPropertyRowMapper<T>(mappedClass));
+//			rs = getJdbcTemplate().query(sql, args,new BeanPropertyRowMapper<T>(mappedClass));
+			rs = getJdbcTemplate().query(sql, args,new BeanPropertyRowMapper(mappedClass));
 			log.info("----->queryForListBean{" + sql + ","
 					+ mappedClass.getName() + "}..... Result list size:"
 					+ (null != rs ? rs.size() : "null"));
@@ -195,8 +196,9 @@ public abstract class BaseDAO extends JdbcDaoSupport {
 	}
 
 	public int batchUpdate(String sql,List<Object[]> batchArgs){
-		int[] num = getJdbcTemplate().batchUpdate(sql, batchArgs);
-		return num.length;
+//		int[] num = getJdbcTemplate().batchUpdate(sql, batchArgs);
+//		return num.length;
+	    return 0;
 	}
 	
 	
@@ -215,7 +217,8 @@ public abstract class BaseDAO extends JdbcDaoSupport {
 			Class<T> elementType) {
 		List<T> rs = null;
 		try {
-			rs = getJdbcTemplate().queryForList(sql, elementType, args);
+//			rs = getJdbcTemplate().queryForList(sql, elementType, args);
+			rs = getJdbcTemplate().queryForList(sql,args,elementType);
 			log.info("----->findProperty(" + sql + ")----> Result list size:"
 					+ (null != rs ? rs.size() : "null"));
 		} catch (DataAccessException e) {
