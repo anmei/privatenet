@@ -3,15 +3,19 @@ package com.rhcheng.news.webmagic.crawl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.rhcheng.util.UtilClient;
 
+@Component
 public class SimpleCrawl {
 	public static void main(String[] args) {
 //		String url="https://upload.taobao.com/auction/json/reload_cats.htm?customId=1";
-		String url="https://item.taobao.com/item.htm?spm=a21cv.7771689.114489.22.Pg4wyY&id=527027984291";
+//		String url="https://item.taobao.com/item.htm?spm=a21cv.7771689.114489.22.Pg4wyY&id=527027984291";
+		String url="http://www.beibei.com";
 		Map<String,String> formDate = new HashMap<String,String>();
 		Map<String,String> headers = new HashMap<String,String>();
-		String charset = "GB2312";
+		String charset = "UTF-8";
 		
 		formDate.put("path", "next");
 		formDate.put("sid","1801");

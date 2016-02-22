@@ -2,13 +2,18 @@ package com.rhcheng.news.webmagic;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -24,6 +29,7 @@ import com.rhcheng.util.file.FileInfo;
 import com.rhcheng.util.string.NewsUtils;
 
 /**
+ * 该类的功能既是{@PageProcessor}也是{@Spider}，融合了两者的功能
  * base spider, maybe call it a base pageProcessor is more exactly</br>
  * just a spider will start here also  </br>
  * 
@@ -83,6 +89,61 @@ public abstract class BaseSpider implements PageProcessor{
 
 	}
 
+        public void doSpide(String charset,String method,String url,Map<String,String> headers,Map<String,String> parameters,
+            Class<BaseSpider> pageProcessorClass,CountDownLatch countDownLatch) {
+                // 设置请求头,编码等
+                Site site = Site.me()
+                                .setSleepTime(0)
+                                .setUserAgent("Mozilla")
+                                //.addCookie("data", "jquery")
+                                .setTimeOut(10000)
+                                .setCharset(charset);
+                if(null != headers){
+                    for(Map.Entry<String, String> entry:headers.entrySet()){
+                        site.addHeader(entry.getKey(), entry.getValue());
+                    }
+                }
+                
+                Request request = new Request();
+                // 请求方法
+                request.setMethod(method.toUpperCase());
+                // 请求url
+                request.setUrl(url);
+                // 请求form参数设置
+                if(null != parameters){
+                    List<NameValuePair> tmp = new ArrayList<NameValuePair>();
+                    for(Map.Entry<String, String> entry:parameters.entrySet()){
+                        NameValuePair parameter1 = new BasicNameValuePair(entry.getKey(), entry.getValue());
+                        tmp.add(parameter1);
+                    }
+                    Map<String,Object> extras = new HashMap<String,Object>();
+                    extras.put("nameValuePair", tmp.toArray());
+                    request.setExtras(extras);
+                }
+                
+//                BaseSpider pageProcessor = pageProcessorClass.newInstance();
+//                pageProcessor.setSite(site);
+                if(null != countDownLatch){
+                    oversp = OverWriteSpider.create(this);
+                    oversp.addRequest(request);
+                    oversp.setEmptySleepTime(5000);// 此处有点疑问，感觉signalNewUrl();会唤醒waitNewUrl();但是结果却没有，让然一直等待EmptySleepTime时间再结束
+                    oversp.setCdl(countDownLatch).setSpawnUrl(false)
+                    .addPipeline(new MyPipleLine())
+                    .setScheduler(new QueueScheduler().setDuplicateRemover(new HashSetDuplicateRemover()))
+                    .run();
+                }else{
+                    sp = Spider.create(this);
+                    sp.addRequest(request);
+                    sp.setEmptySleepTime(5000);// 此处有点疑问，感觉signalNewUrl();会唤醒waitNewUrl();但是结果却没有，让然一直等待EmptySleepTime时间再结束
+                    sp.setSpawnUrl(false)
+                    .addPipeline(new MyPipleLine())
+                    .setScheduler(new QueueScheduler().setDuplicateRemover(new HashSetDuplicateRemover()))
+                    .run();
+                }
+                
+        }
+        
+        
 	
 	/**
 	 * initial a spider and return it, you can customize the spider and then run it
@@ -345,6 +406,7 @@ public abstract class BaseSpider implements PageProcessor{
 	//--------------------------------------------------------------------judge if the last page
 	// Spider Run 方法循环有些问题，故通过getLeftRequestsCount方法无法精确获取剩余的url，此处自己写了一些方法，
 	// 注意：只适用于本应用
+	// 本次所有待抓取的url数目
 	protected int totalSize = 1; 
 	
 	public void addTargetUrls(List<String> requesturl,Page page){
@@ -364,7 +426,6 @@ public abstract class BaseSpider implements PageProcessor{
 		return (this.totalSize==0);
 		
 	}
-	
 	
 
 	public String[] getUrls() {

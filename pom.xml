@@ -25,6 +25,26 @@
 		  <groupId>org.apache.flume</groupId>
 		  <artifactId>flume-ng-sdk</artifactId>
 		  <version>1.5.2</version>
+		  <exclusions>
+		  	<exclusion>
+		  		<groupId>org.apache.httpcomponents</groupId>
+		  		<artifactId>httpclient</artifactId>
+		  	</exclusion>
+		  	<exclusion>
+		  		<groupId>org.apache.httpcomponents</groupId>
+		  		<artifactId>httpcore</artifactId>
+		  	</exclusion>
+		  </exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+		  	<artifactId>httpcore</artifactId>
+		  	<version>4.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+		  	<artifactId>httpclient</artifactId>
+		  	<version>4.3.6</version>
 		</dependency>
 		<dependency>
 		  <groupId>org.apache.avro</groupId>
@@ -40,6 +60,12 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
 			<version>2.5.3</version>
+			<exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<!-- webmagic -->
        	<dependency>
@@ -452,7 +478,8 @@
 					<target>${java-version}</target>
 					<encoding>utf8</encoding>
 					<compilerArguments>
-						<bootclasspath>E:\myprograms\myeclipse10\jdk7\jre\lib\rt.jar;E:\myprograms\myeclipse10\jdk7\jre\lib\jce.jar</bootclasspath>
+						<!-- <bootclasspath>E:\myprograms\myeclipse10\jdk7\jre\lib\rt.jar;E:\myprograms\myeclipse10\jdk7\jre\lib\jce.jar</bootclasspath> -->
+						<bootclasspath>C:\Program Files\Java\jdk1.7.0_79\jre\lib\rt.jar;C:\Program Files\Java\jdk1.7.0_79\jre\lib\jce.jar</bootclasspath>
 					</compilerArguments>
 				</configuration>
 			</plugin>
