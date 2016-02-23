@@ -37,11 +37,19 @@ public class SpiderCrawl {
 //        public void craw(final String charset,final String method,final Map<String,Object> urls2pageProcessor,
 //            final Map<String,String> headers,final Map<String,String> parameters,final CountDownLatch countDownLatch,
 //            final Integer threadNum){
-        public void craw(final Map<String,CrawlModel> crawlModel,final CountDownLatch countDownLatch,final Integer threadNum){
+	
+		/**
+		 * 抓取统一入口
+		 * @param crawlModel
+		 * @param countDownLatch
+		 * @param threadNum
+		 */
+        public void craw(final Map<String,CrawlModel> crawlModels,final CountDownLatch countDownLatch,final Integer threadNum){
             
             CountableThreadPool threadPool = new CountableThreadPool(threadNum == null ? 1:threadNum);
-            final CountDownLatch mycountDownLatch = (countDownLatch == null ? new CountDownLatch(crawlModel.size()):countDownLatch);
-            for(final Map.Entry<String, CrawlModel> cm:crawlModel.entrySet()){
+            final CountDownLatch mycountDownLatch = (countDownLatch == null ? new CountDownLatch(crawlModels.size()):countDownLatch);
+            
+            for(final Map.Entry<String, CrawlModel> cm:crawlModels.entrySet()){
                 threadPool.execute(new Runnable() {
                         @Override
                         public void run() {
@@ -73,7 +81,18 @@ public class SpiderCrawl {
 	}
     
     
-    
+    /**
+     * 简单抓取，抓取的过程中不会在页面中寻找新的URL
+     * @param charset
+     * @param method
+     * @param url
+     * @param headers
+     * @param parameters
+     * @param pageProcessorClass
+     * @param countDownLatch
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
 	public void doCrawl(String charset,String method,String url,Map<String,String> headers,Map<String,String> parameters,
 	    Class<? extends BaseSpider> pageProcessorClass,CountDownLatch countDownLatch) throws InstantiationException, IllegalAccessException {
 		// 设置请求头,编码等
@@ -129,23 +148,36 @@ public class SpiderCrawl {
 		
 	}
 	
+	
+	/**
+	 * 复杂抓取，抓取过程中可以在页面中寻找新的URL并抓取。递归抓取
+	 * @param charset
+	 * @param method
+	 * @param url
+	 * @param headers
+	 * @param parameters
+	 * @param pageProcessorClass
+	 * @param countDownLatch
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	public void doCommonCrawl(String charset,String method,String url,Map<String,String> headers,Map<String,String> parameters,
             Class<? extends BaseSpider> pageProcessorClass,CountDownLatch countDownLatch) throws InstantiationException, IllegalAccessException{
 	    // 设置请求头,编码等
-            Site site = Site.me()
-                            .setSleepTime(0)
-                            .setUserAgent("Mozilla")
-                            //.addCookie("data", "jquery")
-                            .setTimeOut(10000)
-                            .setCharset(charset);
-            if(null != headers){
-                for(Map.Entry<String, String> entry:headers.entrySet()){
-                    site.addHeader(entry.getKey(), entry.getValue());
-                }
+        Site site = Site.me()
+                .setSleepTime(0)
+                .setUserAgent("Mozilla")
+                //.addCookie("data", "jquery")
+                .setTimeOut(10000)
+                .setCharset(charset);
+        if(null != headers){
+            for(Map.Entry<String, String> entry:headers.entrySet()){
+                site.addHeader(entry.getKey(), entry.getValue());
             }
+        }
 	    BaseSpider pageProcessor = pageProcessorClass.newInstance();
             pageProcessor.setSite(site);
-            pageProcessor.doSpide(charset, method, url, headers, parameters, null, countDownLatch);
+            pageProcessor.doSpide(charset, method, url, null, parameters, null, countDownLatch);
             System.out.println("--------------->sub thread finished. ");
 	}
 	

@@ -17,6 +17,7 @@ public class TaobaoItemPageProcessor extends BaseSpider{
 	@Override
 	public void detailProcess(Page page) throws RuntimeException {
 	    CaptureAction.res.add(page.getRawText());
+	    // 继续添加新的待抓取url
 	    List<String> requesturl = new ArrayList<String>();
 	    requesturl.add("http://blog.csdn.net/hailangamy/article/details/7037128");
 	    super.addTargetUrls(requesturl, page);

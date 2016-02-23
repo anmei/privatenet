@@ -89,59 +89,59 @@ public abstract class BaseSpider implements PageProcessor{
 
 	}
 
-        public void doSpide(String charset,String method,String url,Map<String,String> headers,Map<String,String> parameters,
-            Class<BaseSpider> pageProcessorClass,CountDownLatch countDownLatch) {
-                // 设置请求头,编码等
-                Site site = Site.me()
-                                .setSleepTime(0)
-                                .setUserAgent("Mozilla")
-                                //.addCookie("data", "jquery")
-                                .setTimeOut(10000)
-                                .setCharset(charset);
-                if(null != headers){
-                    for(Map.Entry<String, String> entry:headers.entrySet()){
-                        site.addHeader(entry.getKey(), entry.getValue());
-                    }
+    public void doSpide(String charset,String method,String url,Map<String,String> headers,Map<String,String> parameters,
+        Class<BaseSpider> pageProcessorClass,CountDownLatch countDownLatch) {
+            // 设置请求头,编码等
+//            Site site = Site.me()
+//                            .setSleepTime(0)
+//                            .setUserAgent("Mozilla")
+//                            //.addCookie("data", "jquery")
+//                            .setTimeOut(10000)
+//                            .setCharset(charset);
+//            if(null != headers){
+//                for(Map.Entry<String, String> entry:headers.entrySet()){
+//                    site.addHeader(entry.getKey(), entry.getValue());
+//                }
+//            }
+            
+            Request request = new Request();
+            // 请求方法
+            request.setMethod(method.toUpperCase());
+            // 请求url
+            request.setUrl(url);
+            // 请求form参数设置
+            if(null != parameters){
+                List<NameValuePair> tmp = new ArrayList<NameValuePair>();
+                for(Map.Entry<String, String> entry:parameters.entrySet()){
+                    NameValuePair parameter1 = new BasicNameValuePair(entry.getKey(), entry.getValue());
+                    tmp.add(parameter1);
                 }
-                
-                Request request = new Request();
-                // 请求方法
-                request.setMethod(method.toUpperCase());
-                // 请求url
-                request.setUrl(url);
-                // 请求form参数设置
-                if(null != parameters){
-                    List<NameValuePair> tmp = new ArrayList<NameValuePair>();
-                    for(Map.Entry<String, String> entry:parameters.entrySet()){
-                        NameValuePair parameter1 = new BasicNameValuePair(entry.getKey(), entry.getValue());
-                        tmp.add(parameter1);
-                    }
-                    Map<String,Object> extras = new HashMap<String,Object>();
-                    extras.put("nameValuePair", tmp.toArray());
-                    request.setExtras(extras);
-                }
-                
+                Map<String,Object> extras = new HashMap<String,Object>();
+                extras.put("nameValuePair", tmp.toArray());
+                request.setExtras(extras);
+            }
+            
 //                BaseSpider pageProcessor = pageProcessorClass.newInstance();
 //                pageProcessor.setSite(site);
-                if(null != countDownLatch){
-                    oversp = OverWriteSpider.create(this);
-                    oversp.addRequest(request);
-                    oversp.setEmptySleepTime(5000);// 此处有点疑问，感觉signalNewUrl();会唤醒waitNewUrl();但是结果却没有，让然一直等待EmptySleepTime时间再结束
-                    oversp.setCdl(countDownLatch).setSpawnUrl(false)
-                    .addPipeline(new MyPipleLine())
-                    .setScheduler(new QueueScheduler().setDuplicateRemover(new HashSetDuplicateRemover()))
-                    .run();
-                }else{
-                    sp = Spider.create(this);
-                    sp.addRequest(request);
-                    sp.setEmptySleepTime(5000);// 此处有点疑问，感觉signalNewUrl();会唤醒waitNewUrl();但是结果却没有，让然一直等待EmptySleepTime时间再结束
-                    sp.setSpawnUrl(false)
-                    .addPipeline(new MyPipleLine())
-                    .setScheduler(new QueueScheduler().setDuplicateRemover(new HashSetDuplicateRemover()))
-                    .run();
-                }
-                
-        }
+            if(null != countDownLatch){
+                oversp = OverWriteSpider.create(this);
+                oversp.addRequest(request);
+                oversp.setEmptySleepTime(5000);// 此处有点疑问，感觉signalNewUrl();会唤醒waitNewUrl();但是结果却没有，让然一直等待EmptySleepTime时间再结束
+                oversp.setCdl(countDownLatch).setSpawnUrl(false)
+                .addPipeline(new MyPipleLine())
+                .setScheduler(new QueueScheduler().setDuplicateRemover(new HashSetDuplicateRemover()))
+                .run();
+            }else{
+                sp = Spider.create(this);
+                sp.addRequest(request);
+                sp.setEmptySleepTime(5000);// 此处有点疑问，感觉signalNewUrl();会唤醒waitNewUrl();但是结果却没有，让然一直等待EmptySleepTime时间再结束
+                sp.setSpawnUrl(false)
+                .addPipeline(new MyPipleLine())
+                .setScheduler(new QueueScheduler().setDuplicateRemover(new HashSetDuplicateRemover()))
+                .run();
+            }
+            
+    }
         
         
 	

@@ -30,8 +30,14 @@ public class CaptureAction {
 	    cm.setUrl("http://www.baidu.com");
 	    cm.setMethod("GET");
 	    cm.setPageProcessor(TaobaoItemPageProcessor.class);
+	    CrawlModel cm1 = new CrawlModel();
+	    cm1.setCharset("UTF-8");
+	    cm1.setUrl("http://www.beibei.com");
+	    cm1.setMethod("GET");
+	    cm1.setPageProcessor(TaobaoItemPageProcessor.class);
 	    Map<String,CrawlModel> url2cm = new HashMap<String,CrawlModel>();
 	    url2cm.put(cm.getUrl(), cm);
+	    url2cm.put(cm1.getUrl(), cm1);
 	    
 	    spiderCrawl.craw(url2cm, null, 1);
 	    ModelAndView mo =  new ModelAndView();
