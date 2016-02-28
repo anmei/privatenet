@@ -478,8 +478,8 @@
 					<target>${java-version}</target>
 					<encoding>utf8</encoding>
 					<compilerArguments>
-						<!-- <bootclasspath>E:\myprograms\myeclipse10\jdk7\jre\lib\rt.jar;E:\myprograms\myeclipse10\jdk7\jre\lib\jce.jar</bootclasspath> -->
-						<bootclasspath>C:\Program Files\Java\jdk1.7.0_79\jre\lib\rt.jar;C:\Program Files\Java\jdk1.7.0_79\jre\lib\jce.jar</bootclasspath>
+						<bootclasspath>E:\myprograms\myeclipse10\jdk7\jre\lib\rt.jar;E:\myprograms\myeclipse10\jdk7\jre\lib\jce.jar</bootclasspath>
+						<!-- <bootclasspath>C:\Program Files\Java\jdk1.7.0_79\jre\lib\rt.jar;C:\Program Files\Java\jdk1.7.0_79\jre\lib\jce.jar</bootclass -->path>
 					</compilerArguments>
 				</configuration>
 			</plugin>
