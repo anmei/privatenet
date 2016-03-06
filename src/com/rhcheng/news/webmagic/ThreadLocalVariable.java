@@ -1,7 +1,11 @@
 package com.rhcheng.news.webmagic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.rhcheng.news.entity.NewsAbstract;
 import com.rhcheng.news.entity.NewsDetails;
+import com.rhcheng.taobaoassi.model.TaobaoModel;
 /**
  * get news content pagination
  * @author RhCheng
@@ -17,12 +21,34 @@ public class ThreadLocalVariable {
 	private NewsDetails newsdet;
 	// news entrance url
 	private String url; 
+	private List<TaobaoModel> taobaomodels;
+	private Integer category;// 商品类别 １女装　２女鞋　３童装　４童鞋　５家居　６其他
+	
 	
 	public ThreadLocalVariable(String firstUrl) {
 		f.set(1);
 		content.set("");
 		newsdet = new NewsDetails();
 		newsabs = SpiderEntrance.AllNewsByUrl.get(firstUrl);
+		taobaomodels = new ArrayList<TaobaoModel>();
+	}
+
+	public Integer getCategory() {
+		return category;
+	}
+
+	public void setCategory(Integer category) {
+		this.category = category;
+	}
+
+	
+
+	public List<TaobaoModel> getTaobaomodels() {
+		return taobaomodels;
+	}
+
+	public void setTaobaomodels(List<TaobaoModel> taobaomodels) {
+		this.taobaomodels = taobaomodels;
 	}
 
 	public Integer getF() {

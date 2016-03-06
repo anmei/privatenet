@@ -128,6 +128,8 @@ public class SpiderCrawl {
 		BaseSpider pageProcessor = pageProcessorClass.newInstance();
 		pageProcessor.setSite(site);
 		if(null != countDownLatch){
+				// 此处pageProcessor与OverWriteSpider不是同一个实例，故pageProcessor无法使用OverWriteSpider中的threadLocalValue,
+				// 所以无法使用递归抓取等高级特性
     		    OverWriteSpider ows = OverWriteSpider.create(pageProcessor);
     		    ows.addRequest(request);
                     ows.setEmptySleepTime(5000);// 此处有点疑问，感觉signalNewUrl();会唤醒waitNewUrl();但是结果却没有，让然一直等待EmptySleepTime时间再结束
@@ -177,6 +179,8 @@ public class SpiderCrawl {
         }
 	    BaseSpider pageProcessor = pageProcessorClass.newInstance();
             pageProcessor.setSite(site);
+            // 此处实例化Spider使用的pageProcessor与Spider融为一体，故pageProcessor可以使用spider中的threadLocalValue,
+			// 所以可以使用递归抓取等高级特性
             pageProcessor.doSpide(charset, method, url, null, parameters, null, countDownLatch);
             System.out.println("--------------->sub thread finished. ");
 	}

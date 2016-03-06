@@ -175,7 +175,7 @@ public abstract class BaseSpider implements PageProcessor{
 		}catch(RuntimeException e){
 			e.printStackTrace();
 		}finally{
-			
+			this.totalSize--;
 		}
 		
 
